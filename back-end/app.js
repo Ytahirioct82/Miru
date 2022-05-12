@@ -1,9 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 
+const activityController = require("./controllers/activityController");
+
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.use("/activity", activityController);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to Miru");
