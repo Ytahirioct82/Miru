@@ -1,0 +1,26 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg-promise": "^10.11.1"
+  },
+  "scripts": {
+    "start": "nodemon server.js",
+    "dbinit": "psql -U postgres -f db/schema.sql",
+    "dbseed": "psql -U postgres -f db/seed.sql",
+    "dbreset": "psql -U postgres -f db/schema.sql && psql -U postgres -f db/seed.sql",
+    "dev": "nodemon server.js"
+  },
+  "engines": {
+    "node": "16.4.0"
+  }
+}
