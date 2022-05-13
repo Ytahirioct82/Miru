@@ -5,9 +5,10 @@ const { getAllActivities, getOneActivity } = require("../queries/activity");
 
 activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();
-  res.status(200).json(allActivities);
   if (allActivities.length === 0) {
     return response.status(404).json({ error: "Not Found!" });
+  } else {
+    res.status(200).json(allActivities);
   }
 });
 
