@@ -18,7 +18,39 @@ const getOneActivity = async (id) => {
   }
 };
 
+const postActivity = async (activity) => {
+  const {
+    name,
+    description,
+    street_address,
+    city,
+    state,
+    zip_code,
+    category,
+    image,
+  } = activity;
+  try {
+    const newActivity = await db.one(
+      "INSERT INTO activity (name, description, street_address, city, state, zip_code, category, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [
+        name,
+        description,
+        street_address,
+        city,
+        state,
+        zip_code,
+        category,
+        image,
+      ]
+    );
+    return newActivity;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getAllActivities,
   getOneActivity,
+  postActivity,
 };
