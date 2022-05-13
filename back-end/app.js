@@ -1,11 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 
-const activityController = require("./controllers/activityController");
-
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const activityController = require("./controllers/activityController");
 
 app.use("/activity", activityController);
 

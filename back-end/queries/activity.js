@@ -1,4 +1,3 @@
-const activity = require("../controllers/activityController");
 const db = require("../db/dbConfig");
 
 const getAllActivities = async () => {
