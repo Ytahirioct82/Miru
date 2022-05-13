@@ -1,4 +1,3 @@
-const { response } = require("express");
 const express = require("express");
 const activity = express.Router();
 const {
@@ -8,10 +7,15 @@ const {
   editActivity,
 } = require("../queries/activity");
 
+const commentsController = require("./commentControllers");
+const activity = express.Router({ mergeParams: true });
+activity.use("/:id/comments", commentsController);
+
+
 activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();
   if (allActivities.length === 0) {
-    return response.status(404).json({ error: "Not Found!" });
+    return res.status(404).json({ error: "Not Found!" });
   } else {
     res.status(200).json(allActivities);
   }
