@@ -7,8 +7,7 @@ activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();
   res.status(200).json(allActivities);
   if (allActivities.length === 0) {
-    response.status(404).json({ error: "Not Found!" });
-    return;
+    return response.status(404).json({ error: "Not Found!" });
   }
 });
 
