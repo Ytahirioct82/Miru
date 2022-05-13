@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<AllActivities />} />
         <Route path="/activity/:id" element={<Activity />} />
-        <Route path="/new" element={<NewPost />} />
+        <Route path="/activity/new" element={<NewPost />} />
         <Route path="/activity/edit/:id" element={<EditPost />} />
       </Routes>
     </div>
