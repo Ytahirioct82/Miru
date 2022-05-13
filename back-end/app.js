@@ -5,6 +5,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const activityController = require("./controllers/activityController");
+
+app.use("/activity", activityController);
+
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to Miru");
 });

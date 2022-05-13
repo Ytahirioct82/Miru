@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "./AllActivities.css";
 
 const API = process.env.REACT_APP_API_URL;
 function AllActivities() {
@@ -21,8 +22,8 @@ function AllActivities() {
         <Link to={`/Activity/${post.id}`}>
           <h3>{post.name}</h3>
           <img className="post-picture" src={post.image} alt={post.name} width="300" height="300"></img>
+          <p>{post.description}</p>
         </Link>
-        <p>{post.description}</p>
       </div>
     );
   });
