@@ -1,3 +1,4 @@
+const activity = require("../controllers/activityController");
 const db = require("../db/dbConfig");
 
 const getAllActivities = async () => {
@@ -49,8 +50,41 @@ const postActivity = async (activity) => {
   }
 };
 
+const editActivity = async (id, activity) => {
+  const {
+    name,
+    description,
+    street_address,
+    city,
+    state,
+    zip_code,
+    category,
+    image,
+  } = activity;
+  try {
+    const edit = await db.one(
+      "UPDATE activity SET name=$2, description=$3, street_address=$4, city=$5, state=$6, zip_code=$7, category=$8, image=$9 WHERE id=$1 RETURNING *",
+      [
+        id,
+        name,
+        description,
+        street_address,
+        city,
+        state,
+        zip_code,
+        category,
+        image,
+      ]
+    );
+    return edit;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   getAllActivities,
   getOneActivity,
   postActivity,
+  editActivity,
 };
