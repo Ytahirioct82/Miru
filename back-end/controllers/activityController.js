@@ -1,5 +1,5 @@
 const express = require("express");
-const activity = express.Router();
+const activity = express.Router({ mergeParams: true });
 const {
   getAllActivities,
   getOneActivity,
@@ -8,9 +8,7 @@ const {
 } = require("../queries/activity");
 
 const commentsController = require("./commentControllers");
-const activity = express.Router({ mergeParams: true });
 activity.use("/:id/comments", commentsController);
-
 
 activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();
