@@ -10,7 +10,6 @@ function AllActivities() {
     axios
       .get(`${API}/activity`)
       .then((response) => {
-        console.log(response.data);
         setPosts(response.data);
       })
       .catch((error) => console.warn("catch", error));

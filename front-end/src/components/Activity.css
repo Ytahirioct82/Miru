@@ -1,0 +1,23 @@
+.DetailPost .post {
+  color: black;
+  text-align: center;
+  margin-top: 5%;
+}
+
+.DetailPost div p {
+  margin: auto;
+  text-align: center;
+  width: 21%;
+}
+
+.modify {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.modify button {
+  color: rgb(255, 213, 58);
+  background-color: rgb(33, 37, 41);
+  margin: 60px auto;
+  width: 200px;
+  border-radius: 5px;
+}
