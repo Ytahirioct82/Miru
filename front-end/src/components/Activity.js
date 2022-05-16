@@ -2,7 +2,8 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import "./Activity.css";
-import Comments from "./CommentSection";
+import Comments from "./Comments";
+import CommentForm from "./CommentForm";
 
 function Activity() {
   const { id } = useParams();
@@ -53,6 +54,7 @@ function Activity() {
         </div>
         <h3>Comment Section</h3>
       </section>
+      <CommentForm />
       <Comments />
     </div>
   );
