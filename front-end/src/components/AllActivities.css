@@ -6,11 +6,23 @@
   margin-top: 5%;
 }
 
-:link {
+.AllPosts h3 {
+  margin-top: 5%;
+  text-align: center;
+  border: solid 1px black;
+  width: 70%;
+  height: 40px;
   text-decoration: none;
+  color: rgb(87, 206, 166);
+  background-color: rgb(40, 44, 49);
+  border-radius: 10px;
+  font-family: cursive;
 }
 
-p {
-  width: 63%;
-  color: black;
+.AllPosts img {
+  border-radius: 5%;
+}
+
+:link {
+  text-decoration: none;
 }
