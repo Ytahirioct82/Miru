@@ -19,9 +19,8 @@ function AllActivities() {
     return (
       <div className="Post">
         <Link to={`/Activity/${post.id}`}>
-          <h3>{post.name}</h3>
           <img className="post-picture" src={post.image} alt={post.name} width="300" height="300"></img>
-          <p>{post.description}</p>
+          <h3>{post.name}</h3>
         </Link>
       </div>
     );
