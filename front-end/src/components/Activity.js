@@ -21,28 +21,15 @@ function Activity() {
       .catch((error) => console.warn("catch", error));
   }, []);
 
-  const HandleDelete = () => {
-    axios.delete(`${API}/activity/${id}`).then(() => {
-      navigate("/");
-    });
-  };
-
   return (
     <div>
       <section className="DetailPost">
         <div className="post">
           <h3>{post.name}</h3>
-          <img
-            className="post-picture"
-            src={post.image}
-            alt={post.name}
-            width="300"
-            height="300"
-          ></img>
+          <img className="post-picture" src={post.image} alt={post.name} width="300" height="300"></img>
           <p>{post.description}</p>
         </div>
         <div className="modify">
-          <button onClick={HandleDelete}>Delete</button>
           <button
             onClick={() => {
               navigate(`/activity/edit/${id}`);
