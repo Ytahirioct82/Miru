@@ -1,4 +1,7 @@
+import NewPost from "./NewPost";
+
 function EditPost() {
-  return "Edit Post Page";
+  return (
+    < NewPost/>);
 }
 export default EditPost;
