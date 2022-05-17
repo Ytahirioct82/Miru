@@ -36,7 +36,7 @@ function Activity() {
         <div className="modify">
           <button
             onClick={() => {
-              navigate(`/activity/edit/${id}`);
+              navigate(`/activity/${id}/edit`);
             }}
           >
             Edit
