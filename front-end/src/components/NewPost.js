@@ -13,11 +13,13 @@ function NewPost() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const postData = await axios.get(API + "/activity/" + id);
-      setPost(postData.data);
+      if (id) {
+        const postData = await axios.get(API + "/activity/" + id);
+        setPost(postData.data);
+      }
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   const handleTextChange = (event) => {
     const { id, value } = event.target;
@@ -37,8 +39,8 @@ function NewPost() {
     <div className="container p-2 post">
       <h2>Post your favorite picture</h2>
       <form className="form-group" onSubmit={handleSubmit}>
-        <div class="form-outline">
-          <label class="form-label" htmlFor="name">
+        <div className="form-outline">
+          <label className="form-label" htmlFor="name">
             {" "}
             Name :{" "}
           </label>
@@ -52,8 +54,8 @@ function NewPost() {
           />
         </div>
 
-        <div class="form-outline">
-          <label class="form-label" htmlFor="description">
+        <div className="form-outline">
+          <label className="form-label" htmlFor="description">
             {" "}
             Description :
           </label>
@@ -67,8 +69,8 @@ function NewPost() {
           />
         </div>
 
-        <div class="form-outline">
-          <label class="form-label" htmlFor="street_address">
+        <div className="form-outline">
+          <label className="form-label" htmlFor="street_address">
             {" "}
             Street Address :{" "}
           </label>
@@ -82,8 +84,8 @@ function NewPost() {
           />
         </div>
 
-        <div class="form-outline">
-          <label class="form-label" htmlFor="city">
+        <div className="form-outline">
+          <label className="form-label" htmlFor="city">
             {" "}
             City :
           </label>
@@ -97,8 +99,8 @@ function NewPost() {
           />
         </div>
 
-        <div class="form-outline">
-          <label class="form-label" htmlFor="state">
+        <div className="form-outline">
+          <label className="form-label" htmlFor="state">
             {" "}
             State :{" "}
           </label>
@@ -112,8 +114,8 @@ function NewPost() {
           />
         </div>
 
-        <div class="form-outline">
-          <label class="form-label" htmlFor="zip_code">
+        <div className="form-outline">
+          <label className="form-label" htmlFor="zip_code">
             {" "}
             Zip Code :{" "}
           </label>
@@ -127,8 +129,8 @@ function NewPost() {
           />
         </div>
 
-        <div class="form-outline">
-          <label class="form-label" htmlFor="category">
+        <div className="form-outline">
+          <label className="form-label" htmlFor="category">
             {" "}
             Category :{" "}
           </label>
@@ -142,8 +144,8 @@ function NewPost() {
           />
         </div>
 
-        <div class="form-outline">
-          <label class="form-label" htmlFor="image">
+        <div className="form-outline">
+          <label className="form-label" htmlFor="image">
             {" "}
             Image :{" "}
           </label>
