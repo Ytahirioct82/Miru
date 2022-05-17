@@ -11,6 +11,7 @@ function Comments() {
     name: "",
     comment: "",
   });
+  const [editingState, setEditingState] = useState(false);
 
   useEffect(() => {
     axios
@@ -36,12 +37,19 @@ function Comments() {
       .delete(`${API}/activity/${id}/comments/${event.target.value}`)
       .catch((error) => console.log(error));
   };
-  const handleEdit = () => {};
+
+  //when the user clicks edit, the comment they want to edit
+  //is no longer rendered, but a form renders in its place
+  //conditional rendering
+  //when they submit then the user sees the updated post
+  const handleEdit = () => {
+    setEditingState(true);
+  };
 
   const allComments = comments.map((eachComment) => {
     return (
       <div>
-        <div className="Comments">
+        <div className="Comments" key={eachComment.id}>
           <b>{eachComment.name}</b>
           <p>{eachComment.comment}</p>
           <button onClick={handleEdit}>Edit </button>
