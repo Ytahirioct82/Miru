@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import CharacterCounter from 'react-character-counter'
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./NewPost.css"
@@ -63,6 +64,21 @@ function NewPost() {
           required
         />
         </div>
+
+        <CharacterCounter
+  value={this.state.name}
+  maxLength={120}
+  wrapperStyle={{position: 'relative'}}
+  characterCounterStyle={{
+    position: "absolute",
+    fontSize: "12px",
+    fontWeight: "600",
+    top: "14px",
+    right: "0px"
+  }}
+>
+  <input type='text' maxLength={120}  value={this.state.name}/>
+</CharacterCounter>
         
         <div class="form-outline">
         <label class="form-label" htmlFor="street_address"> Street Address : </label>
