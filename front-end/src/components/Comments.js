@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Route, Routes, Link } from "react-router-dom";
+import CommentForm from "./CommentForm";
 
 function Comments() {
   const { id } = useParams();
@@ -42,8 +43,14 @@ function Comments() {
   //is no longer rendered, but a form renders in its place
   //conditional rendering
   //when they submit then the user sees the updated post
-  const handleEdit = () => {
+  //pass in the comment id, to render this specific component(with the respective form) as a form
+  //routing, outside the routes <- react router,
+  const handleEdit = (value) => {
+    console.log(value);
+    //the editing button will send you to the editing comments page
+    //API/Activity/id/comment/value/edit
     setEditingState(true);
+    //when you submit on the eduting comment page, you;'' go the the respective page
   };
 
   const allComments = comments.map((eachComment) => {
@@ -51,8 +58,12 @@ function Comments() {
       <div>
         <div className="Comments" key={eachComment.id}>
           <b>{eachComment.name}</b>
-          <p>{eachComment.comment}</p>
-          <button onClick={handleEdit}>Edit </button>
+          {!editingState && <p>{eachComment.comment}</p>}
+
+          <Link to={`/comments/${eachComment.id}/edit`}>
+            <button>Edit</button>
+          </Link>
+
           <button value={eachComment.id} onClick={handleDelete}>
             Delete
           </button>
