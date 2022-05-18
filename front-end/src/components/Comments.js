@@ -1,25 +1,28 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams, Route, Routes, Link } from "react-router-dom";
-import CommentForm from "./CommentForm";
+import { useParams, Route, Routes, Link, useNavigate } from "react-router-dom";
+import { Comment } from "./Comment";
 
 function Comments() {
   const { id } = useParams();
+  const { navigate } = useNavigate();
+
   const API = process.env.REACT_APP_API_URL;
+
   const [comments, setComments] = useState([]);
+  const [editedCommentId, setEditedCommentId] = useState("");
   const [comment, setComment] = useState({
     activity_id: `${id}`,
     name: "",
     comment: "",
   });
-  const [editingState, setEditingState] = useState(false);
 
   useEffect(() => {
     axios
       .get(`${API}/activity/${id}/comments`)
       .then((response) => setComments(response.data))
       .catch((error) => console.warn(error));
-  });
+  }, []);
 
   const handleTextChange = (event) => {
     setComment({ ...comment, [event.target.id]: event.target.value });
@@ -33,42 +36,38 @@ function Comments() {
       .catch((error) => console.warn(error));
   };
 
+  const handleEditSubmit = (comment) => {
+    axios.put(`${API}/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
+      // console.log(response.data);
+      if (response.data.id) {
+        setEditedCommentId("");
+        navigate("/activity");
+      }
+      alert("must include all inputs");
+    });
+  };
+
   const handleDelete = (event) => {
-    axios
-      .delete(`${API}/activity/${id}/comments/${event.target.value}`)
-      .catch((error) => console.log(error));
+    // axios.delete(`${API}/activity/${id}/comments/${event.target.value}`).catch((error) => console.log(error));
   };
 
-  //when the user clicks edit, the comment they want to edit
-  //is no longer rendered, but a form renders in its place
-  //conditional rendering
-  //when they submit then the user sees the updated post
-  //pass in the comment id, to render this specific component(with the respective form) as a form
-  //routing, outside the routes <- react router,
-  const handleEdit = (value) => {
-    console.log(value);
-    //the editing button will send you to the editing comments page
-    //API/Activity/id/comment/value/edit
-    setEditingState(true);
-    //when you submit on the eduting comment page, you;'' go the the respective page
+  const handleCommentEdit = (comment) => {
+    setEditedCommentId(comment.id);
   };
 
-  const allComments = comments.map((eachComment) => {
+  const handleCancelCommentEdit = (comment) => {
+    setEditedCommentId(null);
+  };
+
+  const allComments = comments.map((comment) => {
     return (
-      <div>
-        <div className="Comments" key={eachComment.id}>
-          <b>{eachComment.name}</b>
-          {!editingState && <p>{eachComment.comment}</p>}
-
-          <Link to={`/comments/${eachComment.id}/edit`}>
-            <button>Edit</button>
-          </Link>
-
-          <button value={eachComment.id} onClick={handleDelete}>
-            Delete
-          </button>
-        </div>
-      </div>
+      <Comment
+        comment={comment}
+        edit={editedCommentId === comment.id}
+        onEditFn={handleCommentEdit}
+        onCancelFn={handleCancelCommentEdit}
+        onEditSubmit={handleEditSubmit}
+      />
     );
   });
 

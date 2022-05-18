@@ -5,7 +5,7 @@ import Activity from "./components/Activity";
 import NewPost from "./components/NewPost";
 import EditPost from "./components/EditPost";
 import Navbar from "./components/Navbar";
-import CommentForm from "./components/CommentForm";
+// import CommentForm from "./components/CommentForm";
 
 function App() {
   return (
@@ -16,9 +16,6 @@ function App() {
         <Route path="/activity/:id" element={<Activity />} />
         <Route path="/activity/new" element={<NewPost />} />
         <Route path="/activity/:id/edit" element={<EditPost />} />
-        <Route path="/comments/:id/edit" element={<CommentForm />} />
-        {/* The following will be a route for editing comments page */}
-        <Route></Route>
       </Routes>
     </div>
   );
