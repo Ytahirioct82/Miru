@@ -12,21 +12,25 @@ export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit }) =
     setEditedComment({ ...editedComment, [event.target.id]: event.target.value });
   };
 
+  //toggles between comment/buttons to user edit text input
   const handleEdit = () => {
     onEditFn(comment);
   };
-
-  const handleDelete = () => {};
-
-  const handleSubmit = () => {
-    onEditSubmit(editedComment);
-  };
+  //toggles between comment/buttons to user edit text input
   const handleCancel = () => {
     onCancelFn();
   };
 
+  // submits edited comment to the back end.
+  const handleSubmit = () => {
+    onEditSubmit(editedComment);
+  };
+
+  // not working yet. need back end to handel delete.
+  const handleDelete = () => {};
+
   return (
-    <div className="Comment">
+    <div className="Comment" key={comment.id}>
       {edit}
       <b>{comment.name}</b>
       {!edit && (
