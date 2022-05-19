@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit }) => {
+export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit, onDeleteFn }) => {
   const [editedComment, setEditedComment] = useState(comment);
   useEffect(() => {
     setEditedComment(comment);
@@ -27,7 +27,9 @@ export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit }) =
   };
 
   // not working yet. need back end to handel delete.
-  const handleDelete = () => {};
+  const handleDelete = (event) => {
+    onDeleteFn(event.target.value);
+  };
 
   return (
     <div className="Comment" key={comment.id}>

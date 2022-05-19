@@ -5,37 +5,49 @@ import { Comment } from "./Comment";
 
 function Comments() {
   const { id } = useParams();
-  const { navigate } = useNavigate();
 
   const API = process.env.REACT_APP_API_URL;
 
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
+  const [newComment, setNewComment] = useState("");
   const [comment, setComment] = useState({
-    activity_id: `${id}`,
+    // activity_id: `${id}`,
     name: "",
     comment: "",
   });
 
+  // fetching all comments
   useEffect(() => {
+    handleLoad();
+  }, []);
+
+  const handleLoad = () => {
     axios
       .get(`${API}/activity/${id}/comments`)
-      .then((response) => setComments(response.data))
+      .then((response) => {
+        console.log(response.data);
+        setComments(response.data);
+      })
+
       .catch((error) => console.warn(error));
-  }, [editedCommentId, comments.length]);
+  };
+
+  //saves input text typed by the user to the state
+  const handleTextChange = (event) => {
+    setComment({ ...comment, [event.target.id]: event.target.value });
+  };
 
   // submits new comment to backend
   const onSubmit = (event) => {
     event.preventDefault();
     axios
       .post(`${API}/activity/${id}/comments`, comment)
-
       .then((response) => {
-        console.log(response.data);
-        setComments([...comments, response.data]);
+        handleLoad();
       })
-
       .catch((error) => console.warn(error));
+
     setComment({
       name: "",
       comment: "",
@@ -45,23 +57,24 @@ function Comments() {
   // submits edited comment to backend
   const handleEditSubmit = (comment) => {
     axios.put(`${API}/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
-      // console.log(response.data);
       if (response.data.id) {
-        setEditedCommentId("");
+        setEditedCommentId(null);
+        handleLoad();
       } else {
-        alert("must include all inputs");
+        alert("must include input");
       }
     });
   };
 
-  //saves input text typed by the user to the state
-  const handleTextChange = (event) => {
-    setComment({ ...comment, [event.target.id]: event.target.value });
-  };
+  // delete comment
+  const handleDelete = (idOfDeleted) => {
+    axios
+      .delete(`${API}/activity/${id}/comments/${idOfDeleted}`)
+      .then((response) => {
+        handleLoad();
+      })
 
-  //not working yet. need delete on back end
-  const handleDelete = (event) => {
-    // axios.delete(`${API}/activity/${id}/comments/${event.target.value}`).catch((error) => console.log(error));
+      .catch((error) => console.warn(error));
   };
 
   //toggles view between comment/buttons and textarea
@@ -82,6 +95,7 @@ function Comments() {
         onEditFn={handleCommentEdit}
         onCancelFn={handleCancelCommentEdit}
         onEditSubmit={handleEditSubmit}
+        onDeleteFn={handleDelete}
       />
     );
   });
