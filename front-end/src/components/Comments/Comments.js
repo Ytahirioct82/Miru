@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Comment } from "./Comment";
+import { Comment } from "../Comments/Comment";
 
 function Comments() {
   const { id } = useParams();
@@ -56,14 +56,16 @@ function Comments() {
 
   // submits edited comment to backend
   const handleEditSubmit = (comment) => {
-    axios.put(`${API}/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
-      if (response.data.id) {
-        setEditedCommentId(null);
-        handleLoad();
-      } else {
-        alert("must include input");
-      }
-    });
+    axios
+      .put(`${API}/activity/${id}/comments/${editedCommentId}`, comment)
+      .then((response) => {
+        if (response.data.id) {
+          setEditedCommentId(null);
+          handleLoad();
+        } else {
+          alert("must include input");
+        }
+      });
   };
 
   // delete comment

@@ -1,10 +1,10 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import AllActivities from "./components/AllActivities";
-import Activity from "./components/Activity";
-import NewPost from "./components/NewPost";
-import EditPost from "./components/EditPost";
-import Navbar from "./components/Navbar";
+import AllActivities from "./components/Activities/AllActivities";
+import Activity from "./components/Activities/Activity";
+import NewPost from "./components/Post/NewPost";
+import EditPost from "./components/Post/EditPost";
+import Navbar from "./components/NavBar/Navbar";
 // import CommentForm from "./components/CommentForm";
 
 function App() {
