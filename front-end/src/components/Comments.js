@@ -1,77 +1,105 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams, Route, Routes, Link } from "react-router-dom";
-import CommentForm from "./CommentForm";
+import { useParams, useNavigate } from "react-router-dom";
+import { Comment } from "./Comment";
 
 function Comments() {
   const { id } = useParams();
+
   const API = process.env.REACT_APP_API_URL;
+
   const [comments, setComments] = useState([]);
+  const [editedCommentId, setEditedCommentId] = useState(null);
+  const [newComment, setNewComment] = useState("");
   const [comment, setComment] = useState({
-    activity_id: `${id}`,
+    // activity_id: `${id}`,
     name: "",
     comment: "",
   });
-  const [editingState, setEditingState] = useState(false);
 
+  // fetching all comments
   useEffect(() => {
+    handleLoad();
+  }, []);
+
+  const handleLoad = () => {
     axios
       .get(`${API}/activity/${id}/comments`)
-      .then((response) => setComments(response.data))
-      .catch((error) => console.warn(error));
-  });
+      .then((response) => {
+        console.log(response.data);
+        setComments(response.data);
+      })
 
+      .catch((error) => console.warn(error));
+  };
+
+  //saves input text typed by the user to the state
   const handleTextChange = (event) => {
     setComment({ ...comment, [event.target.id]: event.target.value });
   };
 
+  // submits new comment to backend
   const onSubmit = (event) => {
     event.preventDefault();
     axios
       .post(`${API}/activity/${id}/comments`, comment)
-      .then((response) => setComments([...comments, response.data]))
+      .then((response) => {
+        handleLoad();
+      })
+      .catch((error) => console.warn(error));
+
+    setComment({
+      name: "",
+      comment: "",
+    });
+  };
+
+  // submits edited comment to backend
+  const handleEditSubmit = (comment) => {
+    axios.put(`${API}/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
+      if (response.data.id) {
+        setEditedCommentId(null);
+        handleLoad();
+      } else {
+        alert("must include input");
+      }
+    });
+  };
+
+  // delete comment
+  const handleDelete = (idOfDeleted) => {
+    axios
+      .delete(`${API}/activity/${id}/comments/${idOfDeleted}`)
+      .then((response) => {
+        handleLoad();
+      })
+
       .catch((error) => console.warn(error));
   };
 
-  const handleDelete = (event) => {
-    axios
-      .delete(`${API}/activity/${id}/comments/${event.target.value}`)
-      .catch((error) => console.log(error));
+  //toggles view between comment/buttons and textarea
+  const handleCommentEdit = (comment) => {
+    setEditedCommentId(comment.id);
   };
 
-  //when the user clicks edit, the comment they want to edit
-  //is no longer rendered, but a form renders in its place
-  //conditional rendering
-  //when they submit then the user sees the updated post
-  //pass in the comment id, to render this specific component(with the respective form) as a form
-  //routing, outside the routes <- react router,
-  const handleEdit = (value) => {
-    console.log(value);
-    //the editing button will send you to the editing comments page
-    //API/Activity/id/comment/value/edit
-    setEditingState(true);
-    //when you submit on the eduting comment page, you;'' go the the respective page
+  const handleCancelCommentEdit = (comment) => {
+    setEditedCommentId(null);
   };
 
-  const allComments = comments.map((eachComment) => {
+  // returns a all comments
+  const allComments = comments.map((comment) => {
     return (
-      <div>
-        <div className="Comments" key={eachComment.id}>
-          <b>{eachComment.name}</b>
-          {!editingState && <p>{eachComment.comment}</p>}
-
-          <Link to={`/comments/${eachComment.id}/edit`}>
-            <button>Edit</button>
-          </Link>
-
-          <button value={eachComment.id} onClick={handleDelete}>
-            Delete
-          </button>
-        </div>
-      </div>
+      <Comment
+        comment={comment}
+        edit={editedCommentId === comment.id}
+        onEditFn={handleCommentEdit}
+        onCancelFn={handleCancelCommentEdit}
+        onEditSubmit={handleEditSubmit}
+        onDeleteFn={handleDelete}
+      />
     );
   });
-
+  // New comment inputs
   return (
     <div className="CommentSection">
       <div className="CommentForm">
@@ -92,7 +120,7 @@ function Comments() {
             value={comment.comment}
             type="textarea"
             onChange={handleTextChange}
-            placeholder="User Name"
+            placeholder="Comment..."
             required
           />
           <button type="submit">Submit</button>

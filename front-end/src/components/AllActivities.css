@@ -27,19 +27,4 @@
   text-decoration: none;
 }
 
-/* Category and search */
 
-.cat-search {
-  display: flex;
-  background: rgba(134, 142, 134, 0.03);
-}
-
-.cat {
-  padding-top: 1.7rem;
-  padding-left: 9rem;
-}
-
-.search {
-  padding-top: 1.5rem;
-  padding-left: 1.7rem;
-}

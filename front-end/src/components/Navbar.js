@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { BsPlusLg } from "react-icons/bs";
-import SearchActivity from "./SearchActivity";
 import "./Navbar.css";
 
 const Navbar = () => {
