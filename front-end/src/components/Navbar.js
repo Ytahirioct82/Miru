@@ -5,7 +5,6 @@ import SearchActivity from "./SearchActivity";
 import "./Navbar.css";
 
 const Navbar = () => {
-  
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark">
       <div className="container">
@@ -25,7 +24,6 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navmenu">
-          <SearchActivity />
           <ul className="navbar-nav ms-auto">
             <li>
               <Link to="/activity/new" className="nav-link">

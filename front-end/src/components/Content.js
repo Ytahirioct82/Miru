@@ -5,7 +5,7 @@ const Content = ({activity}) => {
   return (
     <>
         {activity?.map((activity) => (
-            <div item key={activity.toString()}>
+            <div  key={activity.id}>
               <ActivityCard activity={activity} />
             </div>
           ))}

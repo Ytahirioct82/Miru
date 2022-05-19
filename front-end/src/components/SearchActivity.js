@@ -1,35 +1,31 @@
 import React from "react";
 import "./SearchActivity.css";
+import "./AllActivities.css";
 
 const SearchActivity = ({ search, setSearch }) => {
   return (
     <form onSubmit={(e) => e.preventDefault()}>
-      <li className="nav-item">
+      <li className="nav-item list-unstyled">
         <div className="input-group">
           <input
             type="search"
             className="form-control rounded"
-            placeholder="Search miru"
+            placeholder="Search miru by city"
             aria-label="Search"
             aria-describedby="search-addon"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button
-            style={{ color: "white" }}
-            className="btn btn-outline-secondary"
-          >
-            search
-          </button>
+       
         </div>{" "}
         <div className="form-helper pt-2">
-          <span className="font-weight-bold"> Suggested: </span>
+          <span className="font-weight-bold"> Example </span>
           <a href="#!" className="text-black-50">
-            parks,
+            NY,
           </a>
           &nbsp;&nbsp;
           <a href="#!" className="text-black-50">
-            outdoors,
+            NJ,
           </a>
           &nbsp;&nbsp;
           <a href="#!" className="text-black-50">
