@@ -28,7 +28,7 @@
 - Tobi wants to be able to click on his profile and view all the posts and comments he has made so that he has easy access to everything he’s put on the app.
 - Tobi wants to upvote his favorite campsite so that hopefully it will be popular enough to be featured on the app.
 - Tobi wants to be able to upvote a comment that he really related to on a post so that more people will see it if it’s towards the top.
-- Tobi wants to heart a couple places he’d like to go so that when he clicks on the heart icon at the top of the page, it will take him to all his saved posts that he’d like to explore.
+- Tobi, wants to heart a couple places he’d like to go so that when he clicks on the heart icon at the top of the page, it will take him to all his saved posts that he’d like to explore.
 
 ## Resourses
 
