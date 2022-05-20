@@ -7,7 +7,6 @@ import "./NewPost.css";
 const API = process.env.REACT_APP_API_URL;
 function NewPost() {
   const [post, setPost] = useState({});
-
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -32,7 +31,55 @@ function NewPost() {
       ? axios
           .put(API + "/activity/" + id, post)
           .then(() => navigate("/activity/" + id))
-      : axios.post(API + "/activity/", post).then(() => navigate(`/activity`));
+      : axios.post(API + "/activity/", post).then(() => navigate(`/`));
+  };
+
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const handleFileSelection = async (event) => {
+    let file = event.target.files[0];
+    let result = await getBase64(file);
+    console.log(result);
+    setPost({ ...post, image: result });
+  };
+
+  const cancelPost = () => {
+    if (id) {
+      navigate("/activity/" + id);
+    } else {
+      navigate("/");
+    }
+  };
+
+  const imageComponent = () => {
+    if (!id) {
+      return (
+        <div className="form-outline">
+          <label className="form-label" htmlFor="image">
+            {" "}
+            Image :{" "}
+          </label>
+          <input
+            className="form-control form-control-sm"
+            type="file"
+            id="image"
+            onChange={handleFileSelection}
+            required
+          />
+        </div>
+      );
+    }
   };
 
   return (
@@ -61,7 +108,6 @@ function NewPost() {
           </label>
           <textarea
             className="form-control form-control-sm"
-            maxLength={120}
             type="text"
             id="description"
             value={post.description || ""}
@@ -69,7 +115,6 @@ function NewPost() {
             required
           />
         </div>
-
 
         <div className="form-outline">
           <label className="form-label" htmlFor="street_address">
@@ -146,23 +191,51 @@ function NewPost() {
           />
         </div>
 
-        <div className="form-outline">
+        {/* paste the image, find the base64 of the image */}
+        {/* disable the submit button till the front end is complete */}
+        {/* save the activity against the  */}
+        {/* bcrypt, salt */}
+        {/* 90/90 rule */}
+
+        {/* <div className="form-outline">
           <label className="form-label" htmlFor="image">
             {" "}
             Image :{" "}
           </label>
           <input
             className="form-control form-control-sm"
-            type="url"
+            type="file"
             id="image"
-            value={post.image || ""}
-            onChange={handleTextChange}
+            onChange={handleFileSelection}
             required
           />
-        </div>
+        </div> */}
+        {!id && (
+          <div className="form-outline">
+            <label className="form-label" htmlFor="image">
+              {" "}
+              Image :{" "}
+            </label>
+            <input
+              className="form-control form-control-sm"
+              type="file"
+              id="image"
+              onChange={handleFileSelection}
+              required
+            />
+          </div>
+        )}
+
         <br />
         <button type="submit" className="btn btn-secondary">
           Submit
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={cancelPost}
+        >
+          Cancel
         </button>
       </form>
     </div>
