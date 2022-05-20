@@ -61,6 +61,7 @@ function NewPost() {
           </label>
           <textarea
             className="form-control form-control-sm"
+            maxLength={120}
             type="text"
             id="description"
             value={post.description || ""}
@@ -68,6 +69,7 @@ function NewPost() {
             required
           />
         </div>
+
 
         <div className="form-outline">
           <label className="form-label" htmlFor="street_address">

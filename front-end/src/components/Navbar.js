@@ -1,9 +1,9 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BsPlusLg } from "react-icons/bs";
 import "./Navbar.css";
+
 const Navbar = () => {
-  //   const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark">
       <div className="container">
@@ -23,6 +23,7 @@ const Navbar = () => {
                 </button>
               </Link>
             </li>
+
             <li>
               <Link to="/activity/login" className="nav-link">
                 <button type="button" style={{ color: "white" }} className="btn btn-outline-secondary">
