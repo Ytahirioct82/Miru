@@ -26,7 +26,6 @@ function Comments() {
     axios
       .get(`${API}/activity/${id}/comments`)
       .then((response) => {
-        console.log(response.data);
         setComments(response.data);
       })
 
@@ -56,14 +55,16 @@ function Comments() {
 
   // submits edited comment to backend
   const handleEditSubmit = (comment) => {
-    axios.put(`${API}/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
-      if (response.data.id) {
-        setEditedCommentId(null);
-        handleLoad();
-      } else {
-        alert("must include input");
-      }
-    });
+    axios
+      .put(`${API}/activity/${id}/comments/${editedCommentId}`, comment)
+      .then((response) => {
+        if (response.data.id) {
+          setEditedCommentId(null);
+          handleLoad();
+        } else {
+          alert("must include input");
+        }
+      });
   };
 
   // delete comment
@@ -90,6 +91,7 @@ function Comments() {
   const allComments = comments.map((comment) => {
     return (
       <Comment
+        key={comment.id}
         comment={comment}
         edit={editedCommentId === comment.id}
         onEditFn={handleCommentEdit}
@@ -117,7 +119,7 @@ function Comments() {
           <label htmlFor="Comment">Comment:</label>
           <input
             id="comment"
-            value={comment.comment}
+            value={comment.context}
             type="textarea"
             onChange={handleTextChange}
             placeholder="Comment..."
