@@ -61,6 +61,27 @@ function NewPost() {
       navigate("/");
     }
   };
+
+  const imageComponent = () => {
+    if (!id) {
+      return (
+        <div className="form-outline">
+          <label className="form-label" htmlFor="image">
+            {" "}
+            Image :{" "}
+          </label>
+          <input
+            className="form-control form-control-sm"
+            type="file"
+            id="image"
+            onChange={handleFileSelection}
+            required
+          />
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="container p-2 post">
       <h2>Post your favorite picture</h2>
@@ -175,7 +196,8 @@ function NewPost() {
         {/* save the activity against the  */}
         {/* bcrypt, salt */}
         {/* 90/90 rule */}
-        <div className="form-outline">
+
+        {/* <div className="form-outline">
           <label className="form-label" htmlFor="image">
             {" "}
             Image :{" "}
@@ -187,7 +209,23 @@ function NewPost() {
             onChange={handleFileSelection}
             required
           />
-        </div>
+        </div> */}
+        {!id && (
+          <div className="form-outline">
+            <label className="form-label" htmlFor="image">
+              {" "}
+              Image :{" "}
+            </label>
+            <input
+              className="form-control form-control-sm"
+              type="file"
+              id="image"
+              onChange={handleFileSelection}
+              required
+            />
+          </div>
+        )}
+
         <br />
         <button type="submit" className="btn btn-secondary">
           Submit
