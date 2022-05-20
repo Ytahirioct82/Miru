@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import UserRegistration from "../UserRegistration/UserRegistration";
-
+import "./UserLogin.css"
 const API = process.env.REACT_APP_API_URL;
 
 function UserLogin() {
