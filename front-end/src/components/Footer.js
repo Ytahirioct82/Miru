@@ -23,7 +23,7 @@ const Footer = () => {
                 href="https://www.centralparknyc.org/"
                 className="text-white"
                 style={{ textDecoration: "none" }}
-                target="_blank"
+                target="framename"
               >
                 {" "}
                 Parks{" "}

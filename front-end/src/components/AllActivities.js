@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Category from "./Category";
 import Content from "./Content";
 import SearchActivity from "./SearchActivity";
@@ -18,7 +17,6 @@ function AllActivities() {
       })
       .catch((error) => console.warn("catch", error));
   }, []);
- 
 
   const handleCategoryChange = (selectedCat) => {
     setFilteredCategory(selectedCat);
@@ -29,7 +27,11 @@ function AllActivities() {
       ? posts
       : posts.filter((category) => category.category === filteredCategory);
 
+  const found = selectedCategory.filter((category) =>
+    category.city.toLowerCase().includes(search.toLowerCase())
+  );
 
+  console.log(found);
   return (
     <>
       <section>
@@ -42,14 +44,27 @@ function AllActivities() {
           </div>
           <div className="search">
             <SearchActivity search={search} setSearch={setSearch} />
+            {!found.length && (
+              <p
+                style={{
+                  color: "#F6BE00",
+                  borderRadius: "7px",
+                  marginTop: "5px",
+                  backgroundColor: "#540B0C",
+                  textAlign: "center",
+                  fontSize: "20px",
+                  border: "1px solid purple",
+                }}
+              >{`Sorry, our App does not have parks or sightSeeing in ${search} city`}</p>
+            )}
           </div>
         </section>
         <section className="AllPosts">
-            <Content
-              activity={selectedCategory.filter((activity) =>
-                activity.city.toLowerCase().includes(search.toLowerCase())
-              )}
-            />
+          <Content
+            activity={selectedCategory.filter((activity) =>
+              activity.city.toLowerCase().includes(search.toLowerCase().trim())
+            )}
+          />
         </section>
       </section>
     </>
