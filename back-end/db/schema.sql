@@ -24,3 +24,11 @@ CREATE TABLE comments (
     FOREIGN KEY (activity_id) REFERENCES activity(id)
 );
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    email varchar(255) UNIQUE NOT NULL,
+    password varchar(255) NOT Null
+   
+);
+
