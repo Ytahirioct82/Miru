@@ -31,7 +31,6 @@ function AllActivities() {
     category.city.toLowerCase().includes(search.toLowerCase())
   );
 
-  console.log(found);
   return (
     <>
       <section>

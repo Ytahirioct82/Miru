@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar";
 import UserLogin from "./components/UserLogin/UserLogin";
 import UserRegistration from "./components/UserRegistration/UserRegistration";
 import Footer from "./components/Footer";
-// import CommentForm from "./components/CommentForm";
+import UploadShell from "./components/UploadShell/UploadImage";
 
 function App() {
   return (
@@ -17,12 +17,17 @@ function App() {
       <Routes>
         <Route exact path="/" element={<AllActivities />} />
         <Route exact path="/activity/login" element={<UserLogin />} />
-        <Route exact path="/activity/registration" element={<UserRegistration />} />
+        <Route
+          exact
+          path="/activity/registration"
+          element={<UserRegistration />}
+        />
         <Route path="/activity/:id" element={<Activity />} />
         <Route path="/activity/new" element={<NewPost />} />
         <Route path="/activity/:id/edit" element={<EditPost />} />
+        <Route path="/uploadShell" element={<UploadShell />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

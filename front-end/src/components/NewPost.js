@@ -6,10 +6,9 @@ import "./NewPost.css";
 
 const API = process.env.REACT_APP_API_URL;
 function NewPost() {
-  
   const [post, setPost] = useState({});
   const [charRemaining, setCharRemaining] = useState(0);
-
+  const [images, setImages] = useState([]);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -29,34 +28,26 @@ function NewPost() {
     setPost({ ...post, [id]: value });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    id !== undefined
-      ? axios
-          .put(API + "/activity/" + id, post)
-          .then(() => navigate("/activity/" + id))
-      : axios.post(API + "/activity/", post).then(() => navigate(`/`));
-  };
+  //selecting one image
+  // const getBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(file);
+  //     fileReader.onload = () => {
+  //       resolve(fileReader.result);
+  //     };
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
 
-  const getBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const handleFileSelection = async (event) => {
-    let file = event.target.files[0];
-    let result = await getBase64(file);
-    console.log(result);
-    setPost({ ...post, image: result });
-  };
+  // const handleFileSelection = async (event) => {
+  //   let file = event.target.files[0];
+  //   let result = await getBase64(file);
+  //   console.log(result);
+  //   setPost({ ...post, image: result });
+  // };
 
   const cancelPost = () => {
     if (id) {
@@ -66,43 +57,77 @@ function NewPost() {
     }
   };
 
-  const imageComponent = () => {
-    if (!id) {
-      return (
-        <div className="form-outline">
-          <label className="form-label" htmlFor="image">
-            {" "}
-            Image :{" "}
-          </label>
-          <input
-            className="form-control form-control-sm"
-            type="file"
-            id="image"
-            onChange={handleFileSelection}
-            required
-          />
-        </div>
-      );
-    }
-  };
-  
-  (() =>{
+  (() => {
     document.addEventListener("keyup", (event) => {
-      if(event.target.matches(".count-chars")) {
+      if (event.target.matches(".count-chars")) {
         const value = event.target.value;
         const valueLength = value.length;
 
         const maxChars = parseInt(event.target.getAttribute("data-max-chars"));
-         remainingChars = maxChars - valueLength;
-        
+        let remainingChars = maxChars - valueLength;
+
         if (valueLength > maxChars) {
           event.target.value = value.substr(0, maxChars);
           return;
         }
-        setCharRemaining(remainingChars)
+        setCharRemaining(remainingChars);
       }
     });
   })();
+
+  const storingImages = async () => {
+    const promises = [];
+    images.forEach((eachImage) => {
+      const request = axios.post(`${API}/${id}/images`, eachImage).then(
+        (response) => {
+          if (response.status === 500) {
+            console.log("no email found");
+          } else {
+            console.log(response.data);
+          }
+        },
+        (error) => {
+          console.log("no email found ", eachImage);
+        }
+      );
+      promises.push(request);
+    });
+    await Promise.all(promises);
+  };
+
+  const getBase64Update = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (_) => resolve(reader.result);
+      reader.onerror = (e) => reject(e);
+    });
+  };
+
+  const onchange = (event) => {
+    let files = Array.from(event.target.files);
+    files = files.map(async (file) => ({
+      content: await getBase64Update(file),
+      fileName: file.name,
+      contentType: file.type,
+      length: file.size,
+    }));
+    Promise.all(files).then((result) => setImages(result));
+  };
+
+  // const putRequest = axios.put(API + "/activity/" + id, post);
+  // const postActivity = axios.post(API + "/activity/", post);
+  // const postImages = storingImages();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    id !== undefined
+      ? axios
+          .put(API + "/activity/" + id, post)
+          .then(() => navigate("/activity/" + id))
+      : storingImages();
+    axios.all([axios.post(API + "/activity/", post)]).then(() => navigate(`/`));
+  };
 
   return (
     <div className="container p-2 post">
@@ -132,16 +157,19 @@ function NewPost() {
             className="form-control form-control-sm count-chars"
             maxLength={120}
             data-max-chars={120}
-
             type="text"
             id="description"
             value={post.description || ""}
             onChange={handleTextChange}
             required
-            />
-           {post.description ? <p style={{ color: "red"}}>{`${charRemaining} / ${120} characters remaining`}</p> : null}
+          />
+          {post.description ? (
+            <p
+              style={{ color: "red" }}
+            >{`${charRemaining} / ${120} characters remaining`}</p>
+          ) : null}
         </div>
-        
+
         <div className="form-outline">
           <label className="form-label" htmlFor="street_address">
             {" "}
@@ -216,27 +244,8 @@ function NewPost() {
             required
           />
         </div>
-
-        {/* paste the image, find the base64 of the image */}
-        {/* disable the submit button till the front end is complete */}
-        {/* save the activity against the  */}
-        {/* bcrypt, salt */}
-        {/* 90/90 rule */}
-
-         <div className="form-outline">
-          <label className="form-label" htmlFor="image">
-            {" "}
-            Image :{" "}
-          </label>
-          <input
-            className="form-control form-control-sm"
-            type="file"
-            id="image"
-            onChange={handleFileSelection}
-            required
-          />
-        </div> 
-        {!id && (
+        {/* 1 image selection */}
+        {/* {!id && (
           <div className="form-outline">
             <label className="form-label" htmlFor="image">
               {" "}
@@ -250,7 +259,22 @@ function NewPost() {
               required
             />
           </div>
-        )}
+        )} */}
+
+        <div className="form-outline">
+          <label className="form-label" htmlFor="image">
+            {" "}
+            Image :{" "}
+          </label>
+          <input
+            multiple
+            className="form-control form-control-sm"
+            type="file"
+            id="image"
+            onChange={onchange}
+            required
+          />
+        </div>
 
         <br />
         <button type="submit" className="btn btn-secondary">
