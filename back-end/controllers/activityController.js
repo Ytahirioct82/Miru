@@ -8,7 +8,9 @@ const {
 } = require("../queries/activity");
 
 const commentsController = require("./commentControllers");
+const imagesController = require("./imageController");
 activity.use("/:id/comments", commentsController);
+activity.use("/:id/images", imagesController);
 
 activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();

@@ -24,3 +24,13 @@ CREATE TABLE comments (
     FOREIGN KEY (activity_id) REFERENCES activity(id)
 );
 
+CREATE TABLE images (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    fileName TEXT,
+    contentType TEXT,
+    length VARCHAR,
+    activity_id INT,
+    FOREIGN KEY (activity_id) REFERENCES activity(id)
+);
+

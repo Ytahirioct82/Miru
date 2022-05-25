@@ -8,9 +8,11 @@ app.use(express.json({ limit: "25mb" }));
 
 const activityController = require("./controllers/activityController");
 const commentControllers = require("./controllers/commentControllers");
+const imageController = require("./controllers/imageController");
 
 app.use("/activity", activityController);
 app.use("/:id/comments", commentControllers);
+app.use("/:id/images", imageController);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to Miru");
