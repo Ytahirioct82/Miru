@@ -6,10 +6,8 @@ import "./NewPost.css";
 
 const API = process.env.REACT_APP_API_URL;
 function NewPost() {
-  
   const [post, setPost] = useState({});
   const [charRemaining, setCharRemaining] = useState(0);
-
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -66,40 +64,20 @@ function NewPost() {
     }
   };
 
-  const imageComponent = () => {
-    if (!id) {
-      return (
-        <div className="form-outline">
-          <label className="form-label" htmlFor="image">
-            {" "}
-            Image :{" "}
-          </label>
-          <input
-            className="form-control form-control-sm"
-            type="file"
-            id="image"
-            onChange={handleFileSelection}
-            required
-          />
-        </div>
-      );
-    }
-  };
-  
-  (() =>{
+  (() => {
     document.addEventListener("keyup", (event) => {
-      if(event.target.matches(".count-chars")) {
+      if (event.target.matches(".count-chars")) {
         const value = event.target.value;
         const valueLength = value.length;
 
         const maxChars = parseInt(event.target.getAttribute("data-max-chars"));
-         remainingChars = maxChars - valueLength;
-        
+        let remainingChars = maxChars - valueLength;
+
         if (valueLength > maxChars) {
           event.target.value = value.substr(0, maxChars);
           return;
         }
-        setCharRemaining(remainingChars)
+        setCharRemaining(remainingChars);
       }
     });
   })();
@@ -132,16 +110,19 @@ function NewPost() {
             className="form-control form-control-sm count-chars"
             maxLength={120}
             data-max-chars={120}
-
             type="text"
             id="description"
             value={post.description || ""}
             onChange={handleTextChange}
             required
-            />
-           {post.description ? <p style={{ color: "red"}}>{`${charRemaining} / ${120} characters remaining`}</p> : null}
+          />
+          {post.description ? (
+            <p
+              style={{ color: "red" }}
+            >{`${charRemaining} / ${120} characters remaining`}</p>
+          ) : null}
         </div>
-        
+
         <div className="form-outline">
           <label className="form-label" htmlFor="street_address">
             {" "}
@@ -157,6 +138,9 @@ function NewPost() {
           />
         </div>
 
+        {/* needs to be abbreviated */}
+        {/* let users know */}
+
         <div className="form-outline">
           <label className="form-label" htmlFor="city">
             {" "}
@@ -171,6 +155,9 @@ function NewPost() {
             required
           />
         </div>
+
+        {/* needs to be abbreviated */}
+        {/* let users know */}
 
         <div className="form-outline">
           <label className="form-label" htmlFor="state">
@@ -202,6 +189,7 @@ function NewPost() {
           />
         </div>
 
+        {/* should be drop down */}
         <div className="form-outline">
           <label className="form-label" htmlFor="category">
             {" "}
@@ -217,25 +205,6 @@ function NewPost() {
           />
         </div>
 
-        {/* paste the image, find the base64 of the image */}
-        {/* disable the submit button till the front end is complete */}
-        {/* save the activity against the  */}
-        {/* bcrypt, salt */}
-        {/* 90/90 rule */}
-
-         <div className="form-outline">
-          <label className="form-label" htmlFor="image">
-            {" "}
-            Image :{" "}
-          </label>
-          <input
-            className="form-control form-control-sm"
-            type="file"
-            id="image"
-            onChange={handleFileSelection}
-            required
-          />
-        </div> 
         {!id && (
           <div className="form-outline">
             <label className="form-label" htmlFor="image">
