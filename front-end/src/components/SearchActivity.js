@@ -16,16 +16,15 @@ const SearchActivity = ({ search, setSearch }) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-    
         </div>{" "}
         <div className="form-helper pt-2">
           <span className="font-weight-bold"> Example </span>
           <a href="#!" className="text-black-50">
-            New York,
+            NY,
           </a>
           &nbsp;&nbsp;
           <a href="#!" className="text-black-50">
-            New Jersey,
+            BK,
           </a>
           &nbsp;&nbsp;
           <a href="#!" className="text-black-50">

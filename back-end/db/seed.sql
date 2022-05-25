@@ -10,3 +10,6 @@ INSERT INTO comments (activity_id,name,comment) VALUES
 (2, 'Younes','Never been, but definitely on my to do list'),
 (3, 'JJ','I love it. It’s super relaxing, especially if you find the nooks and craanies'),
 (3, 'Sev','People watching is the best here and free!');
+
+INSERT INTO users (name,email,password) VALUES 
+('Younes Tahiri', 'ytahir82@gmail.com', 'Miru82')
