@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate, Route, Routes } from "react-router-dom";
 import "./Activity.css";
 import Comments from "./Comments";
+import SavedPost from "./Activities/SavedPost";
 
 function Activity() {
   const { id } = useParams();
@@ -24,7 +25,14 @@ function Activity() {
       <section className="DetailPost">
         <div className="post">
           <h3>{post.name}</h3>
-          <img className="post-picture" src={post.image} alt={post.name} width="300" height="300"></img>
+          <img
+            className="post-picture"
+            src={post.image}
+            alt={post.name}
+            width="300"
+            height="300"
+          ></img>
+          <SavedPost />
           <p>{post.description}</p>
         </div>
         <div className="modify">
