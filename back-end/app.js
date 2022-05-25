@@ -5,6 +5,7 @@ const { initialize } = require("./passport");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
 
+initialize(passport);
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -26,7 +27,7 @@ const activityController = require("./controllers/activityController");
 const commentControllers = require("./controllers/commentControllers");
 const userController = require("./controllers/userController");
 
-initialize(passport);
+// initialize(passport);
 app.use("/user", userController);
 app.use("/activity", activityController);
 app.use("/:id/comments", commentControllers);

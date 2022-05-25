@@ -42,6 +42,7 @@ async function initialize(passport) {
   passport.serializeUser((user, done) => done(null, user.id));
 
   passport.deserializeUser((id, done) => {
+    console.log("deserialized run");
     db.any(`SELECT * FROM users WHERE id=$1`, [id])
       .then(function (results) {
         return done(null, results[0]);
@@ -49,6 +50,7 @@ async function initialize(passport) {
       .catch(function (error) {
         // error;
         console.error(error);
+        return done(err);
       });
   });
 }
