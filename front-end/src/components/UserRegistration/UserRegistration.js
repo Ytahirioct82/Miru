@@ -12,7 +12,7 @@ function UserRegistration() {
     email: "",
     password: "",
   });
-
+  console.log(userReg);
   const HandleChange = (event) => {
     setUserReg({ ...userReg, [event.target.id]: event.target.value });
   };
@@ -20,14 +20,18 @@ function UserRegistration() {
   const onSubmit = (event) => {
     event.preventDefault();
     axios
-      .post(`${API}/activity/${id}/register`, userReg)
+      .post(`${API}/user/registration`, userReg)
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         if (response.data.id) {
           navigate("/activity/login");
+        } else {
+          alert(response.data.message);
         }
       })
-      .catch((error) => console.warn(error));
+      .catch((error) => {
+        console.warn(error);
+      });
 
     setUserReg({
       name: "",
@@ -56,7 +60,7 @@ function UserRegistration() {
           <input
             id="email"
             value={userReg.email}
-            type="text"
+            type="email"
             onChange={HandleChange}
             placeholder="enter your email"
             required
@@ -66,7 +70,7 @@ function UserRegistration() {
           <input
             id="password"
             value={userReg.password}
-            type="text"
+            type="password"
             onChange={HandleChange}
             placeholder="enter your password"
             required

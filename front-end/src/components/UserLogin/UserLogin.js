@@ -3,11 +3,13 @@ import axios from "axios";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import UserRegistration from "../UserRegistration/UserRegistration";
 import "./UserLogin.css"
+
 const API = process.env.REACT_APP_API_URL;
 
 function UserLogin() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(false);
   const [userLog, setUserLog] = useState({
     email: "",
     password: "",
@@ -19,17 +21,18 @@ function UserLogin() {
 
   const onSubmit = (event) => {
     event.preventDefault();
+
     axios
-      .post(`${API}/activity/${id}/login`, userLog)
+      .post(`${API}/user/login/username/password`, userLog)
       .then((response) => {
-        console.log(response.data);
         if (response.data.id) {
+          setLoggedIn(response.data);
           navigate("/");
         }
       })
-      .catch((error) => {
-        console.warn(error);
-        alert("you entered the wrong login information");
+      .catch(function (error) {
+        console.error(error);
+        alert("you have enterd the wrong username or password");
       });
 
     setUserLog({
@@ -48,7 +51,7 @@ function UserLogin() {
           <input
             id="email"
             value={userLog.email}
-            type="text"
+            type="email"
             onChange={HandleChange}
             placeholder="enter your email"
             required
@@ -58,7 +61,7 @@ function UserLogin() {
           <input
             id="password"
             value={userLog.password}
-            type="text"
+            type="password"
             onChange={HandleChange}
             placeholder="enter your password"
             required
