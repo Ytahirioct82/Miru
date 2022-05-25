@@ -7,8 +7,10 @@ const cookieParser = require("cookie-parser");
 
 initialize(passport);
 const app = express();
+
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "25mb" }));
+
 app.use(cookieParser());
 
 const timeToLive = 1000 * 60 * 60 * 2;
@@ -22,6 +24,10 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
+// app.use(express.json());
+
+
 
 const activityController = require("./controllers/activityController");
 const commentControllers = require("./controllers/commentControllers");

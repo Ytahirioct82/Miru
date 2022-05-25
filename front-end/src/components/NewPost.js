@@ -7,6 +7,7 @@ import "./NewPost.css";
 const API = process.env.REACT_APP_API_URL;
 function NewPost() {
   const [post, setPost] = useState({});
+  const [charRemaining, setCharRemaining] = useState(0);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -32,8 +33,54 @@ function NewPost() {
       ? axios
           .put(API + "/activity/" + id, post)
           .then(() => navigate("/activity/" + id))
-      : axios.post(API + "/activity/", post).then(() => navigate(`/activity`));
+      : axios.post(API + "/activity/", post).then(() => navigate(`/`));
   };
+
+  const getBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const handleFileSelection = async (event) => {
+    let file = event.target.files[0];
+    let result = await getBase64(file);
+    console.log(result);
+    setPost({ ...post, image: result });
+  };
+
+  const cancelPost = () => {
+    if (id) {
+      navigate("/activity/" + id);
+    } else {
+      navigate("/");
+    }
+  };
+
+  (() => {
+    document.addEventListener("keyup", (event) => {
+      if (event.target.matches(".count-chars")) {
+        const value = event.target.value;
+        const valueLength = value.length;
+
+        const maxChars = parseInt(event.target.getAttribute("data-max-chars"));
+        let remainingChars = maxChars - valueLength;
+
+        if (valueLength > maxChars) {
+          event.target.value = value.substr(0, maxChars);
+          return;
+        }
+        setCharRemaining(remainingChars);
+      }
+    });
+  })();
 
   return (
     <div className="container p-2 post">
@@ -60,16 +107,21 @@ function NewPost() {
             Description :
           </label>
           <textarea
-            className="form-control form-control-sm"
+            className="form-control form-control-sm count-chars"
             maxLength={120}
+            data-max-chars={120}
             type="text"
             id="description"
             value={post.description || ""}
             onChange={handleTextChange}
             required
           />
+          {post.description ? (
+            <p
+              style={{ color: "red" }}
+            >{`${charRemaining} / ${120} characters remaining`}</p>
+          ) : null}
         </div>
-
 
         <div className="form-outline">
           <label className="form-label" htmlFor="street_address">
@@ -86,6 +138,9 @@ function NewPost() {
           />
         </div>
 
+        {/* needs to be abbreviated */}
+        {/* let users know */}
+
         <div className="form-outline">
           <label className="form-label" htmlFor="city">
             {" "}
@@ -100,6 +155,9 @@ function NewPost() {
             required
           />
         </div>
+
+        {/* needs to be abbreviated */}
+        {/* let users know */}
 
         <div className="form-outline">
           <label className="form-label" htmlFor="state">
@@ -131,6 +189,7 @@ function NewPost() {
           />
         </div>
 
+        {/* should be drop down */}
         <div className="form-outline">
           <label className="form-label" htmlFor="category">
             {" "}
@@ -146,23 +205,32 @@ function NewPost() {
           />
         </div>
 
-        <div className="form-outline">
-          <label className="form-label" htmlFor="image">
-            {" "}
-            Image :{" "}
-          </label>
-          <input
-            className="form-control form-control-sm"
-            type="url"
-            id="image"
-            value={post.image || ""}
-            onChange={handleTextChange}
-            required
-          />
-        </div>
+        {!id && (
+          <div className="form-outline">
+            <label className="form-label" htmlFor="image">
+              {" "}
+              Image :{" "}
+            </label>
+            <input
+              className="form-control form-control-sm"
+              type="file"
+              id="image"
+              onChange={handleFileSelection}
+              required
+            />
+          </div>
+        )}
+
         <br />
         <button type="submit" className="btn btn-secondary">
           Submit
+        </button>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={cancelPost}
+        >
+          Cancel
         </button>
       </form>
     </div>
