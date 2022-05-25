@@ -3,15 +3,9 @@ import { Link } from 'react-router-dom'
 import "./AllActivities.css";
 const ActivityCard = ({activity}) => {
     const {
-category,
-city,
-description,
 id,
 image,
-name,
-state,
-street_address,
-zip_code
+name
     } = activity
   return (
       <div className="Post">

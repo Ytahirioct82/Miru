@@ -16,7 +16,6 @@ const SearchActivity = ({ search, setSearch }) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-       
         </div>{" "}
         <div className="form-helper pt-2">
           <span className="font-weight-bold"> Example </span>
@@ -25,11 +24,11 @@ const SearchActivity = ({ search, setSearch }) => {
           </a>
           &nbsp;&nbsp;
           <a href="#!" className="text-black-50">
-            NJ,
+            BK,
           </a>
           &nbsp;&nbsp;
           <a href="#!" className="text-black-50">
-            more
+            etc.
           </a>
         </div>
       </li>
