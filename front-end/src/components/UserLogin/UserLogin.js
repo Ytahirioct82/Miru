@@ -1,13 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import UserRegistration from "../UserRegistration/UserRegistration";
-import "./UserLogin.css"
+import { useNavigate, Link } from "react-router-dom";
+import { instance } from "../../helpers/api";
 
 const API = process.env.REACT_APP_API_URL;
 
 function UserLogin() {
-  const { id } = useParams();
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [userLog, setUserLog] = useState({
@@ -22,7 +19,7 @@ function UserLogin() {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    axios
+    instance
       .post(`${API}/user/login/username/password`, userLog)
       .then((response) => {
         if (response.data.id) {

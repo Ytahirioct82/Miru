@@ -2,6 +2,12 @@ const express = require("express");
 const activity = express.Router({ mergeParams: true });
 const { getAllActivities, getOneActivity, postActivity, editActivity } = require("../queries/activity");
 
+const requiresLogin = (req, res, next) => {
+  if (req.user) return next();
+
+  res.sendStatus(401);
+};
+
 const commentsController = require("./commentControllers");
 activity.use("/:id/comments", commentsController);
 
@@ -15,9 +21,7 @@ activity.get("/", async (req, res) => {
 });
 
 activity.get("/:id", async (req, res) => {
-  console.log("get activity", req.user);
   const oneActivity = await getOneActivity(req.params.id);
-  console.log("Req.user =", req.user);
   if (oneActivity.id) {
     res.status(200).json(oneActivity);
   } else {
@@ -35,7 +39,6 @@ activity.post("/", async (req, res) => {
 });
 
 activity.put("/:id", async (req, res) => {
-  console.log("edit activity", req.user);
   const update = await editActivity(req.params.id, req.body);
   if (update.id) {
     res.status(200).json(update);

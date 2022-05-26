@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { instance } from "../helpers/api";
 import { Comment } from "./Comment";
 
 function Comments() {
@@ -10,7 +10,6 @@ function Comments() {
 
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
-  const [newComment, setNewComment] = useState("");
   const [comment, setComment] = useState({
     // activity_id: `${id}`,
     name: "",
@@ -23,7 +22,7 @@ function Comments() {
   }, []);
 
   const handleLoad = () => {
-    axios
+    instance
       .get(`${API}/activity/${id}/comments`)
       .then((response) => {
         setComments(response.data);
@@ -40,7 +39,7 @@ function Comments() {
   // submits new comment to backend
   const onSubmit = (event) => {
     event.preventDefault();
-    axios
+    instance
       .post(`${API}/activity/${id}/comments`, comment)
       .then((response) => {
         handleLoad();
@@ -55,21 +54,19 @@ function Comments() {
 
   // submits edited comment to backend
   const handleEditSubmit = (comment) => {
-    axios
-      .put(`${API}/activity/${id}/comments/${editedCommentId}`, comment)
-      .then((response) => {
-        if (response.data.id) {
-          setEditedCommentId(null);
-          handleLoad();
-        } else {
-          alert("must include input");
-        }
-      });
+    instance.put(`${API}/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
+      if (response.data.id) {
+        setEditedCommentId(null);
+        handleLoad();
+      } else {
+        alert("must include input");
+      }
+    });
   };
 
   // delete comment
   const handleDelete = (idOfDeleted) => {
-    axios
+    instance
       .delete(`${API}/activity/${id}/comments/${idOfDeleted}`)
       .then((response) => {
         handleLoad();

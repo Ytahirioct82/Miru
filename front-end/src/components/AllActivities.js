@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
+import { instance } from "../helpers/api";
 import Category from "./Category";
 import Content from "./Content";
 import SearchActivity from "./SearchActivity";
@@ -10,7 +10,7 @@ function AllActivities() {
   const [filteredCategory, setFilteredCategory] = useState("All");
   const [search, setSearch] = useState("");
   useEffect(() => {
-    axios
+    instance
       .get(`${API}/activity`)
       .then((response) => {
         setPosts(response.data);
@@ -23,13 +23,9 @@ function AllActivities() {
   };
 
   const selectedCategory =
-    filteredCategory === "All"
-      ? posts
-      : posts.filter((category) => category.category === filteredCategory);
+    filteredCategory === "All" ? posts : posts.filter((category) => category.category === filteredCategory);
 
-  const found = selectedCategory.filter((category) =>
-    category.city.toLowerCase().includes(search.toLowerCase())
-  );
+  const found = selectedCategory.filter((category) => category.city.toLowerCase().includes(search.toLowerCase()));
 
   console.log(found);
   return (
@@ -37,10 +33,7 @@ function AllActivities() {
       <section>
         <section className="cat-search">
           <div className="cat">
-            <Category
-              handleCategoryChange={handleCategoryChange}
-              selected={filteredCategory}
-            />
+            <Category handleCategoryChange={handleCategoryChange} selected={filteredCategory} />
           </div>
           <div className="search">
             <SearchActivity search={search} setSearch={setSearch} />
