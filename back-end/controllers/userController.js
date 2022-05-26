@@ -44,10 +44,11 @@ userLogin.post("/login/username/password", passport.authenticate("local"), (req,
 
 userLogin.get("/listings", requiresLogin, async (req, res) => {
   const userActivities = await getAllUserActivities(req.user.id);
-  if (userActivities.length === 0) {
-    return res.status(404).json({ error: "Not Found!" });
+
+  if (userActivities) {
+    return res.status(200).json(userActivities);
   } else {
-    res.status(200).json(userActivities);
+    return res.status(404).json({ error: "Not Found!" });
   }
 });
 

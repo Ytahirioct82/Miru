@@ -27,7 +27,6 @@ function AllActivities() {
 
   const found = selectedCategory.filter((category) => category.city.toLowerCase().includes(search.toLowerCase()));
 
-  console.log(found);
   return (
     <>
       <section>

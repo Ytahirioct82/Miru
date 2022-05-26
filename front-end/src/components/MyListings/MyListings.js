@@ -12,11 +12,19 @@ function MyListings() {
   useEffect(() => {
     instance
       .get(`${API}/user/listings`)
+
       .then((response) => {
-        setPosts(response.data);
+        if (response) {
+          setPosts(response.data);
+        }
       })
-      .catch((error) => console.warn("catch", error));
-  }, []);
+
+      .catch((error) => {
+        console.error("catch", error);
+        alert("Please log in to you account to access your listings");
+        navigate("/activity/login");
+      });
+  }, [navigate]);
 
   const myPosts = posts.map((post) => {
     return (

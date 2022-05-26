@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate, Route, Routes } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { instance } from "../helpers/api";
 import "./Activity.css";
 import Comments from "./Comments";
 
 function Activity() {
   const { id } = useParams();
-  const navigate = useNavigate();
+
   const API = process.env.REACT_APP_API_URL;
 
   const [post, setPost] = useState([]);
@@ -17,7 +17,7 @@ function Activity() {
         setPost(response.data);
       })
       .catch((error) => console.warn("catch", error));
-  }, []);
+  }, [API, id]);
 
   return (
     <div>
