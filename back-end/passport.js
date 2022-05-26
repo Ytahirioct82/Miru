@@ -48,7 +48,7 @@ async function initialize(passport) {
     } catch (error) {
       // error;
       console.error(error);
-      return done(err);
+      return done(error);
     }
   });
 }

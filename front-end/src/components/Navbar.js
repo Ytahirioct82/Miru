@@ -32,11 +32,11 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              {/* <Link to="/" className="nav-link">
-                <button type="button" className="btn btn-outline-primary">
-                  Register
+              <Link to="/activity/listings" className="nav-link">
+                <button type="button" style={{ color: "white" }} className="btn btn-outline-secondary">
+                  My listing
                 </button>
-              </Link> */}
+              </Link>
             </li>
           </ul>
         </div>

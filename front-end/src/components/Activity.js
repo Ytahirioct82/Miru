@@ -27,15 +27,7 @@ function Activity() {
           <img className="post-picture" src={post.image} alt={post.name} width="300" height="300"></img>
           <p>{post.description}</p>
         </div>
-        <div className="modify">
-          <button
-            onClick={() => {
-              navigate(`/activity/${id}/edit`);
-            }}
-          >
-            Edit
-          </button>
-        </div>
+        <div className="modify"></div>
         <h3>Comment Section</h3>
       </section>
       <Comments />
