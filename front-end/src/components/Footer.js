@@ -7,12 +7,14 @@ const Footer = () => {
     <footer className="bg-dark text-white pb-4">
       <div className="container text-center text-md-left">
         <div className="row text-center text-mm-left">
-          <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+
+          <div className="col-md-1 col-lg-3 col-xl-3 mx-auto mt-3">
             <div className="text-uppercase  font-weight-bold text-warning">
               Miru
             </div>
             <p>Message</p>
           </div>
+
           {/* mx-auto: horizontally centering fixed-width block level content */}
           <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
             <h5 className="text-uppercase font-weight-bold text-warning">
@@ -40,6 +42,7 @@ const Footer = () => {
               </a>
             </p>
           </div>
+
           <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
             <p>
               <h5 className="text-uppercase font-weight-bold text-warning">
@@ -54,18 +57,9 @@ const Footer = () => {
                 Miru{" "}
               </a>
             </p>
-            <p>
-              <a
-                href="/"
-                className="text-white"
-                style={{ textDecoration: "none" }}
-              >
-                {" "}
-                Miru{" "}
-              </a>
-            </p>
           </div>
-          <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+
+          <div className="bg-dark col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
             <h5 className="text-uppercase font-weight-bold text-warning">
               Contact
             </h5>
@@ -79,10 +73,12 @@ const Footer = () => {
               <i className="fas fa-phone mr-3"></i> +1 000-000-0000
             </p>
           </div>
+
           <hr className="md-4" />
 
           <div className="row align-items-center">
-            <div className="col-md-7 col-lg-8">
+            
+            <div className="bg-dark col-md-7 col-lg-8">
               <p>
                 Copyright©2022 All rights reserved by:{" "}
                 <a href="/" style={{ textDecoration: "none" }}>
@@ -90,8 +86,9 @@ const Footer = () => {
                 </a>
               </p>
             </div>
-            <div className="col-md-5col-lg-4">
-              <div className="text-center text-md-right">
+
+            <div className="bg-dark col-md-5 col-lg-4">
+               <div className="text-center text-md-right">
                 <ul className="list-unstyled list-inline">
                   <li className="list-inline-item">
                     <a
@@ -133,9 +130,11 @@ const Footer = () => {
                     </a>
                   </li>
                 </ul>
-              </div>
-            </div>
-          </div>
+              </div> 
+              
+            </div> 
+           </div>
+
         </div>
       </div>
     </footer>

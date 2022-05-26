@@ -4,6 +4,8 @@
   height: fit-content;
   margin-left: 10%;
   margin-top: 5%;
+  overflow: auto;
+  min-height: 20rem;  
 }
 
 .AllPosts h3 {
