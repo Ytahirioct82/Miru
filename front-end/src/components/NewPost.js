@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { instance } from "../helpers/api";
 import "./NewPost.css";
 
 const API = process.env.REACT_APP_API_URL;
@@ -14,7 +15,7 @@ function NewPost() {
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const postData = await axios.get(API + "/activity/" + id);
+        const postData = await instance.get(API + "/activity/" + id);
         setPost(postData.data);
       }
     };
@@ -29,10 +30,8 @@ function NewPost() {
   const handleSubmit = (event) => {
     event.preventDefault();
     id !== undefined
-      ? axios
-          .put(API + "/activity/" + id, post)
-          .then(() => navigate("/activity/" + id))
-      : axios.post(API + "/activity/", post).then(() => navigate(`/activity`));
+      ? instance.put(API + "/activity/" + id, post).then(() => navigate("/activity/" + id))
+      : instance.post(API + "/activity/", post).then(() => navigate(`/`));
   };
 
   return (
@@ -69,7 +68,6 @@ function NewPost() {
             required
           />
         </div>
-
 
         <div className="form-outline">
           <label className="form-label" htmlFor="street_address">

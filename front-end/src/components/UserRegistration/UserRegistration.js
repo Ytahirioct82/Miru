@@ -1,11 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { instance } from "../../helpers/api";
 
 const API = process.env.REACT_APP_API_URL;
 
 function UserRegistration() {
-  const { id } = useParams();
   const navigate = useNavigate();
   const [userReg, setUserReg] = useState({
     name: "",
@@ -19,7 +18,7 @@ function UserRegistration() {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    axios
+    instance
       .post(`${API}/user/registration`, userReg)
       .then((response) => {
         console.log(response);

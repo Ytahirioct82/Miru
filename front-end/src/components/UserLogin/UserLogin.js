@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams, Link } from "react-router-dom";
+import { instance } from "../../helpers/api";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -20,7 +21,7 @@ function UserLogin() {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    axios
+    instance
       .post(`${API}/user/login/username/password`, userLog)
       .then((response) => {
         if (response.data.id) {

@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate, Route, Routes } from "react-router-dom";
+import { instance } from "../helpers/api";
 import "./Activity.css";
 import Comments from "./Comments";
 
@@ -11,7 +11,7 @@ function Activity() {
 
   const [post, setPost] = useState([]);
   useEffect(() => {
-    axios
+    instance
       .get(`${API}/activity/${id}`)
       .then((response) => {
         setPost(response.data);
