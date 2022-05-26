@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { instance } from "../../helpers/api";
+import "./UserLogin.css";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -41,26 +42,19 @@ function UserLogin() {
   // User Login input section
   return (
     <div className="UserLogin">
-      <h3>Login</h3>
+      <h3>Please login to your account</h3>
       <div className="UserForm">
         <form onSubmit={onSubmit}>
-          <label htmlFor="UserEmail"> UserEmail:</label>
-          <input
-            id="email"
-            value={userLog.email}
-            type="email"
-            onChange={HandleChange}
-            placeholder="enter your email"
-            required
-          />
+          <label htmlFor="UserEmail"> Email</label>
+          <input id="email" value={userLog.email} type="email" onChange={HandleChange} placeholder="Email" required />
 
-          <label htmlFor="Password">Password:</label>
+          <label htmlFor="Password">Password</label>
           <input
             id="password"
             value={userLog.password}
             type="password"
             onChange={HandleChange}
-            placeholder="enter your password"
+            placeholder="Password"
             required
           />
           <br></br>
@@ -68,7 +62,7 @@ function UserLogin() {
         </form>
       </div>
       <Link to="/activity/registration" className="nav-link">
-        <h4>Register</h4>
+        <h4>Click here to register</h4>
       </Link>
     </div>
   );
