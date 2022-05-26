@@ -10,6 +10,15 @@ const getAllActivities = async () => {
   }
 };
 
+const getAllUserActivities = async (id) => {
+  try {
+    const allUserActivities = await db.any("SELECT * FROM activity WHERE user_id=$1", id);
+    return allUserActivities;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getOneActivity = async (id) => {
   try {
     const oneActivity = await db.one("SELECT * FROM activity WHERE id=$1", id);
@@ -50,4 +59,5 @@ module.exports = {
   getOneActivity,
   postActivity,
   editActivity,
+  getAllUserActivities,
 };

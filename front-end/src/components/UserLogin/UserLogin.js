@@ -30,7 +30,7 @@ function UserLogin() {
       })
       .catch(function (error) {
         console.error(error);
-        alert("you have enterd the wrong username or password");
+        alert("you have entered the wrong username or password");
       });
 
     setUserLog({

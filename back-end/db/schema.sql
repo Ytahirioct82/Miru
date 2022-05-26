@@ -6,6 +6,7 @@ CREATE DATABASE miru_db;
 
 CREATE TABLE activity (
     id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
     name TEXT UNIQUE NOT NULL,
     description TEXT,
     street_address TEXT NOT NULL,

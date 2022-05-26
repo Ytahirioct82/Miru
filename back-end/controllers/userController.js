@@ -1,8 +1,15 @@
 const express = require("express");
 const userLogin = express.Router({ mergeParams: true });
 const { postNewUser } = require("../queries/user");
+const { getAllUserActivities } = require("../queries/activity");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+
+const requiresLogin = (req, res, next) => {
+  if (req.user) return next();
+
+  res.sendStatus(401);
+};
 
 userLogin.post("/registration", async (req, res) => {
   try {
@@ -32,6 +39,16 @@ userLogin.post("/login/username/password", passport.authenticate("local"), (req,
     res.status(200).json(foundUser);
   } else {
     res.status(400).json({ error: "Entered wrong username or password" });
+  }
+});
+
+userLogin.get("/listings", requiresLogin, async (req, res) => {
+  const userActivities = await getAllUserActivities(req.user.id);
+
+  if (userActivities) {
+    return res.status(200).json(userActivities);
+  } else {
+    return res.status(404).json({ error: "Not Found!" });
   }
 });
 

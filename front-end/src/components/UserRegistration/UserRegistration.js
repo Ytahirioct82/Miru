@@ -12,7 +12,7 @@ function UserRegistration() {
     email: "",
     password: "",
   });
-  console.log(userReg);
+
   const HandleChange = (event) => {
     setUserReg({ ...userReg, [event.target.id]: event.target.value });
   };
@@ -25,12 +25,11 @@ function UserRegistration() {
         console.log(response);
         if (response.data.id) {
           navigate("/activity/login");
-        } else {
-          alert(response.data.message);
         }
       })
       .catch((error) => {
         console.warn(error);
+        alert(error.error);
       });
 
     setUserReg({
