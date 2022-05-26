@@ -1,6 +1,5 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { instance } from "../helpers/api";
 import { Comment } from "./Comment";
 
@@ -11,7 +10,6 @@ function Comments() {
 
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
-  const [newComment, setNewComment] = useState("");
   const [comment, setComment] = useState({
     // activity_id: `${id}`,
     name: "",
@@ -27,7 +25,6 @@ function Comments() {
     instance
       .get(`${API}/activity/${id}/comments`)
       .then((response) => {
-        console.log(response.data);
         setComments(response.data);
       })
 
@@ -91,6 +88,7 @@ function Comments() {
   const allComments = comments.map((comment) => {
     return (
       <Comment
+        key={comment.id}
         comment={comment}
         edit={editedCommentId === comment.id}
         onEditFn={handleCommentEdit}
@@ -118,7 +116,7 @@ function Comments() {
           <label htmlFor="Comment">Comment:</label>
           <input
             id="comment"
-            value={comment.comment}
+            value={comment.context}
             type="textarea"
             onChange={handleTextChange}
             placeholder="Comment..."

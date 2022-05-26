@@ -7,6 +7,7 @@ import EditPost from "./components/EditPost";
 import Navbar from "./components/Navbar";
 import UserLogin from "./components/UserLogin/UserLogin";
 import UserRegistration from "./components/UserRegistration/UserRegistration";
+import Footer from "./components/Footer";
 // import CommentForm from "./components/CommentForm";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/activity/new" element={<NewPost />} />
         <Route path="/activity/:id/edit" element={<EditPost />} />
       </Routes>
+      <Footer/>
     </div>
   );
 }

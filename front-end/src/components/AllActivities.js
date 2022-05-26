@@ -25,6 +25,9 @@ function AllActivities() {
   const selectedCategory =
     filteredCategory === "All" ? posts : posts.filter((category) => category.category === filteredCategory);
 
+  const found = selectedCategory.filter((category) => category.city.toLowerCase().includes(search.toLowerCase()));
+
+  console.log(found);
   return (
     <>
       <section>
@@ -34,11 +37,26 @@ function AllActivities() {
           </div>
           <div className="search">
             <SearchActivity search={search} setSearch={setSearch} />
+            {!found.length && (
+              <p
+                style={{
+                  color: "#F6BE00",
+                  borderRadius: "7px",
+                  marginTop: "5px",
+                  backgroundColor: "#540B0C",
+                  textAlign: "center",
+                  fontSize: "20px",
+                  border: "1px solid purple",
+                }}
+              >{`Sorry, our App does not have parks or sightSeeing in ${search} city`}</p>
+            )}
           </div>
         </section>
         <section className="AllPosts">
           <Content
-            activity={selectedCategory.filter((activity) => activity.city.toLowerCase().includes(search.toLowerCase()))}
+            activity={selectedCategory.filter((activity) =>
+              activity.city.toLowerCase().includes(search.toLowerCase().trim())
+            )}
           />
         </section>
       </section>
