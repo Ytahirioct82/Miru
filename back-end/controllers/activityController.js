@@ -6,6 +6,7 @@ const {
   postActivity,
   editActivity,
 } = require("../queries/activity");
+const { addImages } = require("../queries/images");
 
 const commentsController = require("./commentControllers");
 const imagesController = require("./imageController");
@@ -14,6 +15,7 @@ activity.use("/:id/images", imagesController);
 
 activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();
+  console.log(allActivities);
   if (allActivities.length === 0) {
     return res.status(404).json({ error: "Not Found!" });
   } else {
@@ -31,7 +33,28 @@ activity.get("/:id", async (req, res) => {
 });
 
 activity.post("/", async (req, res) => {
-  const post = await postActivity(req.body);
+  let {
+    name,
+    description,
+    street_address,
+    city,
+    state,
+    zip_code,
+    category,
+    images,
+  } = req.body;
+  const post = await postActivity(
+    name,
+    description,
+    street_address,
+    city,
+    state,
+    zip_code,
+    category
+  );
+  for (const eachImage of images) {
+    addImages(post.id, eachImage);
+  }
   if (post.id) {
     res.status(200).json(post);
   } else {

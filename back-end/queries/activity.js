@@ -19,30 +19,21 @@ const getOneActivity = async (id) => {
   }
 };
 
-const postActivity = async (activity) => {
-  const {
-    name,
-    description,
-    street_address,
-    city,
-    state,
-    zip_code,
-    category,
-    image,
-  } = activity;
+const postActivity = async (
+  name,
+  description,
+  street_address,
+  city,
+  state,
+  zip_code,
+  category
+) => {
+  // const { name, description, street_address, city, state, zip_code, category } =
+  //   activity;
   try {
     const newActivity = await db.one(
-      "INSERT INTO activity (name, description, street_address, city, state, zip_code, category, image) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
-      [
-        name,
-        description,
-        street_address,
-        city,
-        state,
-        zip_code,
-        category,
-        image,
-      ]
+      "INSERT INTO activity (name, description, street_address, city, state, zip_code, category) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [name, description, street_address, city, state, zip_code, category]
     );
     return newActivity;
   } catch (error) {

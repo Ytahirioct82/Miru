@@ -12,8 +12,7 @@ CREATE TABLE activity (
     city TEXT NOT NULL,
     state TEXT NOT NULL,
     zip_code INT NOT NULL,
-    category TEXT NOT NULL,
-    image TEXT
+    category TEXT NOT NULL
 );
 
 CREATE TABLE comments (
@@ -24,13 +23,19 @@ CREATE TABLE comments (
     FOREIGN KEY (activity_id) REFERENCES activity(id)
 );
 
-CREATE TABLE images (
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    content TEXT,
-    fileName TEXT,
-    contentType TEXT,
-    length VARCHAR,
-    activity_id INT,
-    FOREIGN KEY (activity_id) REFERENCES activity(id)
+    name TEXT NOT NULL,
+    email varchar(255) UNIQUE NOT NULL,
+    password varchar(255) NOT Null 
 );
 
+
+CREATE TABLE images (
+    content VARCHAR,
+    fileName TEXT,
+    contentType TEXT,
+    length INT,
+    activity_id INT,
+    FOREIGN KEY (activity_id) REFERENCES activity(id)
+)

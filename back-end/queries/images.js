@@ -21,15 +21,18 @@ const getActivityImages = async (id) => {
   }
 };
 
-const addImages = async (images) => {
-  const { content, fileName, contentType, length, activity_id } = images;
+const addImages = async (activityId, images) => {
+  const { content, fileName, contentType, length } = images;
+  images.activity_id = activityId;
   try {
-    addedImage = db.any(
+    addedImage = await db.any(
       "INSERT INTO images (content,fileName,contentType,length,activity_id) VALUES ($1,$2,$3,$4,$5) RETURNING *",
-      [content, fileName, contentType, length, activity_id]
+      [content, fileName, contentType, length, images.activity_id]
     );
+    console.log(addedImage);
     return addedImage;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
