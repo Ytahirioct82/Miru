@@ -14,8 +14,8 @@ import { useState } from "react";
 function App() {
   const [loggedIn, setLoggedIn] = useState(null);
 
-  const toggleLog = (id) => {
-    setLoggedIn(id);
+  const toggleLog = (user) => {
+    setLoggedIn(user);
   };
 
   return (

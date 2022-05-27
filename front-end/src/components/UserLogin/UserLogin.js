@@ -17,8 +17,8 @@ function UserLogin(props) {
     setUserLog({ ...userLog, [event.target.id]: event.target.value });
   };
 
-  const loggedIn = (id) => {
-    props.isLogged(id);
+  const loggedIn = (user) => {
+    props.isLogged(user);
   };
 
   const onSubmit = (event) => {
@@ -28,7 +28,7 @@ function UserLogin(props) {
       .post(`${API}/user/login`, userLog)
       .then((response) => {
         if (response.data.id) {
-          loggedIn(response.data.id);
+          loggedIn(response.data);
           navigate("/");
         }
       })

@@ -36,6 +36,14 @@ const Navbar = (props) => {
       </button>
     </Link>
   );
+
+  let initials = null;
+
+  if (props.isLoggedIn) {
+    const fullName = props.isLoggedIn.name.split(" ");
+    initials = <h5>{fullName.shift().charAt(0) + fullName.pop().charAt(0).toUpperCase()}</h5>;
+  }
+
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark">
       <div className="container">
@@ -66,6 +74,7 @@ const Navbar = (props) => {
             </li>
           </ul>
         </div>
+        {initials}
       </div>
     </nav>
   );
