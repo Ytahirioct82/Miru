@@ -11,6 +11,15 @@ const requiresLogin = (req, res, next) => {
   res.sendStatus(401);
 };
 
+userLogin.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json({ message: "Logout successful" });
+  });
+});
+
 userLogin.post("/registration", async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -21,6 +30,7 @@ userLogin.post("/registration", async (req, res) => {
     };
 
     const addUser = await postNewUser(newUser);
+
     if (addUser) {
       delete addUser.password;
       res.status(200).json(addUser);
@@ -32,7 +42,7 @@ userLogin.post("/registration", async (req, res) => {
   }
 });
 
-userLogin.post("/login/username/password", passport.authenticate("local"), (req, res) => {
+userLogin.post("/login", passport.authenticate("local"), (req, res) => {
   const foundUser = req.user;
 
   if (foundUser) {

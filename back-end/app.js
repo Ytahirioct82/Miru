@@ -18,7 +18,7 @@ app.use(express.json({ limit: "25mb" }));
 
 app.use(cookieParser());
 
-const timeToLive = 1000 * 60 * 60 * 2;
+let timeToLive = 1000 * 60 * 60 * 2;
 app.use(
   session({
     name: "session_id",

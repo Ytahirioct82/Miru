@@ -5,9 +5,9 @@ import "./UserLogin.css";
 
 const API = process.env.REACT_APP_API_URL;
 
-function UserLogin() {
+function UserLogin(props) {
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = useState(false);
+
   const [userLog, setUserLog] = useState({
     email: "",
     password: "",
@@ -17,14 +17,18 @@ function UserLogin() {
     setUserLog({ ...userLog, [event.target.id]: event.target.value });
   };
 
+  const loggedIn = (id) => {
+    props.isLogged(id);
+  };
+
   const onSubmit = (event) => {
     event.preventDefault();
 
     instance
-      .post(`${API}/user/login/username/password`, userLog)
+      .post(`${API}/user/login`, userLog)
       .then((response) => {
         if (response.data.id) {
-          setLoggedIn(response.data);
+          loggedIn(response.data.id);
           navigate("/");
         }
       })
