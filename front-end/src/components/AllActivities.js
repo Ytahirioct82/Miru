@@ -3,8 +3,8 @@ import { instance } from "../helpers/api";
 import Category from "./Category";
 import Content from "./Content";
 import SearchActivity from "./SearchActivity";
-
 const API = process.env.REACT_APP_API_URL;
+
 function AllActivities() {
   const [posts, setPosts] = useState([]);
   const [filteredCategory, setFilteredCategory] = useState("All");
