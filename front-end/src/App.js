@@ -8,7 +8,6 @@ import Navbar from "./components/Navbar";
 import UserLogin from "./components/UserLogin/UserLogin";
 import UserRegistration from "./components/UserRegistration/UserRegistration";
 import Footer from "./components/Footer";
-import UploadShell from "./components/UploadShell/UploadImage";
 
 function App() {
   return (
@@ -25,7 +24,6 @@ function App() {
         <Route path="/activity/:id" element={<Activity />} />
         <Route path="/activity/new" element={<NewPost />} />
         <Route path="/activity/:id/edit" element={<EditPost />} />
-        <Route path="/uploadShell" element={<UploadShell />} />
       </Routes>
       <Footer />
     </div>

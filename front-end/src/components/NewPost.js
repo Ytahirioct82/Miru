@@ -8,7 +8,6 @@ const API = process.env.REACT_APP_API_URL;
 function NewPost() {
   const [post, setPost] = useState({});
   const [charRemaining, setCharRemaining] = useState(0);
-  const [images, setImages] = useState([]);
 
   const navigate = useNavigate();
   const { id } = useParams();
@@ -27,27 +26,6 @@ function NewPost() {
     const { id, value } = event.target;
     setPost({ ...post, [id]: value });
   };
-
-  //selecting one image
-  // const getBase64 = (file) => {
-  //   return new Promise((resolve, reject) => {
-  //     const fileReader = new FileReader();
-  //     fileReader.readAsDataURL(file);
-  //     fileReader.onload = () => {
-  //       resolve(fileReader.result);
-  //     };
-  //     fileReader.onerror = (error) => {
-  //       reject(error);
-  //     };
-  //   });
-  // };
-
-  // const handleFileSelection = async (event) => {
-  //   let file = event.target.files[0];
-  //   let result = await getBase64(file);
-  //   console.log(result);
-  //   setPost({ ...post, image: result });
-  // };
 
   const cancelPost = () => {
     if (id) {
@@ -75,26 +53,6 @@ function NewPost() {
     });
   })();
 
-  const storingImages = async () => {
-    const promises = [];
-    images.forEach((eachImage) => {
-      const request = axios.post(`${API}/${id}/images`, eachImage).then(
-        (response) => {
-          if (response.status === 500) {
-            console.log("no email found");
-          } else {
-            console.log(response.data);
-          }
-        },
-        (error) => {
-          console.log("no email found ", eachImage);
-        }
-      );
-      promises.push(request);
-    });
-    await Promise.all(promises);
-  };
-
   const getBase64Update = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -112,12 +70,8 @@ function NewPost() {
       contentType: file.type,
       length: file.size,
     }));
-    Promise.all(files).then((result) => setImages(result));
+    Promise.all(files).then((result) => setPost({ ...post, images: result }));
   };
-
-  // const putRequest = axios.put(API + "/activity/" + id, post);
-  // const postActivity = axios.post(API + "/activity/", post);
-  // const postImages = storingImages();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -125,8 +79,9 @@ function NewPost() {
       ? axios
           .put(API + "/activity/" + id, post)
           .then(() => navigate("/activity/" + id))
-      : storingImages();
-    axios.all([axios.post(API + "/activity/", post)]).then(() => navigate(`/`));
+      : axios
+          .all([axios.post(API + "/activity/", post)])
+          .then(() => navigate(`/`));
   };
 
   return (
