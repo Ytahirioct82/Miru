@@ -1,5 +1,4 @@
 const express = require("express");
-// const images = express.Router();
 const {
   addImages,
   getAllImages,
