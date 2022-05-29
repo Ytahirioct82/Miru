@@ -32,10 +32,11 @@ CREATE TABLE users (
 
 
 CREATE TABLE images (
+    id SERIAL PRIMARY KEY,
     content VARCHAR,
     fileName TEXT,
     contentType TEXT,
     length INT,
     activity_id INT,
     FOREIGN KEY (activity_id) REFERENCES activity(id)
-)
+);
