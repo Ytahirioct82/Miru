@@ -32,3 +32,10 @@ CREATE TABLE users (
    
 );
 
+CREATE TABLE saved (
+    id SERIAL PRIMARY KEY,
+    activity_id INT NOT NULL,
+    users_id INT NOT NULL,
+    FOREIGN KEY (activity_id) REFERENCES activity(id),
+    FOREIGN KEY (users_id) REFERENCES users(id)
+)
