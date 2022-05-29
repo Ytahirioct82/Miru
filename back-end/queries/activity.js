@@ -28,8 +28,6 @@ const postActivity = async (
   zip_code,
   category
 ) => {
-  // const { name, description, street_address, city, state, zip_code, category } =
-  //   activity;
   try {
     const newActivity = await db.one(
       "INSERT INTO activity (name, description, street_address, city, state, zip_code, category) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
@@ -42,30 +40,12 @@ const postActivity = async (
 };
 
 const editActivity = async (id, activity) => {
-  const {
-    name,
-    description,
-    street_address,
-    city,
-    state,
-    zip_code,
-    category,
-    image,
-  } = activity;
+  const { name, description, street_address, city, state, zip_code, category } =
+    activity;
   try {
     const edit = await db.one(
-      "UPDATE activity SET name=$2, description=$3, street_address=$4, city=$5, state=$6, zip_code=$7, category=$8, image=$9 WHERE id=$1 RETURNING *",
-      [
-        id,
-        name,
-        description,
-        street_address,
-        city,
-        state,
-        zip_code,
-        category,
-        image,
-      ]
+      "UPDATE activity SET name=$2, description=$3, street_address=$4, city=$5, state=$6, zip_code=$7, category=$8 WHERE id=$1 RETURNING *",
+      [id, name, description, street_address, city, state, zip_code, category]
     );
     return edit;
   } catch (error) {
