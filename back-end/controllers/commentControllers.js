@@ -1,6 +1,11 @@
 const express = require("express");
 
-const { getActivityComments, addComment, updateComment, deleteComment } = require("../queries/comments");
+const {
+  getActivityComments,
+  addComment,
+  updateComment,
+  deleteComment,
+} = require("../queries/comments");
 
 const comments = express.Router({ mergeParams: true });
 
@@ -25,7 +30,9 @@ comments.delete("/:id", async (req, res) => {
   if (comment) {
     res.status(200).json(comment);
   } else {
-    res.status(404).json({ error: `review with id of ${id} could not be deleted` });
+    res
+      .status(404)
+      .json({ error: `review with id of ${id} could not be deleted` });
   }
 });
 module.exports = comments;
