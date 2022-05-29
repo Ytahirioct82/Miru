@@ -14,7 +14,9 @@ const postNewUser = async (userInfo) => {
 
       return newUser;
     } else {
-      return { message: `user with email already exist` };
+      const err = new Error("user with email already exist");
+      err.status = 400;
+      throw err;
     }
   } catch (error) {
     throw error;

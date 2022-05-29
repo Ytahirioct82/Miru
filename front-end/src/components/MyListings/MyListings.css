@@ -1,0 +1,42 @@
+.userListing {
+  width: fit-content;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.userListing img {
+  width: 600px;
+  border-radius: 10px;
+}
+
+.message {
+  margin: auto;
+  width: 600px;
+  border-radius: 100px;
+  text-align: center;
+  font-style: oblique;
+  font-family: "Times New Roman", Times, serif;
+  color: black;
+  background-color: rgb(147, 182, 140);
+  margin-top: 200px;
+  font-size: xx-large;
+}
+
+.userListing button {
+  width: 600px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: x-large;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+.userContainer h3 {
+  width: 600px;
+  border-radius: 10px;
+  text-align: center;
+  font-style: oblique;
+  font-family: "Times New Roman", Times, serif;
+  color: white;
+  background-color: rgb(147, 182, 140);
+}

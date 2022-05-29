@@ -1,7 +1,7 @@
-import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { instance } from "../helpers/api";
 import "./NewPost.css";
 
 const API = process.env.REACT_APP_API_URL;
@@ -15,7 +15,7 @@ function NewPost() {
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const postData = await axios.get(API + "/activity/" + id);
+        const postData = await instance.get(API + "/activity/" + id);
         setPost(postData.data);
       }
     };
@@ -30,10 +30,8 @@ function NewPost() {
   const handleSubmit = (event) => {
     event.preventDefault();
     id !== undefined
-      ? axios
-          .put(API + "/activity/" + id, post)
-          .then(() => navigate("/activity/" + id))
-      : axios.post(API + "/activity/", post).then(() => navigate(`/`));
+      ? instance.put(API + "/activity/" + id, post).then(() => navigate("/activity/" + id))
+      : instance.post(API + "/activity/", post).then(() => navigate(`/`));
   };
 
   const getBase64 = (file) => {
@@ -136,11 +134,7 @@ function NewPost() {
             onChange={handleTextChange}
             required
           />
-          {post.description ? (
-            <p
-              style={{ color: "red" }}
-            >{`${charRemaining} / ${120} characters remaining`}</p>
-          ) : null}
+          {post.description ? <p style={{ color: "red" }}>{`${charRemaining} / ${120} characters remaining`}</p> : null}
         </div>
 
         <div className="form-outline">
@@ -265,11 +259,7 @@ function NewPost() {
         <button type="submit" className="btn btn-secondary">
           Submit
         </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={cancelPost}
-        >
+        <button type="button" className="btn btn-secondary" onClick={cancelPost}>
           Cancel
         </button>
       </form>

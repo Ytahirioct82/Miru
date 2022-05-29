@@ -8,14 +8,20 @@ const cookieParser = require("cookie-parser");
 initialize(passport);
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3000", "http://localhost:8080"],
+  })
+);
 app.use(express.json({ limit: "25mb" }));
 
 app.use(cookieParser());
 
-const timeToLive = 1000 * 60 * 60 * 2;
+let timeToLive = 1000 * 60 * 60 * 2;
 app.use(
   session({
+    name: "session_id",
     secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     saveUninitialized: true,
     cookie: { maxAge: timeToLive },
@@ -26,8 +32,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // app.use(express.json());
-
-
 
 const activityController = require("./controllers/activityController");
 const commentControllers = require("./controllers/commentControllers");

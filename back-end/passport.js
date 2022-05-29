@@ -41,17 +41,15 @@ async function initialize(passport) {
   );
   passport.serializeUser((user, done) => done(null, user.id));
 
-  passport.deserializeUser((id, done) => {
-    console.log("deserialized run");
-    db.any(`SELECT * FROM users WHERE id=$1`, [id])
-      .then(function (results) {
-        return done(null, results[0]);
-      })
-      .catch(function (error) {
-        // error;
-        console.error(error);
-        return done(err);
-      });
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await db.one(`SELECT * FROM users WHERE id=$1`, [id]);
+      return done(null, user);
+    } catch (error) {
+      // error;
+      console.error(error);
+      return done(error);
+    }
   });
 }
 

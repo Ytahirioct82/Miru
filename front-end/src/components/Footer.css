@@ -2,8 +2,8 @@ footer {
   position: relative;
   padding: 10px 10px 0px 10px;
   bottom: 0;
-  width: float; 
+  width: fixed; 
   height: 19rem;
   background: grey;
-  margin-top: 2rem;
+  margin-top: 22rem;
 }

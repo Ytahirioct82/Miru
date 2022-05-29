@@ -6,6 +6,7 @@ CREATE DATABASE miru_db;
 
 CREATE TABLE activity (
     id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
     name TEXT UNIQUE NOT NULL,
     description TEXT,
     street_address TEXT NOT NULL,
@@ -32,10 +33,13 @@ CREATE TABLE users (
    
 );
 
+
 CREATE TABLE saved (
     id SERIAL PRIMARY KEY,
     activity_id INT NOT NULL,
     users_id INT NOT NULL,
+    UNIQUE (activity_id, users_id),
     FOREIGN KEY (activity_id) REFERENCES activity(id),
     FOREIGN KEY (users_id) REFERENCES users(id)
-)
+);
+

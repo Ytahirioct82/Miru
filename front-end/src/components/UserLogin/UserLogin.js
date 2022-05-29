@@ -1,15 +1,13 @@
 import { useState } from "react";
-import axios from "axios";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import UserRegistration from "../UserRegistration/UserRegistration";
-import "./UserLogin.css"
+import { useNavigate, Link } from "react-router-dom";
+import { instance } from "../../helpers/api";
+import "./UserLogin.css";
 
 const API = process.env.REACT_APP_API_URL;
 
-function UserLogin() {
-  const { id } = useParams();
+function UserLogin(props) {
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = useState(false);
+
   const [userLog, setUserLog] = useState({
     email: "",
     password: "",
@@ -19,20 +17,24 @@ function UserLogin() {
     setUserLog({ ...userLog, [event.target.id]: event.target.value });
   };
 
+  const loggedIn = (user) => {
+    props.isLogged(user);
+  };
+
   const onSubmit = (event) => {
     event.preventDefault();
 
-    axios
-      .post(`${API}/user/login/username/password`, userLog)
+    instance
+      .post(`${API}/user/login`, userLog)
       .then((response) => {
         if (response.data.id) {
-          setLoggedIn(response.data);
+          loggedIn(response.data);
           navigate("/");
         }
       })
       .catch(function (error) {
         console.error(error);
-        alert("you have enterd the wrong username or password");
+        alert("you have entered the wrong username or password");
       });
 
     setUserLog({
@@ -44,26 +46,19 @@ function UserLogin() {
   // User Login input section
   return (
     <div className="UserLogin">
-      <h3>Login</h3>
+      <h3>Please login to your account</h3>
       <div className="UserForm">
         <form onSubmit={onSubmit}>
-          <label htmlFor="UserEmail"> UserEmail:</label>
-          <input
-            id="email"
-            value={userLog.email}
-            type="email"
-            onChange={HandleChange}
-            placeholder="enter your email"
-            required
-          />
+          <label htmlFor="UserEmail"> Email</label>
+          <input id="email" value={userLog.email} type="email" onChange={HandleChange} placeholder="Email" required />
 
-          <label htmlFor="Password">Password:</label>
+          <label htmlFor="Password">Password</label>
           <input
             id="password"
             value={userLog.password}
             type="password"
             onChange={HandleChange}
-            placeholder="enter your password"
+            placeholder="Password"
             required
           />
           <br></br>
@@ -71,7 +66,7 @@ function UserLogin() {
         </form>
       </div>
       <Link to="/activity/registration" className="nav-link">
-        <h4>Register</h4>
+        <h4>Click here to register</h4>
       </Link>
     </div>
   );
