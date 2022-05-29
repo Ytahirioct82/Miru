@@ -33,3 +33,12 @@ CREATE TABLE users (
    
 );
 
+CREATE TABLE favorites (
+	id SERIAL PRIMARY KEY,
+	user_id INT NOT NULL,
+	activity_id INT NOT NULL,
+	UNIQUE (user_id, activity_id),
+	FOREIGN KEY (activity_id) REFERENCES activity(id),
+	FOREIGN KEY (user_id) REFERENCES users(id)
+);
+

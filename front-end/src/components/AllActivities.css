@@ -1,28 +1,51 @@
-.AllPosts {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  height: fit-content;
-  margin-left: 10%;
-  margin-top: 5%;
-  overflow: auto;
-  min-height: 20rem;  
+.cat-search {
+  overflow: hidden;
+  position: absolute;
+  top: 115px;
+  width: 100%;
+  background-color: whitesmoke;
+  display: flex;
 }
 
-.AllPosts h3 {
+.body {
+  margin: auto;
+  padding: auto;
+}
+
+.AllPosts {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  height: fit-content;
+  margin: auto;
   margin-top: 5%;
-  text-align: center;
-  border: solid 1px black;
-  width: 300px;
-  height: 40px;
-  text-decoration: none;
-  color: rgb(87, 206, 166);
-  background-color: rgb(40, 44, 49);
-  border-radius: 10px;
-  font-family: cursive;
+  overflow: auto;
+  min-height: 20rem;
+  padding-left: 70px;
+  padding-right: 70px;
 }
 
 .AllPosts img {
-  border-radius: 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border-radius: 5px;
+  width: 300px;
+  height: 150px;
+  margin: auto;
+}
+
+.AllPosts h2,
+p {
+  border-radius: 5px;
+  width: fit-content;
+  font-size: 13px;
+  color: black;
+  margin-left: 10px;
+  margin-bottom: 0px;
+}
+
+.AllPosts h2 {
+  font-weight: 700;
+  padding: 0;
 }
 
 :link {
@@ -30,11 +53,6 @@
 }
 
 /* Category and search */
-
-.cat-search {
-  display: flex;
-  background: rgba(134, 142, 134, 0.03);
-}
 
 .cat {
   padding-top: 1.7rem;
@@ -44,4 +62,33 @@
 .search {
   padding-top: 1.5rem;
   padding-left: 1.7rem;
+}
+
+.fav button {
+  border: solid 1px red;
+  width: 27px;
+  height: 27px;
+  margin: auto;
+  text-align: center;
+  border-radius: 100px;
+  color: red;
+  background-color: white;
+  font-size: 14px;
+  margin-top: 50px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.notFav button {
+  border: solid 1px black;
+  width: 27px;
+  height: 27px;
+  text-align: center;
+  border-radius: 50px;
+  color: white;
+  background-color: black;
+  font-size: 14px;
+  margin-top: 50px;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }

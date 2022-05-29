@@ -1,5 +1,7 @@
 .navbar-dark {
   background-color: rgba(106, 156, 98, 0.733);
+  position: fixed;
+  margin-bottom: 0px;
 }
 
 .container h5 {

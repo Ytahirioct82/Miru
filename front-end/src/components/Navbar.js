@@ -72,6 +72,13 @@ const Navbar = (props) => {
                 </button>
               </Link>
             </li>
+            <li>
+              <Link to="/activity/favorites" className="nav-link">
+                <button type="button" style={{ color: "white" }} className="btn btn-outline-secondary">
+                  Favorites
+                </button>
+              </Link>
+            </li>
           </ul>
         </div>
         {initials}
