@@ -1,6 +1,13 @@
 const express = require("express");
 const activity = express.Router({ mergeParams: true });
-const { getAllActivities, getOneActivity, postActivity, editActivity } = require("../queries/activity");
+const {
+  getAllActivities,
+  getAllFavActivities,
+  getOneActivity,
+  postActivity,
+  postFavActivity,
+  editActivity,
+} = require("../queries/activity");
 
 const requiresLogin = (req, res, next) => {
   if (req.user) return next();
@@ -10,6 +17,15 @@ const requiresLogin = (req, res, next) => {
 
 const commentsController = require("./commentControllers");
 activity.use("/:id/comments", commentsController);
+
+activity.get("/favorites", requiresLogin, async (req, res) => {
+  const allFavActivities = await getAllFavActivities(req.user.id);
+  if (allFavActivities.length === 0) {
+    return res.status(404).json({ error: "Not Found!" });
+  } else {
+    res.status(200).json(allFavActivities);
+  }
+});
 
 activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();
@@ -26,6 +42,17 @@ activity.get("/:id", async (req, res) => {
     res.status(200).json(oneActivity);
   } else {
     res.status(404).json({ error: "Not Found!" });
+  }
+});
+
+activity.post("/:id/favorites", requiresLogin, async (req, res) => {
+  const user_id = req.user.id;
+  const activity_id = req.params.id;
+  const post = await postFavActivity({ user_id, activity_id });
+  if (post.id) {
+    res.status(200).json(post);
+  } else {
+    res.status(404).json({ error: "Cannot Post!" });
   }
 });
 

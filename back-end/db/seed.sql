@@ -33,9 +33,11 @@ INSERT INTO comments (activity_id,name,comment) VALUES
 (3, 'Sev','People watching is the best here and free!');
 
 INSERT INTO users (name,email,password) VALUES 
-('Younes Tahiri', 'ytahiri82@gmail.com', '$2b$10$eIZ/CGUjwHzbXeJBFtxUBeMG1duAglPNF/lzMKjfKSigDEJb..R.6')
+('Younes Tahiri', 'ytahiri82@gmail.com', '$2b$10$eIZ/CGUjwHzbXeJBFtxUBeMG1duAglPNF/lzMKjfKSigDEJb..R.6');
 
 
+INSERT INTO favorites (user_id,activity_id) VALUES 
+(1,3);
 	
 
     

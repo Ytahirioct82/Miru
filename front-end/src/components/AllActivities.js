@@ -5,11 +5,14 @@ import Content from "./Content";
 import SearchActivity from "./SearchActivity";
 const API = process.env.REACT_APP_API_URL;
 
-function AllActivities() {
+function AllActivities(props) {
   const [posts, setPosts] = useState([]);
   const [filteredCategory, setFilteredCategory] = useState("All");
   const [search, setSearch] = useState("");
+  const [favorites, setFavorites] = useState([]);
+
   useEffect(() => {
+    setFavorites(props.fav);
     instance
       .get(`${API}/activity`)
       .then((response) => {
@@ -29,7 +32,7 @@ function AllActivities() {
 
   return (
     <>
-      <section>
+      <section className="body">
         <section className="cat-search">
           <div className="cat">
             <Category handleCategoryChange={handleCategoryChange} selected={filteredCategory} />
@@ -53,9 +56,10 @@ function AllActivities() {
         </section>
         <section className="AllPosts">
           <Content
-            activity={selectedCategory.filter((activity) =>
+            activities={selectedCategory.filter((activity) =>
               activity.city.toLowerCase().includes(search.toLowerCase().trim())
             )}
+            fav={favorites}
           />
         </section>
       </section>

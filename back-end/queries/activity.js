@@ -10,6 +10,18 @@ const getAllActivities = async () => {
   }
 };
 
+const getAllFavActivities = async (id) => {
+  try {
+    const allFavActivities = await db.any(
+      "SELECT * FROM favorites INNER JOIN activity ON favorites.activity_id = activity.id"
+    );
+
+    return allFavActivities;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getAllUserActivities = async (id) => {
   try {
     const allUserActivities = await db.any("SELECT * FROM activity WHERE user_id=$1", id);
@@ -27,7 +39,18 @@ const getOneActivity = async (id) => {
     throw error;
   }
 };
-
+const postFavActivity = async (activity) => {
+  const { user_id, activity_id } = activity;
+  try {
+    const newFavActivity = await db.one("INSERT INTO favorites (user_id, activity_id) VALUES ($1, $2) RETURNING *", [
+      user_id,
+      activity_id,
+    ]);
+    return newFavActivity;
+  } catch (error) {
+    throw error;
+  }
+};
 const postActivity = async (activity) => {
   const { name, description, street_address, city, state, zip_code, category, image } = activity;
   try {
@@ -56,7 +79,9 @@ const editActivity = async (id, activity) => {
 
 module.exports = {
   getAllActivities,
+  getAllFavActivities,
   getOneActivity,
+  postFavActivity,
   postActivity,
   editActivity,
   getAllUserActivities,
