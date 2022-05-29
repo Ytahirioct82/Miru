@@ -15,7 +15,7 @@ const getActivityComments = async (id) => {
 const addComment = async (comments) => {
   const { activity_id, name, comment } = comments;
   try {
-    addedComment = db.any(
+    const addedComment = db.any(
       "INSERT INTO comments (activity_id,name,comment) VALUES ($1,$2,$3) RETURNING *",
       [activity_id, name, comment]
     );
