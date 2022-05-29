@@ -2,23 +2,22 @@ import React from "react";
 import "./Footer.css";
 
 const Footer = () => {
-    
   return (
     <footer className="bg-dark text-white pb-4">
       <div className="container text-center text-md-left">
         <div className="row text-center text-mm-left">
           <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-            <div className="text-uppercase  font-weight-bold text-warning">
+            <h5 className="text-uppercase  font-weight-bold text-warning">
               Miru
-            </div>
-            <p>Message</p>
+            </h5>
+            <div>Message</div>
           </div>
           {/* mx-auto: horizontally centering fixed-width block level content */}
           <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
             <h5 className="text-uppercase font-weight-bold text-warning">
               Services
             </h5>
-            <p>
+            <div>
               <a
                 href="https://www.centralparknyc.org/"
                 className="text-white"
@@ -28,8 +27,8 @@ const Footer = () => {
                 {" "}
                 Parks{" "}
               </a>
-            </p>
-            <p>
+            </div>
+            <div>
               <a
                 href="https://www.bigbustours.com/"
                 className="text-white"
@@ -38,10 +37,10 @@ const Footer = () => {
                 {" "}
                 SightSeeing{" "}
               </a>
-            </p>
+            </div>
           </div>
           <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
-            <p>
+            <div>
               <h5 className="text-uppercase font-weight-bold text-warning">
                 Useful links
               </h5>
@@ -53,8 +52,8 @@ const Footer = () => {
                 {" "}
                 Miru{" "}
               </a>
-            </p>
-            <p>
+            </div>
+            <div>
               <a
                 href="/"
                 className="text-white"
@@ -63,32 +62,32 @@ const Footer = () => {
                 {" "}
                 Miru{" "}
               </a>
-            </p>
+            </div>
           </div>
           <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
             <h5 className="text-uppercase font-weight-bold text-warning">
               Contact
             </h5>
-            <p>
-              <i className="fas fa-home mr-3"> {" "}</i> New York, NY 11101,US
-            </p>
-            <p>
-              <i className="fas fa-envelope mr-3">{" "}{" "}</i> miru@gmail.com
-            </p>
-            <p>
+            <div>
+              <i className="fas fa-home mr-3"> </i> New York, NY 11101,US
+            </div>
+            <div>
+              <i className="fas fa-envelope mr-3"> </i> miru@gmail.com
+            </div>
+            <div>
               <i className="fas fa-phone mr-3"></i> +1 000-000-0000
-            </p>
+            </div>
           </div>
           <hr className="md-4" />
 
           <div className="row align-items-center">
             <div className="col-md-7 col-lg-8">
-              <p>
+              <div>
                 Copyright©2022 All rights reserved by:{" "}
                 <a href="/" style={{ textDecoration: "none" }}>
                   <strong className="text-warning">Miru</strong>
                 </a>
-              </p>
+              </div>
             </div>
             <div className="col-md-5col-lg-4">
               <div className="text-center text-md-right">
@@ -104,7 +103,6 @@ const Footer = () => {
                   </li>
                   <li className="list-inline-item">
                     <a
-                  
                       href="/"
                       className="btn-floating btn-sm text-white"
                       style={{ fontSize: "23px" }}
@@ -114,7 +112,6 @@ const Footer = () => {
                   </li>
                   <li className="list-inline-item">
                     <a
-                  
                       href="/"
                       className="btn-floating btn-sm text-white"
                       style={{ fontSize: "23px" }}
@@ -124,7 +121,6 @@ const Footer = () => {
                   </li>
                   <li className="list-inline-item">
                     <a
-                  
                       href="/"
                       className="btn-floating btn-sm text-white"
                       style={{ fontSize: "23px" }}

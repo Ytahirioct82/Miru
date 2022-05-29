@@ -1,13 +1,13 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import AllActivities from "./components/AllActivities";
-import Activity from "./components/Activity";
-import NewPost from "./components/NewPost";
-import EditPost from "./components/EditPost";
-import Navbar from "./components/Navbar";
+import AllActivities from "./components/AllActivities/AllActivities";
+import Activity from "./components/Details/Activity";
+import NewPost from "./components/EditAndNewPost/NewPost";
+import EditPost from "./components/EditAndNewPost/EditPost";
+import Navbar from "./components/NavAndFooter/Navbar";
 import UserLogin from "./components/UserLogin/UserLogin";
 import UserRegistration from "./components/UserRegistration/UserRegistration";
-import Footer from "./components/Footer";
+import Footer from "./components/NavAndFooter/Footer";
 
 function App() {
   return (

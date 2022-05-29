@@ -29,12 +29,7 @@ function ActivityImages({ activityId }) {
     );
   });
 
-  return (
-    <div>
-      Images
-      {allImages}
-    </div>
-  );
+  return <div>{allImages}</div>;
 }
 
 export default ActivityImages;

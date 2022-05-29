@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./AllActivities.css";
-import EachActivityImage from "./EachActivtyImages";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 const ActivityCard = ({ activity }) => {
   const { id, name } = activity;
@@ -16,11 +14,10 @@ const ActivityCard = ({ activity }) => {
     axios
       .get(`${API}/activity/${activity.id}/images/1`)
       .then((response) => {
-        // setImages(response.data);
         setImage(response.data[0]);
       })
       .catch((error) => console.warn("catch".error));
-  }, [id, API]);
+  }, [id, API, activity.id]);
 
   return (
     <div className="Post">

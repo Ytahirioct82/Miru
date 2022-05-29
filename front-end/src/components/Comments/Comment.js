@@ -11,8 +11,8 @@ export const Comment = ({
 }) => {
   const [editedComment, setEditedComment] = useState(comment);
   useEffect(() => {
-    setEditedComment(comment);
-  }, [comment]);
+    setEditedComment(editedComment);
+  }, [editedComment]);
 
   const handleChange = (event) => {
     setEditedComment({

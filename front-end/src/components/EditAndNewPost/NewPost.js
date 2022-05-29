@@ -199,37 +199,23 @@ function NewPost() {
             required
           />
         </div>
-        {/* 1 image selection */}
-        {/* {!id && (
+
+        {!id && (
           <div className="form-outline">
             <label className="form-label" htmlFor="image">
               {" "}
               Image :{" "}
             </label>
             <input
+              multiple
               className="form-control form-control-sm"
               type="file"
               id="image"
-              onChange={handleFileSelection}
+              onChange={onchange}
               required
             />
           </div>
-        )} */}
-
-        <div className="form-outline">
-          <label className="form-label" htmlFor="image">
-            {" "}
-            Image :{" "}
-          </label>
-          <input
-            multiple
-            className="form-control form-control-sm"
-            type="file"
-            id="image"
-            onChange={onchange}
-            required
-          />
-        </div>
+        )}
 
         <br />
         <button type="submit" className="btn btn-secondary">

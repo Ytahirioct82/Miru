@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Comment } from "./Comment";
 
 function Comments() {
@@ -10,7 +10,6 @@ function Comments() {
 
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
-  const [newComment, setNewComment] = useState("");
   const [comment, setComment] = useState({
     // activity_id: `${id}`,
     name: "",
@@ -20,7 +19,7 @@ function Comments() {
   // fetching all comments
   useEffect(() => {
     handleLoad();
-  }, []);
+  });
 
   const handleLoad = () => {
     axios

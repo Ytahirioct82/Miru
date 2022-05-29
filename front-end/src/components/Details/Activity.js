@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate, Route, Routes } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./Activity.css";
-import Comments from "./Comments";
+import Comments from "../Comments/Comments";
 import ActivityImages from "./ActivityImages";
 
 function Activity() {
@@ -18,7 +18,7 @@ function Activity() {
         setPost(response.data);
       })
       .catch((error) => console.warn("catch", error));
-  }, []);
+  }, [API, id]);
 
   return (
     <div>
