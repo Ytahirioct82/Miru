@@ -29,6 +29,7 @@ activity.get("/favorites", requiresLogin, async (req, res) => {
 
 activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();
+  console.log(allActivities);
   if (allActivities.length === 0) {
     return res.status(404).json({ error: "Not Found!" });
   } else {
