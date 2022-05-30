@@ -3,7 +3,7 @@ import { instance } from "../helpers/api";
 import Category from "./Category";
 import Content from "./Content";
 import SearchActivity from "./SearchActivity";
-import { useNavigate } from "react-router-dom";
+
 const API = process.env.REACT_APP_API_URL;
 
 function AllActivities(props) {
@@ -65,6 +65,7 @@ function AllActivities(props) {
               activity.city.toLowerCase().includes(search.toLowerCase().trim())
             )}
             funcFav={userFavorites}
+            isLogged={props.isLogged}
           />
         </section>
       </section>
