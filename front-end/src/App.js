@@ -28,11 +28,11 @@ function App() {
     <div>
       <Navbar isLoggedIn={loggedIn} isLogged={toggleLog} />
       <Routes>
-        <Route exact path="/" element={<AllActivities fav={favorites} />} />
+        <Route exact path="/" element={<AllActivities favorite={favorite} />} />
         <Route path="/activity/login" element={<UserLogin isLogged={toggleLog} />} />
         <Route path="/activity/registration" element={<UserRegistration />} />
         <Route path="/activity/listings" element={<MyListings />} />
-        <Route path="/activity/favorites" element={<Favorites favorite={favorite} />} />
+        <Route path="/activity/favorites" element={<Favorites fav={favorites} isLoggedIn={loggedIn} />} />
         <Route path="/activity/:id" element={<Activity />} />
         <Route path="/activity/new" element={<NewPost />} />
         <Route path="/activity/:id/edit" element={<EditPost />} />

@@ -9,18 +9,30 @@ const Content = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setFavorites(props.fav);
-  }, [props.fav.length]);
+    load();
+  }, []);
+
+  const load = () => {
+    instance
+      .get(`${API}/activity/favorites`)
+      .then((response) => {
+        setFavorites(response.data);
+        props.funcFav(response.data);
+      })
+      .catch((error) => console.warn("catch", error));
+  };
 
   const handleFav = (event) => {
     if (event.target.name === "notFav") {
       instance
         .post(`${API}/activity/${event.target.id}/favorites`)
-        .then(() => navigate("/activity/favorites"))
+        .then(() => {
+          load();
+        })
         .catch((error) => console.warn(error));
-      //send a delete request to the favorites table passing the fav id and userid
     } else {
-      //send a post request to the favorites table passing user id to add to favorites
+      //delete from back end
+      //call load to render changes
     }
   };
 
