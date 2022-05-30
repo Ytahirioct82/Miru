@@ -48,16 +48,42 @@ const Navbar = (props) => {
     <nav className="navbar navbar-expand-lg  navbar-dark">
       <div className="container">
         <Link to="/" className="navbar-brand w-25">
-          <img className="img-fluid w-25" src={require("../asset/miruUpdated.png")} alt="Miru" />
+          <img
+            className="img-fluid w-25"
+            src={require("../asset/miruUpdated.png")}
+            alt="Miru"
+          />
         </Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navmenu"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navmenu">
           <ul className="navbar-nav ms-auto">
+            {/* link to saved page */}
+            <li>
+              <Link to="/saved" className="nav-link">
+                <button
+                  type="button"
+                  style={{ color: "white" }}
+                  className="btn btn-outline-secondary"
+                >
+                  ♡ Saved
+                </button>
+              </Link>
+            </li>
+
             <li>
               <Link to="/activity/new" className="nav-link">
-                <button type="button" style={{ color: "white" }} className="btn btn-outline-secondary">
+                <button
+                  type="button"
+                  style={{ color: "white" }}
+                  className="btn btn-outline-secondary"
+                >
                   <BsPlusLg />
                   &nbsp;&nbsp; Post
                 </button>
@@ -66,9 +92,14 @@ const Navbar = (props) => {
 
             <li>{userLog}</li>
             <li>
-              <Link to="/activity/listings" className="nav-link">
-                <button type="button" style={{ color: "white" }} className="btn btn-outline-secondary">
-                  My listing
+              <Link to="/activity/login" className="nav-link">
+                <button
+                  type="button"
+                  style={{ color: "white" }}
+                  className="btn btn-outline-secondary"
+                >
+                  Login
+
                 </button>
               </Link>
             </li>

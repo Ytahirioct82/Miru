@@ -62,6 +62,26 @@ function NewPost() {
     }
   };
 
+  const imageComponent = () => {
+    if (!id) {
+      return (
+        <div className="form-outline">
+          <label className="form-label" htmlFor="image">
+            {" "}
+            Image :{" "}
+          </label>
+          <input
+            className="form-control form-control-sm"
+            type="file"
+            id="image"
+            onChange={handleFileSelection}
+            required
+          />
+        </div>
+      );
+    }
+  };
+
   (() => {
     document.addEventListener("keyup", (event) => {
       if (event.target.matches(".count-chars")) {
@@ -195,6 +215,26 @@ function NewPost() {
             id="category"
             value={post.category || ""}
             onChange={handleTextChange}
+            required
+          />
+        </div>
+
+        {/* paste the image, find the base64 of the image */}
+        {/* disable the submit button till the front end is complete */}
+        {/* save the activity against the  */}
+        {/* bcrypt, salt */}
+        {/* 90/90 rule */}
+
+        <div className="form-outline">
+          <label className="form-label" htmlFor="image">
+            {" "}
+            Image :{" "}
+          </label>
+          <input
+            className="form-control form-control-sm"
+            type="file"
+            id="image"
+            onChange={handleFileSelection}
             required
           />
         </div>
