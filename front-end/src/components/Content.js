@@ -9,7 +9,9 @@ const Content = (props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    load();
+    if (props.isLogged) {
+      load();
+    }
   }, []);
 
   const load = () => {
@@ -29,7 +31,11 @@ const Content = (props) => {
         .then(() => {
           load();
         })
-        .catch((error) => console.warn(error));
+        .catch((error) => {
+          console.warn(error);
+          alert("Please log in to you account to add favorites");
+          navigate("/activity/login");
+        });
     } else {
       //delete from back end
       //call load to render changes

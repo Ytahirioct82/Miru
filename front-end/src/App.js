@@ -28,7 +28,7 @@ function App() {
     <div>
       <Navbar isLoggedIn={loggedIn} isLogged={toggleLog} />
       <Routes>
-        <Route exact path="/" element={<AllActivities favorite={favorite} />} />
+        <Route exact path="/" element={<AllActivities favorite={favorite} isLogged={loggedIn} />} />
         <Route path="/activity/login" element={<UserLogin isLogged={toggleLog} />} />
         <Route path="/activity/registration" element={<UserRegistration />} />
         <Route path="/activity/listings" element={<MyListings />} />
