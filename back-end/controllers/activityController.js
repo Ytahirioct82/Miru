@@ -18,15 +18,6 @@ const requiresLogin = (req, res, next) => {
 const commentsController = require("./commentControllers");
 activity.use("/:id/comments", commentsController);
 
-activity.get("/favorites", requiresLogin, async (req, res) => {
-  const allFavActivities = await getAllFavActivities(req.user.id);
-  if (allFavActivities.length === 0) {
-    return res.status(404).json({ error: "Not Found!" });
-  } else {
-    res.status(200).json(allFavActivities);
-  }
-});
-
 activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();
   console.log(allActivities);
@@ -34,6 +25,15 @@ activity.get("/", async (req, res) => {
     return res.status(404).json({ error: "Not Found!" });
   } else {
     res.status(200).json(allActivities);
+  }
+});
+
+activity.get("/favorites", requiresLogin, async (req, res) => {
+  const allFavActivities = await getAllFavActivities(req.user.id);
+  if (allFavActivities.length === 0) {
+    return res.status(404).json({ error: "Not Found!" });
+  } else {
+    res.status(200).json(allFavActivities);
   }
 });
 

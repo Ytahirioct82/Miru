@@ -1,21 +1,20 @@
 import { useState, useEffect, React } from "react";
-import { instance } from "../../helpers/api";
+import { useNavigate } from "react-router-dom";
 import ActivityCard from "../ActivityCard";
 
 function Favorites(props) {
-  const API = process.env.REACT_APP_API_URL;
   const [favorites, setFavorites] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
-    instance
-      .get(`${API}/activity/favorites`)
-      .then((response) => {
-        console.log(response.data);
-        setFavorites(response.data);
-      })
-      .catch((error) => console.warn("catch", error));
-  }, [API]);
-
-  props.favorite(favorites);
+    if (props.isLoggedIn) {
+      console.log(props.isLoggedIn);
+      console.log(props.fav);
+      setFavorites(props.fav);
+    } else {
+      alert("Please log in to you account to access your favorites");
+      navigate("/activity/login");
+    }
+  }, []);
 
   const result = favorites.map((fav) => {
     return (
