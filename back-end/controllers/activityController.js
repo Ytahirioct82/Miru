@@ -61,7 +61,7 @@ activity.post("/:id/favorites", requiresLogin, async (req, res) => {
 });
 
 activity.post("/", async (req, res) => {
-  const user_id = req.user.id;
+  const userlisting_id = req.user.id;
   let {
     name,
     description,
@@ -73,7 +73,7 @@ activity.post("/", async (req, res) => {
     images,
   } = req.body;
   const post = await postActivity(
-    user_id,
+    userlisting_id,
     name,
     description,
     street_address,

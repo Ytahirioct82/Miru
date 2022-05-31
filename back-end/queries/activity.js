@@ -63,7 +63,7 @@ const postFavActivity = async (activity) => {
   }
 };
 const postActivity = async (
-  user_id,
+  userlisting_id,
   name,
   description,
   street_address,
@@ -74,9 +74,9 @@ const postActivity = async (
 ) => {
   try {
     const newActivity = await db.one(
-      "INSERT INTO activity (user_id, name, description, street_address, city, state, zip_code, category) VALUES ($1, $2, $3, $4, $5, $6, $7,$8) RETURNING *",
+      "INSERT INTO activity (userlisting_id, name, description, street_address, city, state, zip_code, category) VALUES ($1, $2, $3, $4, $5, $6, $7,$8) RETURNING *",
       [
-        user_id,
+        userlisting_id,
         name,
         description,
         street_address,
