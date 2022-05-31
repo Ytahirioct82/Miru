@@ -8,6 +8,7 @@ const {
   postFavActivity,
   editActivity,
 } = require("../queries/activity");
+const { addImages } = require("../queries/images");
 
 const requiresLogin = (req, res, next) => {
   if (req.user) return next();
@@ -15,12 +16,13 @@ const requiresLogin = (req, res, next) => {
   res.sendStatus(401);
 };
 
+const imagesController = require("./imageControllers");
 const commentsController = require("./commentControllers");
 activity.use("/:id/comments", commentsController);
+activity.use("/:id/images", imagesController);
 
 activity.get("/", async (req, res) => {
   const allActivities = await getAllActivities();
-  console.log(allActivities);
   if (allActivities.length === 0) {
     return res.status(404).json({ error: "Not Found!" });
   } else {
@@ -58,7 +60,30 @@ activity.post("/:id/favorites", requiresLogin, async (req, res) => {
 });
 
 activity.post("/", async (req, res) => {
-  const post = await postActivity(req.body);
+  const user_id = req.user.id;
+  let {
+    name,
+    description,
+    street_address,
+    city,
+    state,
+    zip_code,
+    category,
+    images,
+  } = req.body;
+  const post = await postActivity(
+    user_id,
+    name,
+    description,
+    street_address,
+    city,
+    state,
+    zip_code,
+    category
+  );
+  for (const eachImage of images) {
+    addImages(post.id, eachImage);
+  }
   if (post.id) {
     res.status(200).json(post);
   } else {
