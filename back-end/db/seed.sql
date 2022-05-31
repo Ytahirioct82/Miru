@@ -1,6 +1,6 @@
 \c miru_db;
 
-INSERT INTO activity (user_id,name,description,street_address,city,state,zip_code,category) VALUES
+INSERT INTO activity (userlisting_id,name,description,street_address,city,state,zip_code,category) VALUES
 (1,'XO World Project Sculpture','Consider checking out the XO World Project Sculpture located at the World Trade Center Campus. Designed by Daniel Anderson, the sculpture is a part of the “Share Love” movement to activate positivity, hope, and inclusiveness among people. The sculpture is made from 20,000 lbs of stainless steel and stands 12 ft. high by 24 ft. wide! It will be here for 2 years, so enjoy it while you can.','117 West St',' New York', 'NY', 10007,'Art'),
 (1,'Staten Island Ferry','Did you say free transportation in NYC?! I know, shocking right! I guess they had to make it up somewhere for charging us locals over $15 USD to cross into Staten Island over the Verrazano Bridge.Anyways, so why would you even want to take a ride on this ferry you ask? Well because it’s the closest you will get to the Statue of Liberty for free!While on the ferry, you can stand in the front and back of the boat while in motion to get a really nice view of the Statue of Liberty and that stunning NYC Skyline.','79 N 11th St', 'Brooklyn', 'NY',11249,'Sightseeing'),
 (1,'Little Island NYC','All the hype has been around the new New York City Public Park, Little Island! This is a really unique and free public park because it is actually built on 132 pillars, making it an artificial island. The park is 2.4 acres and is located at Pier 55 on the Hudson.','Pier 55 at Hudson River Park Hudson River Greenway','New York', 'NY', 10014,'Parks'),
@@ -33,7 +33,9 @@ INSERT INTO comments (activity_id,name,comment) VALUES
 (3, 'Sev','People watching is the best here and free!');
 
 INSERT INTO users (name,email,password) VALUES 
-('Younes Tahiri', 'ytahiri82@gmail.com', '$2b$10$eIZ/CGUjwHzbXeJBFtxUBeMG1duAglPNF/lzMKjfKSigDEJb..R.6');
+('Younes Tahiri', 'ytahiri82@gmail.com', '$2b$10$eIZ/CGUjwHzbXeJBFtxUBeMG1duAglPNF/lzMKjfKSigDEJb..R.6'),
+('simo moujami', 'simo@gmail.com', '$2b$10$K3QLTjcGBuJzeNN4k4zZRuaeiuP3rnSsQ6GJzrm3gjo.Y9Nui0kwO');
+
 
 
 INSERT INTO favorites (user_id,activity_id) VALUES 

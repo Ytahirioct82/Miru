@@ -32,10 +32,10 @@ activity.get("/", async (req, res) => {
 
 activity.get("/favorites", requiresLogin, async (req, res) => {
   const allFavActivities = await getAllFavActivities(req.user.id);
-  if (allFavActivities.length === 0) {
-    return res.status(404).json({ error: "Not Found!" });
-  } else {
+  if (allFavActivities) {
     res.status(200).json(allFavActivities);
+  } else {
+    return res.status(404).json({ error: "Favorites Not Found!" });
   }
 });
 
@@ -53,6 +53,7 @@ activity.post("/:id/favorites", requiresLogin, async (req, res) => {
   const activity_id = req.params.id;
   const post = await postFavActivity({ user_id, activity_id });
   if (post.id) {
+    console.log("addedFav", post);
     res.status(200).json(post);
   } else {
     res.status(404).json({ error: "Cannot Post!" });
@@ -91,7 +92,7 @@ activity.post("/", async (req, res) => {
   }
 });
 
-activity.put("/:id", async (req, res) => {
+activity.put("/:id", requiresLogin, async (req, res) => {
   const update = await editActivity(req.params.id, req.body);
   if (update.id) {
     res.status(200).json(update);
