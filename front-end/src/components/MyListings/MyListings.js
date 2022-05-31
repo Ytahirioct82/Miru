@@ -34,14 +34,20 @@ function MyListings() {
             navigate(`/activity/${post.id}/edit`);
           }}
         >
-          Edit listing
+          <i class="fas fa-pencil-alt"></i>
         </button>
         <ActivityCard activity={post} />
       </div>
     );
   });
 
-  const result = myPosts.length ? myPosts : <h3 className="message">You have not posted any listings</h3>;
+  const result = myPosts.length ? (
+    myPosts
+  ) : (
+    <div className="message">
+      <h3>You have not posted any listings</h3>
+    </div>
+  );
 
   return <div className="userContainer">{result}</div>;
 }
