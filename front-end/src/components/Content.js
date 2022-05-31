@@ -18,6 +18,7 @@ const Content = (props) => {
     instance
       .get(`${API}/activity/favorites`)
       .then((response) => {
+        console.log(response.data);
         setFavorites(response.data);
         props.funcFav(response.data);
       })
@@ -26,6 +27,7 @@ const Content = (props) => {
 
   const handleFav = (event) => {
     if (event.target.name === "notFav") {
+      console.log("clicked");
       instance
         .post(`${API}/activity/${event.target.id}/favorites`)
         .then(() => {

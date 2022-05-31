@@ -1,42 +1,52 @@
 .userListing {
   width: fit-content;
   margin: auto;
-  margin-top: 40px;
-  margin-bottom: 40px;
 }
 
 .userListing img {
-  width: 600px;
-  border-radius: 10px;
+  margin: 0px;
+  border-radius: 5px;
+  height: 130px;
 }
 
-.message {
+.userContainer h3 {
   margin: auto;
   width: 600px;
   border-radius: 100px;
   text-align: center;
   font-style: oblique;
   font-family: "Times New Roman", Times, serif;
-  color: black;
+  color: white;
   background-color: rgb(147, 182, 140);
   margin-top: 200px;
   font-size: xx-large;
 }
 
 .userListing button {
-  width: 600px;
-  border-radius: 10px;
+  border-radius: 100px;
   text-align: center;
   font-size: x-large;
   margin-top: 40px;
-  margin-bottom: 20px;
-}
-.userContainer h3 {
-  width: 600px;
-  border-radius: 10px;
-  text-align: center;
-  font-style: oblique;
-  font-family: "Times New Roman", Times, serif;
+  margin-bottom: 5px;
+  background-color: black;
   color: white;
-  background-color: rgb(147, 182, 140);
+  font-size: small;
+}
+
+.userContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-bottom: -60px;
+}
+
+.userContainer h2,
+p {
+  color: black;
+  font-size: medium;
+  margin-bottom: -10px;
+}
+
+.message {
+  margin-left: 290px;
+  width: 100%;
 }
