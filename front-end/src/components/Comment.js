@@ -1,15 +1,24 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit, onDeleteFn }) => {
+export const Comment = ({
+  comment,
+  edit,
+  onEditFn,
+  onCancelFn,
+  onEditSubmit,
+  onDeleteFn,
+}) => {
   const [editedComment, setEditedComment] = useState(comment);
   useEffect(() => {
     setEditedComment(comment);
   }, [comment]);
 
   const handleChange = (event) => {
-    console.log({ ...editedComment, [event.target.id]: event.target.value });
-    setEditedComment({ ...editedComment, [event.target.id]: event.target.value });
+    setEditedComment({
+      ...editedComment,
+      [event.target.id]: event.target.value,
+    });
   };
 
   //toggles between comment/buttons to user edit text input

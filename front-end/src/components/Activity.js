@@ -7,32 +7,37 @@ import ActivityImages from "./ActivityImages";
 
 function Activity() {
   const { id } = useParams();
-
+  const [newImages, setImages] = useState([]);
   const API = process.env.REACT_APP_API_URL;
-
   const [post, setPost] = useState([]);
+
   useEffect(() => {
+    handleLoad2();
+  }, [API, id]);
+
+  const handleLoad2 = () => {
+    console.log("running the 2nd");
+    console.log(newImages);
     instance
       .get(`${API}/activity/${id}`)
       .then((response) => {
         setPost(response.data);
       })
       .catch((error) => console.warn("catch", error));
-  }, [API, id]);
+  };
 
   return (
     <div>
       <section className="DetailPost">
         <div className="post">
           <h3>{post.name}</h3>
-          {/* <img className="post-picture" src={post.image} alt={post.name} width="300" height="300"></img> */}
-          <ActivityImages activityId={id} />
+          <ActivityImages activityId={id} newImages={newImages} />
           <p>{post.description}</p>
         </div>
         <div className="modify"></div>
         <h3>Comment Section</h3>
       </section>
-      <Comments />
+      <Comments setImages={setImages} handleLoad2={handleLoad2} />
     </div>
   );
 }
