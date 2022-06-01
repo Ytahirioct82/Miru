@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 const ActivityCard = ({ activity }) => {
-  const { id, name } = activity;
+  const { id, name, city } = activity;
 
   const API = process.env.REACT_APP_API_URL;
   const [image, setImage] = useState({});
@@ -24,14 +24,9 @@ const ActivityCard = ({ activity }) => {
   return (
     <div className="Post">
       <Link to={`/Activity/${id}`}>
-        <img
-          className="post-picture"
-          src={image.content}
-          alt={name}
-          width="300"
-          height="300"
-        ></img>
-        <h3>{name}</h3>
+        <img className="post-picture" src={image.content} alt={name} width="300" height="300"></img>
+        <h2>{name}</h2>
+        <p>{city}</p>
       </Link>
     </div>
   );

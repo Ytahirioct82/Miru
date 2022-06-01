@@ -30,9 +30,7 @@ function NewPost() {
   const handleSubmit = (event) => {
     event.preventDefault();
     id !== undefined
-      ? instance
-          .put(API + "/activity/" + id, post)
-          .then(() => navigate("/activity/" + id))
+      ? instance.put(API + "/activity/" + id, post).then(() => navigate("/activity/" + id))
       : instance.post(API + "/activity/", post).then(() => navigate(`/`));
   };
 
@@ -108,19 +106,15 @@ function NewPost() {
           </label>
           <textarea
             className="form-control form-control-sm count-chars"
-            maxLength={120}
-            data-max-chars={120}
+            maxLength={500}
+            data-max-chars={500}
             type="text"
             id="description"
             value={post.description || ""}
             onChange={handleTextChange}
             required
           />
-          {post.description ? (
-            <p
-              style={{ color: "red" }}
-            >{`${charRemaining} / ${120} characters remaining`}</p>
-          ) : null}
+          {post.description ? <p style={{ color: "red" }}>{`${charRemaining} / ${500} characters remaining`}</p> : null}
         </div>
 
         <div className="form-outline">
@@ -226,11 +220,7 @@ function NewPost() {
         <button type="submit" className="btn btn-secondary">
           Submit
         </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={cancelPost}
-        >
+        <button type="button" className="btn btn-secondary" onClick={cancelPost}>
           Cancel
         </button>
       </form>
