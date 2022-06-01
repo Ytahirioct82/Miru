@@ -9,14 +9,10 @@ function ActivityImages({ activityId, newImages }) {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    console.log(newImages);
     handleLoad();
-    // axios
-    //   .get(`${API}/activity/${activityId}/images`)
-    //   .then((response) => {
-    //     setImages(response.data);
-    //   })
-    //   .catch((error) => console.warn("catch".error));
+    if (newImages !== null || newImages !== []) {
+      handleLoad();
+    }
   }, [id, API, activityId, newImages]);
 
   const handleLoad = () => {

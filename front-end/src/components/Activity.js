@@ -12,19 +12,13 @@ function Activity() {
   const [post, setPost] = useState([]);
 
   useEffect(() => {
-    handleLoad2();
-  }, [API, id]);
-
-  const handleLoad2 = () => {
-    console.log("running the 2nd");
-    console.log(newImages);
     instance
       .get(`${API}/activity/${id}`)
       .then((response) => {
         setPost(response.data);
       })
       .catch((error) => console.warn("catch", error));
-  };
+  }, [API, id]);
 
   return (
     <div>
@@ -37,7 +31,7 @@ function Activity() {
         <div className="modify"></div>
         <h3>Comment Section</h3>
       </section>
-      <Comments setImages={setImages} handleLoad2={handleLoad2} />
+      <Comments setImages={setImages} />
     </div>
   );
 }
