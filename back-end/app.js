@@ -36,11 +36,13 @@ app.use(passport.session());
 const activityController = require("./controllers/activityController");
 const commentControllers = require("./controllers/commentControllers");
 const userController = require("./controllers/userController");
+const imageController = require("./controllers/imageControllers");
 
 // initialize(passport);
 app.use("/user", userController);
 app.use("/activity", activityController);
 app.use("/:id/comments", commentControllers);
+app.use("/:id/images", imageController);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to Miru");
