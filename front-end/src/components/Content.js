@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import { instance } from "../helpers/api";
 import ActivityCard from "./ActivityCard";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const API = process.env.REACT_APP_API_URL;
 
 const Content = (props) => {
@@ -40,6 +41,14 @@ const Content = (props) => {
         });
     } else {
       //delete from back end
+      instance
+        .delete(`${API}/activity/${event.target.id}/favorites`)
+        .then(() => {
+          load();
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
       //call load to render changes
     }
   };
@@ -49,7 +58,9 @@ const Content = (props) => {
       {props.activities?.map((activity) => {
         let isfavorites = false;
         if (favorites.length > 0) {
-          isfavorites = favorites.some((fav) => fav.activity_id === activity.id);
+          isfavorites = favorites.some(
+            (fav) => fav.activity_id === activity.id
+          );
         }
         return (
           <div key={activity.id} className={isfavorites ? "fav" : "notFav"}>
