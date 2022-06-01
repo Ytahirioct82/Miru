@@ -18,25 +18,38 @@ function UserRegistration() {
   };
 
   const onSubmit = (event) => {
-    event.preventDefault();
-    instance
-      .post(`${API}/user/registration`, userReg)
-      .then((response) => {
-        console.log(response);
-        if (response.data.id) {
-          navigate("/activity/login");
-        }
-      })
-      .catch((error) => {
-        console.warn(error);
-        alert(error.error);
-      });
+    const notFullName = userReg.name.split(" ").length !== 2;
+    const password = userReg.password.length < 8;
+    console.log(password);
+    if (notFullName) {
+      alert("Please enter first and last name");
+    }
+    if (password) {
+      alert("Password must be at least eight characters long");
+    }
 
-    setUserReg({
-      name: "",
-      email: "",
-      password: "",
-    });
+    if (!notFullName && !password) {
+      console.log("event");
+      event.preventDefault();
+      instance
+        .post(`${API}/user/registration`, userReg)
+        .then((response) => {
+          console.log(response);
+          if (response.data.id) {
+            navigate("/activity/login");
+          }
+        })
+        .catch((error) => {
+          console.warn(error);
+          alert(error.error);
+        });
+
+      setUserReg({
+        name: "",
+        email: "",
+        password: "",
+      });
+    }
   };
 
   // User Login input section
