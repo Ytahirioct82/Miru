@@ -28,6 +28,18 @@ const getAllFavActivities = async (id) => {
   }
 };
 
+const deleteFavActivities = async (id, users) => {
+  try {
+    const deleted = await db.one(
+      "DElETE FROM favorites WHERE favorites.activity_id=$1 AND favorites.user_id=$2 RETURNING *",
+      [id, users]
+    );
+    return deleted;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getAllUserActivities = async (id) => {
   try {
     const allUserActivities = await db.any(
@@ -62,6 +74,7 @@ const postFavActivity = async (activity) => {
     throw error;
   }
 };
+
 const postActivity = async (
   userlisting_id,
   name,
@@ -132,4 +145,5 @@ module.exports = {
   postActivity,
   editActivity,
   getAllUserActivities,
+  deleteFavActivities,
 };

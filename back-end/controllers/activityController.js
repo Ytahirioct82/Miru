@@ -7,6 +7,7 @@ const {
   postActivity,
   postFavActivity,
   editActivity,
+  deleteFavActivities,
 } = require("../queries/activity");
 const { addImages } = require("../queries/images");
 
@@ -57,6 +58,15 @@ activity.post("/:id/favorites", requiresLogin, async (req, res) => {
     res.status(200).json(post);
   } else {
     res.status(404).json({ error: "Cannot Post!" });
+  }
+});
+
+activity.delete("/:id/favorites", requiresLogin, async (req, res) => {
+  const deleteFav = await deleteFavActivities(req.params.id, req.user.id);
+  if (deleteFav.id) {
+    res.status(200).json(deleteFav);
+  } else {
+    res.status(404).json({ error: "Cannot delete!" });
   }
 });
 
