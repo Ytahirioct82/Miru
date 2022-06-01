@@ -1,33 +1,64 @@
 const express = require("express");
 const userLogin = express.Router({ mergeParams: true });
-const { postNewUser, initialize } = require("../queries/user");
+const { postNewUser } = require("../queries/user");
+const { getAllUserActivities } = require("../queries/activity");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-// const db = require("../db/dbConfig");
+
+const requiresLogin = (req, res, next) => {
+  if (req.user) return next();
+
+  res.sendStatus(401);
+};
+
+userLogin.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.status(200).json({ message: "Logout successful" });
+  });
+});
 
 userLogin.post("/registration", async (req, res) => {
-  const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  const newUser = {
-    name: req.body.name,
-    email: req.body.email,
-    password: hashedPassword,
-  };
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const newUser = {
+      name: req.body.name,
+      email: req.body.email,
+      password: hashedPassword,
+    };
 
-  const addUser = await postNewUser(newUser);
-  if (addUser) {
-    res.status(200).json(addUser);
-  } else {
-    res.status(400).json({ error: "User with this email already exist" });
+    const addUser = await postNewUser(newUser);
+
+    if (addUser) {
+      delete addUser.password;
+      res.status(200).json(addUser);
+    } else {
+      res.status(400).json({ error: "User with this email already exist" });
+    }
+  } catch (err) {
+    res.status(err.status || 500).json({ error: err.message });
   }
 });
 
-userLogin.post("/login/username/password", passport.authenticate("local"), (req, res) => {
+userLogin.post("/login", passport.authenticate("local"), (req, res) => {
   const foundUser = req.user;
-  console.log("login", req.user);
+
   if (foundUser) {
     res.status(200).json(foundUser);
   } else {
     res.status(400).json({ error: "Entered wrong username or password" });
+  }
+});
+
+userLogin.get("/listings", requiresLogin, async (req, res) => {
+  const userActivities = await getAllUserActivities(req.user.id);
+
+  if (userActivities) {
+    return res.status(200).json(userActivities);
+  } else {
+    return res.status(404).json({ error: "Not Found!" });
   }
 });
 

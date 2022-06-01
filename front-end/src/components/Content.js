@@ -1,17 +1,81 @@
-import React from 'react'
-import ActivityCard from './ActivityCard'
+import { React, useState, useEffect } from "react";
+import { instance } from "../helpers/api";
+import ActivityCard from "./ActivityCard";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+const API = process.env.REACT_APP_API_URL;
 
-const Content = ({activity}) => {
+const Content = (props) => {
+  const [favorites, setFavorites] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.isLogged) {
+      load();
+    }
+  }, []);
+
+  const load = () => {
+    instance
+      .get(`${API}/activity/favorites`)
+      .then((response) => {
+        console.log(response.data);
+        setFavorites(response.data);
+        props.funcFav(response.data);
+      })
+      .catch((error) => console.warn("catch", error));
+  };
+
+  const handleFav = (event) => {
+    if (event.target.name === "notFav") {
+      console.log("clicked");
+      instance
+        .post(`${API}/activity/${event.target.id}/favorites`)
+        .then(() => {
+          load();
+        })
+        .catch((error) => {
+          console.warn(error);
+          alert("Please log in to you account to add favorites");
+          navigate("/activity/login");
+        });
+    } else {
+      //delete from back end
+      instance
+        .delete(`${API}/activity/${event.target.id}/favorites`)
+        .then(() => {
+          load();
+        })
+        .catch((error) => {
+          console.warn(error);
+        });
+      //call load to render changes
+    }
+  };
+
   return (
     <>
-        {activity?.map((activity) => (
-            <div  key={activity.id}>
-              <ActivityCard activity={activity} />
-            </div>
-          ))}
-        
+      {props.activities?.map((activity) => {
+        let isfavorites = false;
+        if (favorites.length > 0) {
+          isfavorites = favorites.some(
+            (fav) => fav.activity_id === activity.id
+          );
+        }
+        return (
+          <div key={activity.id} className={isfavorites ? "fav" : "notFav"}>
+            <button
+              className="fa fa-heart"
+              id={activity.id}
+              name={isfavorites ? "fav" : "notFav"}
+              onClick={handleFav}
+            ></button>
+            <ActivityCard activity={activity} />
+          </div>
+        );
+      })}
     </>
-  )
-}
+  );
+};
 
-export default Content
+export default Content;

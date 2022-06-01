@@ -1,7 +1,7 @@
-import axios from "axios";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { instance } from "../helpers/api";
 import "./NewPost.css";
 
 const API = process.env.REACT_APP_API_URL;
@@ -15,7 +15,7 @@ function NewPost() {
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const postData = await axios.get(API + "/activity/" + id);
+        const postData = await instance.get(API + "/activity/" + id);
         setPost(postData.data);
       }
     };
@@ -30,30 +30,28 @@ function NewPost() {
   const handleSubmit = (event) => {
     event.preventDefault();
     id !== undefined
-      ? axios
-          .put(API + "/activity/" + id, post)
-          .then(() => navigate("/activity/" + id))
-      : axios.post(API + "/activity/", post).then(() => navigate(`/`));
+      ? instance.put(API + "/activity/" + id, post).then(() => navigate("/activity/" + id))
+      : instance.post(API + "/activity/", post).then(() => navigate(`/`));
   };
 
-  const getBase64 = (file) => {
+  const getBase64Update = (file) => {
     return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (_) => resolve(reader.result);
+      reader.onerror = (e) => reject(e);
     });
   };
 
-  const handleFileSelection = async (event) => {
-    let file = event.target.files[0];
-    let result = await getBase64(file);
-    console.log(result);
-    setPost({ ...post, image: result });
+  const onchange = (event) => {
+    let files = Array.from(event.target.files);
+    files = files.map(async (file) => ({
+      content: await getBase64Update(file),
+      fileName: file.name,
+      contentType: file.type,
+      length: file.size,
+    }));
+    Promise.all(files).then((result) => setPost({ ...post, images: result }));
   };
 
   const cancelPost = () => {
@@ -108,19 +106,15 @@ function NewPost() {
           </label>
           <textarea
             className="form-control form-control-sm count-chars"
-            maxLength={120}
-            data-max-chars={120}
+            maxLength={500}
+            data-max-chars={500}
             type="text"
             id="description"
             value={post.description || ""}
             onChange={handleTextChange}
             required
           />
-          {post.description ? (
-            <p
-              style={{ color: "red" }}
-            >{`${charRemaining} / ${120} characters remaining`}</p>
-          ) : null}
+          {post.description ? <p style={{ color: "red" }}>{`${charRemaining} / ${500} characters remaining`}</p> : null}
         </div>
 
         <div className="form-outline">
@@ -212,10 +206,11 @@ function NewPost() {
               Image :{" "}
             </label>
             <input
+              multiple
               className="form-control form-control-sm"
               type="file"
               id="image"
-              onChange={handleFileSelection}
+              onChange={onchange}
               required
             />
           </div>
@@ -225,11 +220,7 @@ function NewPost() {
         <button type="submit" className="btn btn-secondary">
           Submit
         </button>
-        <button
-          type="button"
-          className="btn btn-secondary"
-          onClick={cancelPost}
-        >
+        <button type="button" className="btn btn-secondary" onClick={cancelPost}>
           Cancel
         </button>
       </form>
