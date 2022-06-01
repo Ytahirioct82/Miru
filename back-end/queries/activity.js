@@ -28,11 +28,11 @@ const getAllFavActivities = async (id) => {
   }
 };
 
-const deleteFavActivities = async (id) => {
+const deleteFavActivities = async (id, users) => {
   try {
     const deleted = await db.one(
-      "DElETE FROM favorites WHERE id=$1 RETURNING *",
-      id
+      "DElETE FROM favorites WHERE favorites.activity_id=$1 AND favorites.user_id=$2 RETURNING *",
+      [id, users]
     );
     return deleted;
   } catch (error) {

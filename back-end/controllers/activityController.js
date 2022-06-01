@@ -60,7 +60,7 @@ activity.post("/:id/favorites", requiresLogin, async (req, res) => {
 });
 
 activity.delete("/:id/favorites", requiresLogin, async (req, res) => {
-  const deleteFav = await deleteFavActivities(req.params.id);
+  const deleteFav = await deleteFavActivities(req.params.id, req.user.id);
   if (deleteFav.id) {
     res.status(200).json(deleteFav);
   } else {
