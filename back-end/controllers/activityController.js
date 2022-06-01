@@ -103,7 +103,22 @@ activity.post("/", async (req, res) => {
 });
 
 activity.put("/:id", requiresLogin, async (req, res) => {
-  const update = await editActivity(req.params.id, req.body);
+  const userlisting_id = req.user.id;
+  let { name, description, street_address, city, state, zip_code, category } =
+    req.body;
+
+  const update = await editActivity(
+    req.params.id,
+    userlisting_id,
+    name,
+    description,
+    street_address,
+    city,
+    state,
+    zip_code,
+    category
+  );
+  console.log(update);
   if (update.id) {
     res.status(200).json(update);
   } else {
