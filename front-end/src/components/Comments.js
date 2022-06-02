@@ -41,6 +41,12 @@ function Comments({ setImages }) {
       .post(`${API}/activity/${id}/comments`, comment)
       .then((response) => {
         handleLoad();
+        setComment({
+          name: "",
+          comment: "",
+        });
+        //need to pass onload to AvtivityImages to rload page
+        // onLoad("passing");
       })
       .catch((error) => console.warn(error));
     setComment({
@@ -51,16 +57,15 @@ function Comments({ setImages }) {
 
   // submits edited comment to backend
   const handleEditSubmit = (comment) => {
-    instance
-      .put(`${API}/activity/${id}/comments/${editedCommentId}`, comment)
-      .then((response) => {
-        if (response.data.id) {
-          setEditedCommentId(null);
-          handleLoad();
-        } else {
-          alert("must include input");
-        }
-      });
+    instance.put(`${API}/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
+      if (response.data.id) {
+        setEditedCommentId(null);
+        handleLoad();
+        //pass load to
+      } else {
+        alert("must include input");
+      }
+    });
   };
 
   // delete comment
@@ -100,9 +105,10 @@ function Comments({ setImages }) {
       contentType: file.type,
       length: file.size,
     }));
-    Promise.all(files).then((result) =>
-      setComment({ ...comment, images: result }, setImages(result))
-    );
+    Promise.all(files).then((result) => {
+      console.log("comment images", result);
+      setComment({ ...comment, images: result }, setImages(result));
+    });
   };
 
   // returns a all comments

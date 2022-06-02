@@ -37,7 +37,7 @@ function Activity() {
         <div className="modify"></div>
         <h3>Comment Section</h3>
       </section>
-      <Comments setImages={setImages} handleLoad2={handleLoad2} />
+      <Comments setImages={setImages} />
     </div>
   );
 }
