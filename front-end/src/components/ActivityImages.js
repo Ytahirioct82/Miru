@@ -9,17 +9,27 @@ function ActivityImages({ activityId, newImages }) {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
+    handleLoad();
+    if (newImages !== null || newImages !== []) {
+      handleLoad();
+    }
+  }, [id, API, activityId, newImages]);
+
+  const handleLoad = () => {
     axios
       .get(`${API}/activity/${activityId}/images`)
       .then((response) => {
         setImages([...response.data, ...newImages]);
       })
       .catch((error) => console.warn("catch".error));
+
   }, [id, API, activityId, newImages]);
+
 
   const allImages = images.map((eachImage) => {
     return {
       content: `${eachImage.content}`,
+
     };
   });
 

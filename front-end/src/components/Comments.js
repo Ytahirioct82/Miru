@@ -13,6 +13,7 @@ function Comments({ setImages }) {
   const [comment, setComment] = useState({
     name: "",
     comment: "",
+    images: null,
   });
 
   // fetching all comments
@@ -40,6 +41,7 @@ function Comments({ setImages }) {
     instance
       .post(`${API}/activity/${id}/comments`, comment)
       .then((response) => {
+        setImages(comment.images);
         handleLoad();
         setComment({
           name: "",
@@ -52,6 +54,7 @@ function Comments({ setImages }) {
     setComment({
       name: "",
       comment: "",
+      images: null,
     });
   };
 
@@ -105,6 +108,7 @@ function Comments({ setImages }) {
       contentType: file.type,
       length: file.size,
     }));
+
     Promise.all(files).then((result) => {
       console.log("comment images", result);
       setComment({ ...comment, images: result }, setImages(result));
