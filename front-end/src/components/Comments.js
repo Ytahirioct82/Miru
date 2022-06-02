@@ -136,6 +136,7 @@ function Comments({ setImages }) {
             placeholder="User Name"
             required
           />
+          <br />
 
           <label htmlFor="Comment">Comment:</label>
           <input

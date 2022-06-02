@@ -10,6 +10,7 @@ export const Comment = ({
   onDeleteFn,
 }) => {
   const [editedComment, setEditedComment] = useState(comment);
+
   useEffect(() => {
     setEditedComment(comment);
   }, [comment]);
@@ -44,6 +45,7 @@ export const Comment = ({
     <div className="Comment" key={comment.id}>
       {edit}
       <b>{comment.name}</b>
+      <br />
       {!edit && (
         <div>
           <p>{comment.comment}</p>

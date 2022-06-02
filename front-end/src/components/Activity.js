@@ -25,13 +25,16 @@ function Activity() {
       <section className="DetailPost">
         <div className="post">
           <h3>{post.name}</h3>
-          <ActivityImages activityId={id} newImages={newImages} />
+          <div className="Images">
+            <ActivityImages activityId={id} newImages={newImages} />
+          </div>
           <p>{post.description}</p>
         </div>
-        <div className="modify"></div>
-        <h3>Comment Section</h3>
+        <div className="Comments aside">
+          <h3>Comment Section</h3>
+          <Comments setImages={setImages} />
+        </div>
       </section>
-      <Comments setImages={setImages} />
     </div>
   );
 }

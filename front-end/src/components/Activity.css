@@ -1,6 +1,14 @@
+.DetailPost {
+  display:grid;
+  /* margin:0% 20%;  */
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
+}
+
+
 .DetailPost .post {
+  grid-column: 1/7;
   color: black;
-  text-align: center;
+  text-align: left;
   margin-top: 5%;
   margin-bottom: 1%;
   font-family: cursive;
@@ -8,26 +16,25 @@
 
 .DetailPost div p {
   margin: auto;
-  text-align: center;
-  width: 21%;
+  text-align: left;
+  width: 60%;
   margin-top: 2%;
 }
 
-.modify {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-bottom: 5%;
-}
-.modify button {
-  color: rgb(255, 213, 58);
-  background-color: rgb(33, 37, 41);
-  margin: auto;
-  width: 200px;
-  border-radius: 5px;
-}
-
-.DetailPost .post-picture {
+.DetailPost .Images {
   margin: auto;
   border-radius: 50%;
   margin-top: 2%;
+  width: 60%;
+
+}
+
+
+.aside { 
+  margin-top: 7px;
+  overflow: scroll;
+  height: 800px;
+  font-size: medium; 
+  border: black;
+  
 }

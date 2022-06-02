@@ -26,21 +26,21 @@ const ImageSlider = ({ slides }) => {
 
   return (
     <section className="slider">
-      {slides.length >= 2 ? arrow : null}
       {slides.map((slide, index) => {
         return (
           <div
             className={index === current ? "slide active" : "slide"}
             key={index}
             width="800"
-            height="600"
+            height="800"
           >
             {index === current && (
-              <img src={slide.content} alt="travel image" className="image" />
+              <img src={slide.content} alt="travel image" />
             )}
           </div>
         );
       })}
+      {slides.length >= 2 ? arrow : null}
     </section>
   );
 };
