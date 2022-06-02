@@ -105,22 +105,23 @@ const postActivity = async (
   }
 };
 
-const editActivity = async (id, activity) => {
-  const {
-    name,
-    description,
-    street_address,
-    city,
-    state,
-    zip_code,
-    category,
-    image,
-  } = activity;
+const editActivity = async (
+  activity_id,
+  userlisting_id,
+  name,
+  description,
+  street_address,
+  city,
+  state,
+  zip_code,
+  category
+) => {
   try {
     const edit = await db.one(
-      "UPDATE activity SET name=$2, description=$3, street_address=$4, city=$5, state=$6, zip_code=$7, category=$8, image=$9 WHERE id=$1 RETURNING *",
+      "UPDATE activity SET userlisting_id=$2, name=$3, description=$4, street_address=$5, city=$6, state=$7, zip_code=$8, category=$9 WHERE id=$1 RETURNING *",
       [
-        id,
+        activity_id,
+        userlisting_id,
         name,
         description,
         street_address,
@@ -128,7 +129,6 @@ const editActivity = async (id, activity) => {
         state,
         zip_code,
         category,
-        image,
       ]
     );
     return edit;
