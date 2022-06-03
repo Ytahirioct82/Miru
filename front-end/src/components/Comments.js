@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { instance } from "../helpers/api";
 import { Comment } from "./Comment";
 
-function Comments({ setImages }) {
+function Comments() {
   const { id } = useParams();
 
   const API = process.env.REACT_APP_API_URL;
@@ -11,9 +11,9 @@ function Comments({ setImages }) {
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
   const [comment, setComment] = useState({
+    // activity_id: `${id}`,
     name: "",
     comment: "",
-    images: null,
   });
 
   // fetching all comments
@@ -27,6 +27,7 @@ function Comments({ setImages }) {
       .then((response) => {
         setComments(response.data);
       })
+
       .catch((error) => console.warn(error));
   };
 
@@ -41,29 +42,26 @@ function Comments({ setImages }) {
     instance
       .post(`${API}/activity/${id}/comments`, comment)
       .then((response) => {
-        setImages(comment.images);
         handleLoad();
       })
       .catch((error) => console.warn(error));
+
     setComment({
       name: "",
       comment: "",
-      images: null,
     });
   };
 
   // submits edited comment to backend
   const handleEditSubmit = (comment) => {
-    instance
-      .put(`${API}/activity/${id}/comments/${editedCommentId}`, comment)
-      .then((response) => {
-        if (response.data.id) {
-          setEditedCommentId(null);
-          handleLoad();
-        } else {
-          alert("must include input");
-        }
-      });
+    instance.put(`${API}/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
+      if (response.data.id) {
+        setEditedCommentId(null);
+        handleLoad();
+      } else {
+        alert("must include input");
+      }
+    });
   };
 
   // delete comment
@@ -84,28 +82,6 @@ function Comments({ setImages }) {
 
   const handleCancelCommentEdit = (comment) => {
     setEditedCommentId(null);
-  };
-
-  const getBase64Update = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (_) => resolve(reader.result);
-      reader.onerror = (e) => reject(e);
-    });
-  };
-
-  const onchange = (event) => {
-    let files = Array.from(event.target.files);
-    files = files.map(async (file) => ({
-      content: await getBase64Update(file),
-      fileName: file.name,
-      contentType: file.type,
-      length: file.size,
-    }));
-    Promise.all(files).then((result) =>
-      setComment({ ...comment, images: result })
-    );
   };
 
   // returns a all comments
@@ -146,15 +122,6 @@ function Comments({ setImages }) {
             placeholder="Comment..."
             required
           />
-
-          <div className="form-outline">
-            <label className="form-label" htmlFor="image">
-              {" "}
-              Image :{" "}
-            </label>
-            <input multiple type="file" id="image" onChange={onchange} />
-          </div>
-
           <button type="submit">Submit</button>
         </form>
       </div>
