@@ -54,7 +54,6 @@ activity.post("/:id/favorites", requiresLogin, async (req, res) => {
   const activity_id = req.params.id;
   const post = await postFavActivity({ user_id, activity_id });
   if (post.id) {
-    console.log("addedFav", post);
     res.status(200).json(post);
   } else {
     res.status(404).json({ error: "Cannot Post!" });
@@ -70,28 +69,10 @@ activity.delete("/:id/favorites", requiresLogin, async (req, res) => {
   }
 });
 
-activity.post("/", async (req, res) => {
+activity.post("/", requiresLogin, async (req, res) => {
   const userlisting_id = req.user.id;
-  let {
-    name,
-    description,
-    street_address,
-    city,
-    state,
-    zip_code,
-    category,
-    images,
-  } = req.body;
-  const post = await postActivity(
-    userlisting_id,
-    name,
-    description,
-    street_address,
-    city,
-    state,
-    zip_code,
-    category
-  );
+  let { name, description, street_address, city, state, zip_code, category, images } = req.body;
+  const post = await postActivity(userlisting_id, name, description, street_address, city, state, zip_code, category);
   for (const eachImage of images) {
     addImages(post.id, eachImage);
   }
@@ -104,8 +85,7 @@ activity.post("/", async (req, res) => {
 
 activity.put("/:id", requiresLogin, async (req, res) => {
   const userlisting_id = req.user.id;
-  let { name, description, street_address, city, state, zip_code, category } =
-    req.body;
+  let { name, description, street_address, city, state, zip_code, category } = req.body;
 
   const update = await editActivity(
     req.params.id,
@@ -118,7 +98,7 @@ activity.put("/:id", requiresLogin, async (req, res) => {
     zip_code,
     category
   );
-  console.log(update);
+
   if (update.id) {
     res.status(200).json(update);
   } else {

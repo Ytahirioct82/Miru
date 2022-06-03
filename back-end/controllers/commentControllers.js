@@ -1,6 +1,7 @@
 const express = require("express");
 
 const { getActivityComments, addComment, updateComment, deleteComment } = require("../queries/comments");
+const { addImages } = require("../queries/images");
 
 const comments = express.Router({ mergeParams: true });
 
@@ -10,8 +11,16 @@ comments.get("/", async (req, res) => {
 });
 
 comments.post("/", async (req, res) => {
+  let { name, comment, images } = req.body;
+
   const activity_id = req.params.id;
-  const addedComments = await addComment({ ...req.body, activity_id });
+  const addedComments = await addComment(name, comment, activity_id);
+
+  if (images) {
+    for (const eachImage of images) {
+      addImages(activity_id, eachImage);
+    }
+  }
   res.status(200).json(addedComments);
 });
 
