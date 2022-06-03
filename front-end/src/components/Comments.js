@@ -140,7 +140,7 @@ function Comments({ setImages }) {
           <label htmlFor="Comment">Comment:</label>
           <input
             id="comment"
-            value={comment.context}
+            value={comment.comment}
             type="textarea"
             onChange={handleTextChange}
             placeholder="Comment..."
