@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { instance } from "../helpers/api";
 import { Comment } from "./Comment";
 
-function Comments({ setImages }) {
+function Comments() {
   const { id } = useParams();
 
   const API = process.env.REACT_APP_API_URL;
@@ -11,6 +11,7 @@ function Comments({ setImages }) {
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
   const [comment, setComment] = useState({
+    // activity_id: `${id}`,
     name: "",
     comment: "",
   });
@@ -26,6 +27,7 @@ function Comments({ setImages }) {
       .then((response) => {
         setComments(response.data);
       })
+
       .catch((error) => console.warn(error));
   };
 
@@ -61,7 +63,6 @@ function Comments({ setImages }) {
       if (response.data.id) {
         setEditedCommentId(null);
         handleLoad();
-        //pass load to
       } else {
         alert("must include input");
       }

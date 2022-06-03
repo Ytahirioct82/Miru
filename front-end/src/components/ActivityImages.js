@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ImageSlider from "./ImageSlider";
 
-function ActivityImages({ activityId, newImages }) {
+function ActivityImages({ activityId }) {
   const { id } = useParams();
   const API = process.env.REACT_APP_API_URL;
   const [images, setImages] = useState([]);
@@ -12,22 +11,25 @@ function ActivityImages({ activityId, newImages }) {
     axios
       .get(`${API}/activity/${activityId}/images`)
       .then((response) => {
-        setImages([...response.data, ...newImages]);
+        setImages(response.data);
       })
       .catch((error) => console.warn("catch".error));
-  }, [id, API, activityId, newImages]);
+  }, [id, API, activityId]);
 
   const allImages = images.map((eachImage) => {
-    return {
-      content: `${eachImage.content}`,
-    };
+    return (
+      <div key={eachImage.id}>
+        <img
+          src={eachImage.content}
+          alt={eachImage.filename}
+          width="300"
+          height="300"
+        />
+      </div>
+    );
   });
 
-  return (
-    <div className="slideshow-container">
-      <ImageSlider slides={allImages} />
-    </div>
-  );
+  return <div>{allImages}</div>;
 }
 
 export default ActivityImages;
