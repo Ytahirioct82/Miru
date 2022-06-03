@@ -2,22 +2,21 @@ const db = require("../db/dbConfig");
 
 const getActivityComments = async (id) => {
   try {
-    const comments = await db.any(
-      "SELECT * FROM comments WHERE activity_id = $1",
-      id
-    );
+    const comments = await db.any("SELECT * FROM comments WHERE activity_id = $1", id);
     return comments;
   } catch (error) {
     throw error;
   }
 };
 
-const addComment = async (name, comment, activity_id) => {
+const addComment = async (comments) => {
+  const { activity_id, name, comment } = comments;
   try {
-    addedComment = db.any(
-      "INSERT INTO comments (name, comment, activity_id) VALUES ($1,$2,$3) RETURNING *",
-      [name, comment, activity_id]
-    );
+    addedComment = db.any("INSERT INTO comments (activity_id,name,comment) VALUES ($1,$2,$3) RETURNING *", [
+      activity_id,
+      name,
+      comment,
+    ]);
     return addedComment;
   } catch (error) {
     throw error;
@@ -39,10 +38,7 @@ const updateComment = async (id, comments) => {
 
 const deleteComment = async (id) => {
   try {
-    const comment = await db.one(
-      "DELETE FROM comments WHERE id=$1 RETURNING *",
-      id
-    );
+    const comment = await db.one("DELETE FROM comments WHERE id=$1 RETURNING *", id);
     return comment;
   } catch (error) {
     throw error;

@@ -1,12 +1,6 @@
 const express = require("express");
 
-const {
-  getActivityComments,
-  addComment,
-  updateComment,
-  deleteComment,
-} = require("../queries/comments");
-const { addImages } = require("../queries/images");
+const { getActivityComments, addComment, updateComment, deleteComment } = require("../queries/comments");
 
 const comments = express.Router({ mergeParams: true });
 
@@ -16,19 +10,8 @@ comments.get("/", async (req, res) => {
 });
 
 comments.post("/", async (req, res) => {
-  let { name, comment, images } = req.body;
-
-  // const userlisting_id = req.user.id;
-  // console.log(req.body);
-  // console.log(userlisting_id);
   const activity_id = req.params.id;
-  const addedComments = await addComment(name, comment, activity_id);
-
-  if (images) {
-    for (const eachImage of images) {
-      addImages(activity_id, eachImage);
-    }
-  }
+  const addedComments = await addComment({ ...req.body, activity_id });
   res.status(200).json(addedComments);
 });
 
@@ -42,9 +25,7 @@ comments.delete("/:id", async (req, res) => {
   if (comment) {
     res.status(200).json(comment);
   } else {
-    res
-      .status(404)
-      .json({ error: `review with id of ${id} could not be deleted` });
+    res.status(404).json({ error: `review with id of ${id} could not be deleted` });
   }
 });
 module.exports = comments;
