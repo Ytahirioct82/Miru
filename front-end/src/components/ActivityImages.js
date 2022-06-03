@@ -19,17 +19,22 @@ function ActivityImages({ activityId, newImages }) {
     axios
       .get(`${API}/activity/${activityId}/images`)
       .then((response) => {
-        setImages([...response.data, ...newImages]);
+        setImages(response.data);
       })
       .catch((error) => console.warn("catch".error));
-
-  }, [id, API, activityId, newImages]);
-
+  };
 
   const allImages = images.map((eachImage) => {
     return {
       content: `${eachImage.content}`,
-
+      // <div key={eachImage.id} className="mySlides fade" >
+      //   <img
+      //     src={eachImage.content}
+      //     alt={eachImage.filename}
+      //     width="800"
+      //     height="600"
+      //   />
+      // </div>
     };
   });
 
