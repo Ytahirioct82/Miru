@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
+import "./Activity.css";
 
 const ImageSlider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
-  console.log(slides.length);
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
@@ -30,15 +30,8 @@ const ImageSlider = ({ slides }) => {
       {slides.length >= 2 ? arrow : null}
       {slides.map((slide, index) => {
         return (
-          <div
-            className={index === current ? "slide active" : "slide"}
-            key={index}
-            width="800"
-            height="600"
-          >
-            {index === current && (
-              <img src={slide.content} alt="travel image" className="image" />
-            )}
+          <div className={index === current ? "slide active" : "slide"} key={index} width="800" height="600">
+            {index === current && <img src={slide.content} alt="travel image" className="image" />}
           </div>
         );
       })}

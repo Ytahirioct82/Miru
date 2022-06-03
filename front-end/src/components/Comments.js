@@ -7,7 +7,7 @@ function Comments({ setImages }) {
   const { id } = useParams();
 
   const API = process.env.REACT_APP_API_URL;
-
+  const [allImages, setAllImages] = useState([]);
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
   const [comment, setComment] = useState({
@@ -40,13 +40,13 @@ function Comments({ setImages }) {
     instance
       .post(`${API}/activity/${id}/comments`, comment)
       .then((response) => {
-        handleLoad();
+        setImages(allImages);
+        setAllImages([]);
         setComment({
           name: "",
           comment: "",
         });
-        //need to pass onload to AvtivityImages to rload page
-        // onLoad("passing");
+        handleLoad();
       })
       .catch((error) => console.warn(error));
     setComment({
@@ -106,8 +106,7 @@ function Comments({ setImages }) {
       length: file.size,
     }));
     Promise.all(files).then((result) => {
-      console.log("comment images", result);
-      setComment({ ...comment, images: result }, setImages(result));
+      setComment({ ...comment, images: result }, setAllImages(result));
     });
   };
 
@@ -153,7 +152,7 @@ function Comments({ setImages }) {
           <div className="form-outline">
             <label className="form-label" htmlFor="image">
               {" "}
-              Image :{" "}
+              Image:
             </label>
             <input multiple type="file" id="image" onChange={onchange} />
           </div>

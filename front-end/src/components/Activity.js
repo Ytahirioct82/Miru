@@ -16,8 +16,6 @@ function Activity() {
   }, [API, id]);
 
   const handleLoad2 = () => {
-    console.log("running the 2nd");
-    console.log(newImages);
     instance
       .get(`${API}/activity/${id}`)
       .then((response) => {

@@ -19,8 +19,6 @@ const ActivityCard = ({ activity }) => {
       .catch((error) => console.warn("catch".error));
   }, [id, API, activity.id]);
 
-  console.log(image);
-
   return (
     <div className="Post">
       <Link to={`/Activity/${id}`}>
