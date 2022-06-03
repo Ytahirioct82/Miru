@@ -8,7 +8,6 @@ export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit, onD
   }, [comment]);
 
   const handleChange = (event) => {
-    console.log({ ...editedComment, [event.target.id]: event.target.value });
     setEditedComment({ ...editedComment, [event.target.id]: event.target.value });
   };
 

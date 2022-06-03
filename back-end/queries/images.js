@@ -11,10 +11,7 @@ const getAllImages = async () => {
 
 const getActivityImages = async (id) => {
   try {
-    const images = await db.any(
-      "SELECT * FROM images WHERE activity_id=$1",
-      id
-    );
+    const images = await db.any("SELECT * FROM images WHERE activity_id=$1", id);
     return images;
   } catch (error) {
     return error;
@@ -24,10 +21,7 @@ const getActivityImages = async (id) => {
 //may not need this
 const getOneActivityImage = async (id) => {
   try {
-    const image = await db.any(
-      "SELECT * FROM images WHERE activity_id=$1 LIMIT 1",
-      id
-    );
+    const image = await db.any("SELECT * FROM images WHERE activity_id=$1 LIMIT 1", id);
     return image;
   } catch (error) {
     return error;

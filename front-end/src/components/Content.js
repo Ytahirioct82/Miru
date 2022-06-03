@@ -19,7 +19,6 @@ const Content = (props) => {
     instance
       .get(`${API}/activity/favorites`)
       .then((response) => {
-        console.log(response.data);
         setFavorites(response.data);
         props.funcFav(response.data);
       })
@@ -28,7 +27,6 @@ const Content = (props) => {
 
   const handleFav = (event) => {
     if (event.target.name === "notFav") {
-      console.log("clicked");
       instance
         .post(`${API}/activity/${event.target.id}/favorites`)
         .then(() => {
@@ -58,9 +56,7 @@ const Content = (props) => {
       {props.activities?.map((activity) => {
         let isfavorites = false;
         if (favorites.length > 0) {
-          isfavorites = favorites.some(
-            (fav) => fav.activity_id === activity.id
-          );
+          isfavorites = favorites.some((fav) => fav.activity_id === activity.id);
         }
         return (
           <div key={activity.id} className={isfavorites ? "fav" : "notFav"}>

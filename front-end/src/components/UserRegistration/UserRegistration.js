@@ -20,7 +20,7 @@ function UserRegistration() {
   const onSubmit = (event) => {
     const notFullName = userReg.name.split(" ").length !== 2;
     const password = userReg.password.length < 8;
-    console.log(password);
+
     if (notFullName) {
       alert("Please enter first and last name");
     }
@@ -29,12 +29,10 @@ function UserRegistration() {
     }
 
     if (!notFullName && !password) {
-      console.log("event");
       event.preventDefault();
       instance
         .post(`${API}/user/registration`, userReg)
         .then((response) => {
-          console.log(response);
           if (response.data.id) {
             navigate("/activity/login");
           }
