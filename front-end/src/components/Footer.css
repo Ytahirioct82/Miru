@@ -2,7 +2,7 @@ footer {
   position: relative;
   padding: 10px 10px 0px 10px;
   bottom: 0;
-  width: fixed;
+  width: fixed; 
   height: 19rem;
   background: grey;
   margin-top: 22rem;
