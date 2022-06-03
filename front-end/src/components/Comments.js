@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { instance } from "../helpers/api";
 import { Comment } from "./Comment";
 
-function Comments() {
+function Comments({ setImages }) {
   const { id } = useParams();
 
   const API = process.env.REACT_APP_API_URL;
@@ -44,6 +44,7 @@ function Comments() {
       .then((response) => {
         setImages(allImages);
         setAllImages([]);
+
         setComment({
           name: "",
           comment: "",

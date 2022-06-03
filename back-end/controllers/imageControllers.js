@@ -1,12 +1,7 @@
 const express = require("express");
 const images = express.Router({ mergeParams: true });
 
-const {
-  addImages,
-  getAllImages,
-  getActivityImages,
-  getOneActivityImage,
-} = require("../queries/images");
+const { addImages, getAllImages, getActivityImages, getOneActivityImage } = require("../queries/images");
 
 images.get("/", async (req, res) => {
   const activityImages = await getActivityImages(req.params.id);
@@ -20,6 +15,7 @@ images.get("/1", async (req, res) => {
 
 images.post("/", async (request, response) => {
   const addedImages = await addImages(request.body);
+  console.log("added images", addedImages);
   response.status(200).json(addedImages);
 });
 
