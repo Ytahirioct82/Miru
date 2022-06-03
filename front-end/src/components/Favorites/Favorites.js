@@ -7,8 +7,6 @@ function Favorites(props) {
   const navigate = useNavigate();
   useEffect(() => {
     if (props.isLoggedIn) {
-      console.log(props.isLoggedIn);
-      console.log(props.fav);
       setFavorites(props.fav);
     } else {
       alert("Please log in to you account to access your favorites");

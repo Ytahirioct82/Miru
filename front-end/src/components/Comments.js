@@ -7,7 +7,7 @@ function Comments({ setImages }) {
   const { id } = useParams();
 
   const API = process.env.REACT_APP_API_URL;
-  const [allImages, setAllImages] = useState([]);
+  // const [allImages, setAllImages] = useState([]);
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
   const [comment, setComment] = useState({
@@ -39,16 +39,12 @@ function Comments({ setImages }) {
   // submits new comment to backend
   const onSubmit = (event) => {
     event.preventDefault();
+
     instance
       .post(`${API}/activity/${id}/comments`, comment)
       .then((response) => {
-        setImages(allImages);
-        setAllImages([]);
+        setImages(comment.images);
 
-        setComment({
-          name: "",
-          comment: "",
-        });
         handleLoad();
       })
       .catch((error) => console.warn(error));
@@ -108,7 +104,7 @@ function Comments({ setImages }) {
       length: file.size,
     }));
     Promise.all(files).then((result) => {
-      setComment({ ...comment, images: result }, setAllImages(result));
+      setComment({ ...comment, images: result });
     });
   };
 

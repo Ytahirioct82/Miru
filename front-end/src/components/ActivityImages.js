@@ -9,13 +9,10 @@ function ActivityImages({ activityId, newImages }) {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    console.log("newimages run", newImages);
     axios
       .get(`${API}/activity/${activityId}/images`)
       .then((response) => {
-        console.log(response.data.length);
-        console.log(response.data);
-        setImages(response.data);
+        setImages([...response.data, ...newImages]);
       })
       .catch((error) => console.warn("catch".error));
   }, [id, API, activityId, newImages]);

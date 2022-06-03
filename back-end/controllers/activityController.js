@@ -54,7 +54,6 @@ activity.post("/:id/favorites", requiresLogin, async (req, res) => {
   const activity_id = req.params.id;
   const post = await postFavActivity({ user_id, activity_id });
   if (post.id) {
-    console.log("addedFav", post);
     res.status(200).json(post);
   } else {
     res.status(404).json({ error: "Cannot Post!" });
@@ -99,7 +98,7 @@ activity.put("/:id", requiresLogin, async (req, res) => {
     zip_code,
     category
   );
-  console.log(update);
+
   if (update.id) {
     res.status(200).json(update);
   } else {
