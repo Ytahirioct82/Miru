@@ -11,7 +11,6 @@ const Footer = () => {
             <p>Message</p>
           </div>
 
-          {/* mx-auto: horizontally centering fixed-width block level content */}
           <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
             <h5 className="text-uppercase font-weight-bold ">Services</h5>
             <p>

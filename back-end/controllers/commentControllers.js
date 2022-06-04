@@ -4,17 +4,23 @@ const { getActivityComments, addComment, updateComment, deleteComment } = requir
 const { addImages } = require("../queries/images");
 
 const comments = express.Router({ mergeParams: true });
+const requiresLogin = (req, res, next) => {
+  if (req.user) return next();
+
+  res.sendStatus(401);
+};
 
 comments.get("/", async (req, res) => {
   const comments = await getActivityComments(req.params.id);
   res.status(200).json(comments);
 });
 
-comments.post("/", async (req, res) => {
-  let { name, comment, images } = req.body;
-
+comments.post("/", requiresLogin, async (req, res) => {
+  const { images } = req.body;
+  const user_id = req.user.id;
   const activity_id = req.params.id;
-  const addedComments = await addComment(name, comment, activity_id);
+  const name = req.user.name;
+  const addedComments = await addComment({ ...req.body, user_id, activity_id, name });
 
   if (images) {
     for (const eachImage of images) {
@@ -24,12 +30,12 @@ comments.post("/", async (req, res) => {
   res.status(200).json(addedComments);
 });
 
-comments.put("/:id", async (req, res) => {
+comments.put("/:id", requiresLogin, async (req, res) => {
   const comment = await updateComment(req.params.id, req.body);
   res.status(200).json(comment);
 });
 
-comments.delete("/:id", async (req, res) => {
+comments.delete("/:id", requiresLogin, async (req, res) => {
   const comment = await deleteComment(req.params.id);
   if (comment) {
     res.status(200).json(comment);

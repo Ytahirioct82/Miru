@@ -6,16 +6,12 @@ import { Comment } from "./Comment";
 function Comments({ setImages }) {
   const { id } = useParams();
 
-  // const [allImages, setAllImages] = useState([]);
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
   const [comment, setComment] = useState({
-    // activity_id: `${id}`,
-    name: "",
     comment: "",
   });
 
-  // fetching all comments
   useEffect(() => {
     handleLoad();
   }, []);
@@ -30,12 +26,10 @@ function Comments({ setImages }) {
       .catch((error) => console.warn(error));
   };
 
-  //saves input text typed by the user to the state
   const handleTextChange = (event) => {
     setComment({ ...comment, [event.target.id]: event.target.value });
   };
 
-  // submits new comment to backend
   const onSubmit = (event) => {
     event.preventDefault();
 
@@ -48,12 +42,10 @@ function Comments({ setImages }) {
       })
       .catch((error) => console.warn(error));
     setComment({
-      name: "",
       comment: "",
     });
   };
 
-  // submits edited comment to backend
   const handleEditSubmit = (comment) => {
     instance.put(`/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
       if (response.data.id) {
@@ -65,7 +57,6 @@ function Comments({ setImages }) {
     });
   };
 
-  // delete comment
   const handleDelete = (idOfDeleted) => {
     instance
       .delete(`/activity/${id}/comments/${idOfDeleted}`)
@@ -76,7 +67,6 @@ function Comments({ setImages }) {
       .catch((error) => console.warn(error));
   };
 
-  //toggles view between comment/buttons and textarea
   const handleCommentEdit = (comment) => {
     setEditedCommentId(comment.id);
   };
@@ -107,7 +97,6 @@ function Comments({ setImages }) {
     });
   };
 
-  // returns a all comments
   const allComments = comments.map((comment) => {
     return (
       <Comment
@@ -121,21 +110,11 @@ function Comments({ setImages }) {
       />
     );
   });
-  // New comment inputs
+
   return (
     <div className="CommentSection">
       <div className="CommentForm">
         <form onSubmit={onSubmit}>
-          <label htmlFor="UserName"> Name:</label>
-          <input
-            id="name"
-            value={comment.name}
-            type="text"
-            onChange={handleTextChange}
-            placeholder="User Name"
-            required
-          />
-
           <label htmlFor="Comment">Comment:</label>
           <input
             id="comment"

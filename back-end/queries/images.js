@@ -18,7 +18,6 @@ const getActivityImages = async (id) => {
   }
 };
 
-//may not need this
 const getOneActivityImage = async (id) => {
   try {
     const image = await db.any("SELECT * FROM images WHERE activity_id=$1 LIMIT 1", id);

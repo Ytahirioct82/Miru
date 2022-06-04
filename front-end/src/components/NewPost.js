@@ -131,9 +131,6 @@ function NewPost() {
           />
         </div>
 
-        {/* needs to be abbreviated */}
-        {/* let users know */}
-
         <div className="form-outline">
           <label className="form-label" htmlFor="city">
             {" "}
@@ -148,9 +145,6 @@ function NewPost() {
             required
           />
         </div>
-
-        {/* needs to be abbreviated */}
-        {/* let users know */}
 
         <div className="form-outline">
           <label className="form-label" htmlFor="state">
@@ -182,7 +176,6 @@ function NewPost() {
           />
         </div>
 
-        {/* should be drop down */}
         <div className="form-outline">
           <label className="form-label" htmlFor="category">
             {" "}

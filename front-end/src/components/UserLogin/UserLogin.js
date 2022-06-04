@@ -41,7 +41,6 @@ function UserLogin(props) {
     });
   };
 
-  // User Login input section
   return (
     <div className="UserLogin">
       <h3>Please login to your account</h3>

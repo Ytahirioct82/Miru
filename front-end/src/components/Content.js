@@ -37,7 +37,6 @@ const Content = (props) => {
           console.warn(error);
         });
     } else {
-      //delete from back end
       instance
         .delete(`/activity/${event.target.id}/favorites`)
         .then(() => {
@@ -46,7 +45,6 @@ const Content = (props) => {
         .catch((error) => {
           console.warn(error);
         });
-      //call load to render changes
     }
   };
 
