@@ -6,7 +6,6 @@ import { Comment } from "./Comment";
 function Comments({ setImages }) {
   const { id } = useParams();
 
-  const API = process.env.REACT_APP_API_URL;
   // const [allImages, setAllImages] = useState([]);
   const [comments, setComments] = useState([]);
   const [editedCommentId, setEditedCommentId] = useState(null);
@@ -23,7 +22,7 @@ function Comments({ setImages }) {
 
   const handleLoad = () => {
     instance
-      .get(`${API}/activity/${id}/comments`)
+      .get(`/activity/${id}/comments`)
       .then((response) => {
         setComments(response.data);
       })
@@ -41,7 +40,7 @@ function Comments({ setImages }) {
     event.preventDefault();
 
     instance
-      .post(`${API}/activity/${id}/comments`, comment)
+      .post(`/activity/${id}/comments`, comment)
       .then((response) => {
         setImages(comment.images);
 
@@ -56,7 +55,7 @@ function Comments({ setImages }) {
 
   // submits edited comment to backend
   const handleEditSubmit = (comment) => {
-    instance.put(`${API}/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
+    instance.put(`/activity/${id}/comments/${editedCommentId}`, comment).then((response) => {
       if (response.data.id) {
         setEditedCommentId(null);
         handleLoad();
@@ -69,7 +68,7 @@ function Comments({ setImages }) {
   // delete comment
   const handleDelete = (idOfDeleted) => {
     instance
-      .delete(`${API}/activity/${id}/comments/${idOfDeleted}`)
+      .delete(`/activity/${id}/comments/${idOfDeleted}`)
       .then((response) => {
         handleLoad();
       })

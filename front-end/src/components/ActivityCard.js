@@ -1,23 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./AllActivities.css";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import { instance } from "../helpers/api";
 
 const ActivityCard = ({ activity }) => {
   const { id, name, city } = activity;
 
-  const API = process.env.REACT_APP_API_URL;
   const [image, setImage] = useState({});
 
   useEffect(() => {
-    axios
-      .get(`${API}/activity/${activity.id}/images/1`)
+    instance
+      .get(`/activity/${activity.id}/images/1`)
       .then((response) => {
         setImage(response.data[0]);
       })
       .catch((error) => console.warn("catch".error));
-  }, [id, API, activity.id]);
+  }, [id, activity.id]);
 
   return (
     <div className="Post">

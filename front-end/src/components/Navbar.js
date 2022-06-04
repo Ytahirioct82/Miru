@@ -1,29 +1,36 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { BsPlusLg } from "react-icons/bs";
 import "./Navbar.css";
 import { instance } from "../helpers/api";
-const API = process.env.REACT_APP_API_URL;
 
 const Navbar = (props) => {
-  const [log, setLog] = useState([]);
+  const [log, setLog] = useState(null);
 
-  const loggedOut = (id) => {
-    props.isLogged(id);
-  };
+  useEffect(() => {
+    instance
+      .get(`/user/login`)
+      .then((response) => {
+        if (response) {
+          setLog(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("catch", error);
+      });
+  }, []);
 
   const logout = () => {
     instance
-      .post(`${API}/user/logout`)
+      .post(`/user/logout`)
       .then((response) => {
-        setLog(response.data.message);
+        setLog(null);
         alert(response.data.message);
-        loggedOut(null);
       })
       .catch((error) => console.warn("catch", error));
   };
 
-  const userLog = props.isLoggedIn ? (
+  const userLog = log ? (
     <Link to="/activity/login" className="nav-link">
       <button onClick={logout} type="button" style={{ color: "white" }} className="btn btn-outline-secondary">
         Logout

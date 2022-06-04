@@ -8,18 +8,16 @@ import ActivityImages from "./ActivityImages";
 function Activity() {
   const { id } = useParams();
 
-  const API = process.env.REACT_APP_API_URL;
-
   const [post, setPost] = useState([]);
   const [newImages, setImages] = useState([]);
   useEffect(() => {
     instance
-      .get(`${API}/activity/${id}`)
+      .get(`/activity/${id}`)
       .then((response) => {
         setPost(response.data);
       })
       .catch((error) => console.warn("catch", error));
-  }, [API, id]);
+  }, [id]);
 
   return (
     <div>
@@ -28,6 +26,14 @@ function Activity() {
           <h3>{post.name}</h3>
           {/* <img className="post-picture" src={post.image} alt={post.name} width="300" height="300"></img> */}
           <ActivityImages activityId={id} newImages={newImages} />
+          <div className="address">
+            <a
+              href={`https://www.google.com/maps/place/${post.street_address} ${post.city} ${post.state} ${post.zip_code}`}
+            >
+              {post.street_address}, {post.city}, {post.state}, {post.zip_code}
+            </a>
+          </div>
+
           <p>{post.description}</p>
         </div>
         <div className="modify"></div>

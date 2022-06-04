@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const instance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: process.env.REACT_APP_API_URL,
   withCredentials: true,
 });
 
@@ -13,7 +13,7 @@ instance.interceptors.response.use(
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          window.location.replace(`/activity/registration`);
+          window.location.replace(`/activity/login`);
       }
     }
     return Promise.reject(error.response.data);

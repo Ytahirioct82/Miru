@@ -22,7 +22,7 @@ let timeToLive = 1000 * 60 * 60 * 2;
 app.use(
   session({
     name: "session_id",
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
     cookie: { maxAge: timeToLive },
     resave: false,

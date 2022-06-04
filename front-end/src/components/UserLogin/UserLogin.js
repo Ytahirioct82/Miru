@@ -3,8 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { instance } from "../../helpers/api";
 import "./UserLogin.css";
 
-const API = process.env.REACT_APP_API_URL;
-
 function UserLogin(props) {
   const navigate = useNavigate();
 
@@ -25,7 +23,7 @@ function UserLogin(props) {
     event.preventDefault();
 
     instance
-      .post(`${API}/user/login`, userLog)
+      .post(`/user/login`, userLog)
       .then((response) => {
         if (response.data.id) {
           loggedIn(response.data);
