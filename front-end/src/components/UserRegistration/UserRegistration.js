@@ -48,7 +48,6 @@ function UserRegistration() {
     }
   };
 
-  // User Login input section
   return (
     <div className="UserRegistration">
       <h3>Sign up to experience great new places!</h3>

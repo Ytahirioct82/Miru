@@ -24,7 +24,7 @@ function Activity() {
       <section className="DetailPost">
         <div className="post">
           <h3>{post.name}</h3>
-          {/* <img className="post-picture" src={post.image} alt={post.name} width="300" height="300"></img> */}
+
           <ActivityImages activityId={id} newImages={newImages} />
           <div className="address">
             <a
@@ -36,10 +36,11 @@ function Activity() {
 
           <p>{post.description}</p>
         </div>
-        <div className="modify"></div>
-        <h3>Comment Section</h3>
+        <div className="modify">
+          <h3>*Top comments from the United States*</h3>
+          <Comments setImages={setImages} />
+        </div>
       </section>
-      <Comments setImages={setImages} />
     </div>
   );
 }

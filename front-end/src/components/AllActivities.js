@@ -8,7 +8,6 @@ function AllActivities(props) {
   const [posts, setPosts] = useState([]);
   const [filteredCategory, setFilteredCategory] = useState("All");
   const [search, setSearch] = useState("");
-  // const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     instance

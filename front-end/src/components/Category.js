@@ -5,7 +5,6 @@ const Category = ({ handleCategoryChange, selected }) => {
   return (
     <div className="cat-Filter">
       <div className="cat-heading">
-        {/* <label>Filter by Category</label>{" "} */}
         <select value={selected} onChange={handleDropDown}>
           <option value="All">Categories</option>
           <option value="Parks">Parks</option>
