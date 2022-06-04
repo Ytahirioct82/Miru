@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { instance } from "../../helpers/api";
 import "./UserRegistration.css";
 
-const API = process.env.REACT_APP_API_URL;
-
 function UserRegistration() {
   const navigate = useNavigate();
   const [userReg, setUserReg] = useState({
@@ -31,7 +29,7 @@ function UserRegistration() {
     if (!notFullName && !password) {
       event.preventDefault();
       instance
-        .post(`${API}/user/registration`, userReg)
+        .post(`/user/registration`, userReg)
         .then((response) => {
           if (response.data.id) {
             navigate("/activity/login");

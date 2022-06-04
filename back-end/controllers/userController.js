@@ -11,13 +11,21 @@ const requiresLogin = (req, res, next) => {
   res.sendStatus(401);
 };
 
-userLogin.post("/logout", function (req, res, next) {
+userLogin.post("/logout", requiresLogin, function (req, res, next) {
   req.logout(function (err) {
     if (err) {
       return next(err);
     }
     res.status(200).json({ message: "Logout successful" });
   });
+});
+
+userLogin.get("/login", function (req, res, next) {
+  if (req.user) {
+    res.status(200).json(req.user);
+  } else {
+    res.status(404).json({ error: "user is not logged in" });
+  }
 });
 
 userLogin.post("/registration", async (req, res) => {

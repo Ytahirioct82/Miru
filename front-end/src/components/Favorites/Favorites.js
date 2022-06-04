@@ -2,31 +2,29 @@ import { useState, useEffect, React } from "react";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../helpers/api";
 import ActivityCard from "../ActivityCard";
-const API = process.env.REACT_APP_API_URL;
 
-function Favorites(props) {
+function Favorites() {
   const [favorites, setFavorites] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (props.isLoggedIn) {
-      setFavorites(props.fav);
-    } else {
-      alert("Please log in to you account to access your favorites");
-      navigate("/activity/login");
-    }
+    loadData();
   }, []);
 
-  let newFav = [];
+  const loadData = () => {
+    instance
+      .get(`/activity/favorites`)
+      .then((response) => {
+        setFavorites(response.data);
+      })
+      .catch((error) => console.warn("catch", error));
+  };
 
   const handleFav = (event) => {
     instance
-      .delete(`${API}/activity/${event.target.id}/favorites`)
+      .delete(`/activity/${event.target.id}/favorites`)
       .then((response) => {
-        setFavorites(
-          favorites.filter((fav) => {
-            return fav.activity_id != response.data.activity_id;
-          })
-        );
+        loadData();
       })
       .catch((error) => {
         console.warn(error);
@@ -37,8 +35,8 @@ function Favorites(props) {
     return (
       <div key={fav.id}>
         <div className="deleteFav">
-          <button class="btn" onClick={handleFav}>
-            <i class="fa fa-trash" id={fav.activity_id}>
+          <button className="btn" onClick={handleFav}>
+            <i className="fa fa-trash" id={fav.activity_id}>
               {" "}
               Trash
             </i>

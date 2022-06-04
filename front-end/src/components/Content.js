@@ -2,45 +2,44 @@ import { React, useState, useEffect } from "react";
 import { instance } from "../helpers/api";
 import ActivityCard from "./ActivityCard";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-const API = process.env.REACT_APP_API_URL;
 
 const Content = (props) => {
   const [favorites, setFavorites] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (props.isLogged) {
-      load();
-    }
+    instance
+      .get(`/user/login`)
+      .then((response) => {
+        if (response) {
+          load();
+        }
+      })
+      .catch((error) => {
+        console.error("catch", error);
+      });
   }, []);
 
   const load = () => {
-    instance
-      .get(`${API}/activity/favorites`)
-      .then((response) => {
-        setFavorites(response.data);
-        props.funcFav(response.data);
-      })
-      .catch((error) => console.warn("catch", error));
+    instance.get(`/activity/favorites`).then((response) => {
+      setFavorites(response.data);
+    });
   };
 
   const handleFav = (event) => {
     if (event.target.name === "notFav") {
       instance
-        .post(`${API}/activity/${event.target.id}/favorites`)
+        .post(`/activity/${event.target.id}/favorites`)
         .then(() => {
           load();
         })
         .catch((error) => {
           console.warn(error);
-          alert("Please log in to you account to add favorites");
-          navigate("/activity/login");
         });
     } else {
       //delete from back end
       instance
-        .delete(`${API}/activity/${event.target.id}/favorites`)
+        .delete(`/activity/${event.target.id}/favorites`)
         .then(() => {
           load();
         })

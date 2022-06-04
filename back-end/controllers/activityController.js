@@ -32,7 +32,8 @@ activity.get("/", async (req, res) => {
 });
 
 activity.get("/favorites", requiresLogin, async (req, res) => {
-  const allFavActivities = await getAllFavActivities(req.user.id);
+  const id = req.user.id;
+  const allFavActivities = await getAllFavActivities(id);
   if (allFavActivities) {
     res.status(200).json(allFavActivities);
   } else {
