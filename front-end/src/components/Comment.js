@@ -38,9 +38,9 @@ export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit, onD
   return (
     <div className="Comment" key={comment.id}>
       {edit}
-      <b>{comment.name}</b>
+      <h6>{comment.name}</h6>
       {!edit && (
-        <div>
+        <div className="comment-buttons">
           <p>{comment.comment}</p>
           {showEditButton}
           {showDeleteButton}

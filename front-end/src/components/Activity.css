@@ -12,19 +12,6 @@
   margin-top: 2%;
 }
 
-.modify {
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-bottom: 5%;
-}
-.modify button {
-  color: rgb(255, 213, 58);
-  background-color: rgb(33, 37, 41);
-  margin: auto;
-  width: 200px;
-  border-radius: 5px;
-}
-
 .DetailPost .post-picture {
   margin: auto;
   border-radius: 50%;

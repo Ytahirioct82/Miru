@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { instance } from "../helpers/api";
 import { Comment } from "./Comment";
+import "./Comments.css";
 
 function Comments({ setImages }) {
   const { id } = useParams();

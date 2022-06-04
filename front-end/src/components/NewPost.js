@@ -81,7 +81,7 @@ function NewPost() {
 
   return (
     <div className="container p-2 post">
-      <h2>Post your favorite picture</h2>
+      <h2>Post Your Favorite Activity</h2>
       <form className="form-group" onSubmit={handleSubmit}>
         <div className="form-outline">
           <label className="form-label" htmlFor="name">

@@ -36,10 +36,11 @@ function Activity() {
 
           <p>{post.description}</p>
         </div>
-        <div className="modify"></div>
-        <h3>Comment Section</h3>
+        <div className="modify">
+          <h3>*Top comments from the United States*</h3>
+          <Comments setImages={setImages} />
+        </div>
       </section>
-      <Comments setImages={setImages} />
     </div>
   );
 }
