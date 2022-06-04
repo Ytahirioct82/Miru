@@ -14,25 +14,20 @@ import { useState } from "react";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(null);
-  const [favorites, setFavorites] = useState([]);
 
   const toggleLog = (user) => {
     setLoggedIn(user);
   };
 
-  const favorite = (fav) => {
-    setFavorites(fav);
-  };
-
   return (
     <div>
-      <Navbar isLoggedIn={loggedIn} isLogged={toggleLog} />
+      <Navbar isLoggedIn={loggedIn} />
       <Routes>
-        <Route exact path="/" element={<AllActivities favorite={favorite} isLogged={loggedIn} />} />
+        <Route exact path="/" element={<AllActivities />} />
         <Route path="/activity/login" element={<UserLogin isLogged={toggleLog} />} />
         <Route path="/activity/registration" element={<UserRegistration />} />
         <Route path="/activity/listings" element={<MyListings />} />
-        <Route path="/activity/favorites" element={<Favorites fav={favorites} isLoggedIn={loggedIn} />} />
+        <Route path="/activity/favorites" element={<Favorites />} />
         <Route path="/activity/:id" element={<Activity />} />
         <Route path="/activity/new" element={<NewPost />} />
         <Route path="/activity/:id/edit" element={<EditPost />} />

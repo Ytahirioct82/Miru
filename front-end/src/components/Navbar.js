@@ -6,7 +6,6 @@ import { instance } from "../helpers/api";
 
 const Navbar = (props) => {
   const [log, setLog] = useState(null);
-
   useEffect(() => {
     instance
       .get(`/user/login`)
@@ -18,7 +17,7 @@ const Navbar = (props) => {
       .catch((error) => {
         console.error("catch", error);
       });
-  }, []);
+  }, [props.isLoggedIn]);
 
   const logout = () => {
     instance
