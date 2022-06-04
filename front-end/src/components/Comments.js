@@ -97,7 +97,7 @@ function Comments({ setImages }) {
     });
   };
 
-  const allComments = comments.map((comment) => {
+  const allComments = comments.map((comment, i) => {
     return (
       <Comment
         key={comment.id}
@@ -107,6 +107,8 @@ function Comments({ setImages }) {
         onCancelFn={handleCancelCommentEdit}
         onEditSubmit={handleEditSubmit}
         onDeleteFn={handleDelete}
+        userId={comment.user_id}
+        currentUser={comment.currentUser}
       />
     );
   });

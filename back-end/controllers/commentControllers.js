@@ -11,8 +11,13 @@ const requiresLogin = (req, res, next) => {
 };
 
 comments.get("/", async (req, res) => {
+  const currentUser = req.user && req.user.id;
   const comments = await getActivityComments(req.params.id);
-  res.status(200).json(comments);
+  const result = comments.map((comment) => {
+    return { ...comment, currentUser };
+  });
+
+  res.status(200).json(result);
 });
 
 comments.post("/", requiresLogin, async (req, res) => {

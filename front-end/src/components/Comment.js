@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit, onDeleteFn }) => {
+export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit, onDeleteFn, userId, currentUser }) => {
   const [editedComment, setEditedComment] = useState(comment);
   useEffect(() => {
     setEditedComment(comment);
@@ -11,24 +11,29 @@ export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit, onD
     setEditedComment({ ...editedComment, [event.target.id]: event.target.value });
   };
 
-  //toggles between comment/buttons to user edit text input
   const handleEdit = () => {
     onEditFn(comment);
   };
-  //toggles between comment/buttons to user edit text input
+
   const handleCancel = () => {
     onCancelFn();
   };
 
-  // submits edited comment to the back end.
   const handleSubmit = () => {
     onEditSubmit(editedComment);
   };
 
-  // not working yet. need back end to handel delete.
   const handleDelete = (event) => {
     onDeleteFn(event.target.value);
   };
+
+  const showEditButton = userId === currentUser ? <button onClick={handleEdit}>Edit</button> : null;
+  const showDeleteButton =
+    userId === currentUser ? (
+      <button value={`${comment.id}`} onClick={handleDelete}>
+        Delete
+      </button>
+    ) : null;
 
   return (
     <div className="Comment" key={comment.id}>
@@ -37,10 +42,13 @@ export const Comment = ({ comment, edit, onEditFn, onCancelFn, onEditSubmit, onD
       {!edit && (
         <div>
           <p>{comment.comment}</p>
-          <button onClick={handleEdit}>Edit</button>
+          {showEditButton}
+          {showDeleteButton}
+
+          {/* <button onClick={handleEdit}>Edit</button>
           <button value={`${comment.id}`} onClick={handleDelete}>
             Delete
-          </button>
+          </button> */}
         </div>
       )}
 
