@@ -45,8 +45,8 @@ const Navbar = (props) => {
 
   let initials = null;
 
-  if (props.isLoggedIn) {
-    const fullName = props.isLoggedIn.name.split(" ");
+  if (log) {
+    const fullName = log.name.split(" ");
     initials = <h5>{fullName.shift().charAt(0) + fullName.pop().charAt(0).toUpperCase()}</h5>;
   }
 
