@@ -30,7 +30,9 @@ INSERT INTO comments (user_id, activity_id, comment, name) VALUES
 (2, 1,'I don’t like this place. Way too many tourists', 'Rose'),
 (1, 2,'Never been, but definitely on my to do list', 'Younes'),
 (4, 3,'I love it. It’s super relaxing, especially if you find the nooks and craanies', 'JJ'), 
-(3, 3,'People watching is the best here and free!', 'Sev');
+(3, 3,'People watching is the best here and free!', 'Sev'),
+(3,12,'This is place is amazing, especially during the summer time','Sev');
+
 
 
 INSERT INTO users (name,email,password) VALUES 
