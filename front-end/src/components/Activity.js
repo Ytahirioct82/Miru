@@ -28,6 +28,7 @@ function Activity() {
           <ActivityImages activityId={id} newImages={newImages} />
           <div className="address">
             <a
+              target="_blank"
               href={`https://www.google.com/maps/place/${post.street_address} ${post.city} ${post.state} ${post.zip_code}`}
             >
               {post.street_address}, {post.city}, {post.state}, {post.zip_code}
