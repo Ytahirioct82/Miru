@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { instance } from "../helpers/api";
 import "./NewPost.css";
+import Category from "./Category";
 
 function NewPost() {
   const [post, setPost] = useState({});
@@ -23,7 +24,9 @@ function NewPost() {
 
   const handleTextChange = (event) => {
     const { id, value } = event.target;
-    setPost({ ...post, [id]: value });
+    if (value != "Categories") {
+      setPost({ ...post, [id]: value });
+    }
   };
 
   const handleSubmit = (event) => {
@@ -176,21 +179,6 @@ function NewPost() {
           />
         </div>
 
-        <div className="form-outline">
-          <label className="form-label" htmlFor="category">
-            {" "}
-            Category :{" "}
-          </label>
-          <input
-            className="form-control form-control-sm"
-            type="text"
-            id="category"
-            value={post.category || ""}
-            onChange={handleTextChange}
-            required
-          />
-        </div>
-
         {!id && (
           <div className="form-outline">
             <label className="form-label" htmlFor="image">
@@ -207,6 +195,22 @@ function NewPost() {
             />
           </div>
         )}
+
+        <div className="form-outline">
+          <label className="form-label" htmlFor="category">
+            {" "}
+            Category :{" "}
+          </label>
+          <br></br>
+
+          <select id="category" value={post.category} onChange={handleTextChange}>
+            <option>Categories</option>
+            <option value={"Parks"}>Parks</option>
+            <option value={"Sightseeing"}>Sightseeing</option>
+            <option value={"Art"}>Art</option>
+            <option value={"Architecture"}>Architecture</option>
+          </select>
+        </div>
 
         <br />
         <button type="submit" className="btn btn-secondary">
