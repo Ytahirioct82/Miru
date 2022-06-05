@@ -32,8 +32,12 @@ function NewPost() {
   const handleSubmit = (event) => {
     event.preventDefault();
     id !== undefined
-      ? instance.put("/activity/" + id, post).then(() => navigate("/activity/" + id))
-      : instance.post("/activity/", post).then(() => navigate(`/`));
+      ? instance
+          .put("/activity/" + id, post)
+          .then(() => navigate("/activity/" + id))
+      : instance
+          .post("/activity/", post)
+          .then(() => navigate(`/activity/listings`));
   };
 
   const getBase64Update = (file) => {
@@ -116,7 +120,11 @@ function NewPost() {
             onChange={handleTextChange}
             required
           />
-          {post.description ? <p style={{ color: "red" }}>{`${charRemaining} / ${500} characters remaining`}</p> : null}
+          {post.description ? (
+            <p
+              style={{ color: "red" }}
+            >{`${charRemaining} / ${500} characters remaining`}</p>
+          ) : null}
         </div>
 
         <div className="form-outline">
@@ -203,7 +211,11 @@ function NewPost() {
           </label>
           <br></br>
 
-          <select id="category" value={post.category} onChange={handleTextChange}>
+          <select
+            id="category"
+            value={post.category}
+            onChange={handleTextChange}
+          >
             <option>Categories</option>
             <option value={"Parks"}>Parks</option>
             <option value={"Sightseeing"}>Sightseeing</option>
@@ -216,7 +228,11 @@ function NewPost() {
         <button type="submit" className="btn btn-secondary">
           Submit
         </button>
-        <button type="button" className="btn btn-secondary" onClick={cancelPost}>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={cancelPost}
+        >
           Cancel
         </button>
       </form>
