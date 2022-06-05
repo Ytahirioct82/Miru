@@ -19,7 +19,7 @@ function AllActivities(props) {
   }, []);
 
   const handleCategoryChange = (selectedCat) => {
-    setFilteredCategory(selectedCat);
+    setFilteredCategory(selectedCat.target.value);
   };
 
   const selectedCategory =

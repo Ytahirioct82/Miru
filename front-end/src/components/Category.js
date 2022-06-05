@@ -1,6 +1,6 @@
 const Category = ({ handleCategoryChange, selected }) => {
   const handleDropDown = (event) => {
-    handleCategoryChange(event.target.value);
+    handleCategoryChange(event);
   };
   return (
     <div className="cat-Filter">
