@@ -17,10 +17,13 @@ CREATE TABLE activity (
 
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
     activity_id INT,
-    name TEXT,
     comment TEXT,
-    FOREIGN KEY (activity_id) REFERENCES activity(id)
+    name TEXT
+    
+    
+    -- FOREIGN KEY (activity_id) REFERENCES activity(id)
 );
 
 CREATE TABLE users (

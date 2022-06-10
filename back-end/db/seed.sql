@@ -26,11 +26,14 @@ INSERT INTO activity (userlisting_id,name,description,street_address,city,state,
 -- (4,'Coney Island Boardwalk','This can’t be a full list of free things to do in NYC without adding the famed Coney Island Boardwalk. It is especially nice to visit during the spring/summer when the weather is nice. You can enjoy getting some sun at the beach and people watch some really interesting characters! If this is your first time in New York and you are pressed for time, I would leave this one out, however.','1000 Surf Ave', 'Brooklyn', 'NY', 11224,'Parks','https://findloveandtravel.com/wp-content/uploads/2022/03/Coney-island-nyc-brooklyn-at-night.jpg');
 
 
-INSERT INTO comments (activity_id,name,comment) VALUES 
-(1, 'Rose','I don’t like this place. Way too many tourists'),
-(2, 'Younes','Never been, but definitely on my to do list'),
-(3, 'JJ','I love it. It’s super relaxing, especially if you find the nooks and craanies'), 
-(3, 'Sev','People watching is the best here and free!');
+INSERT INTO comments (user_id, activity_id, comment, name) VALUES 
+(2, 1,'I don’t like this place. Way too many tourists', 'Rose'),
+(1, 2,'Never been, but definitely on my to do list', 'Younes'),
+(4, 3,'I love it. It’s super relaxing, especially if you find the nooks and craanies', 'JJ'), 
+(3, 3,'People watching is the best here and free!', 'Sev'),
+(3,12,'This is place is amazing, especially during the summer time','Sev');
+
+
 
 INSERT INTO users (name,email,password) VALUES 
 ('Younes Tahiri', 'ytahiri82@gmail.com', '$2b$10$eIZ/CGUjwHzbXeJBFtxUBeMG1duAglPNF/lzMKjfKSigDEJb..R.6'),

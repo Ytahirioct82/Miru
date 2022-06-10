@@ -15,7 +15,6 @@ images.get("/1", async (req, res) => {
 
 images.post("/", async (request, response) => {
   const addedImages = await addImages(request.body);
-  console.log("added images", addedImages);
   response.status(200).json(addedImages);
 });
 

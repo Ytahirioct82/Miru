@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { instance } from "../helpers/api";
 import "./NewPost.css";
+import Category from "./Category";
 
-const API = process.env.REACT_APP_API_URL;
 function NewPost() {
   const [post, setPost] = useState({});
   const [charRemaining, setCharRemaining] = useState(0);
@@ -15,7 +15,7 @@ function NewPost() {
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const postData = await instance.get(API + "/activity/" + id);
+        const postData = await instance.get("/activity/" + id);
         setPost(postData.data);
       }
     };
@@ -24,14 +24,20 @@ function NewPost() {
 
   const handleTextChange = (event) => {
     const { id, value } = event.target;
-    setPost({ ...post, [id]: value });
+    if (value != "Categories") {
+      setPost({ ...post, [id]: value });
+    }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     id !== undefined
-      ? instance.put(API + "/activity/" + id, post).then(() => navigate("/activity/" + id))
-      : instance.post(API + "/activity/", post).then(() => navigate(`/`));
+      ? instance
+          .put("/activity/" + id, post)
+          .then(() => navigate("/activity/" + id))
+      : instance
+          .post("/activity/", post)
+          .then(() => navigate(`/activity/listings`));
   };
 
   const getBase64Update = (file) => {
@@ -82,7 +88,7 @@ function NewPost() {
 
   return (
     <div className="container p-2 post">
-      <h2>Post your favorite picture</h2>
+      <h2>Post Your Favorite Activity</h2>
       <form className="form-group" onSubmit={handleSubmit}>
         <div className="form-outline">
           <label className="form-label" htmlFor="name">
@@ -114,7 +120,11 @@ function NewPost() {
             onChange={handleTextChange}
             required
           />
-          {post.description ? <p style={{ color: "red" }}>{`${charRemaining} / ${500} characters remaining`}</p> : null}
+          {post.description ? (
+            <p
+              style={{ color: "red" }}
+            >{`${charRemaining} / ${500} characters remaining`}</p>
+          ) : null}
         </div>
 
         <div className="form-outline">
@@ -132,9 +142,6 @@ function NewPost() {
           />
         </div>
 
-        {/* needs to be abbreviated */}
-        {/* let users know */}
-
         <div className="form-outline">
           <label className="form-label" htmlFor="city">
             {" "}
@@ -149,9 +156,6 @@ function NewPost() {
             required
           />
         </div>
-
-        {/* needs to be abbreviated */}
-        {/* let users know */}
 
         <div className="form-outline">
           <label className="form-label" htmlFor="state">
@@ -183,22 +187,6 @@ function NewPost() {
           />
         </div>
 
-        {/* should be drop down */}
-        <div className="form-outline">
-          <label className="form-label" htmlFor="category">
-            {" "}
-            Category :{" "}
-          </label>
-          <input
-            className="form-control form-control-sm"
-            type="text"
-            id="category"
-            value={post.category || ""}
-            onChange={handleTextChange}
-            required
-          />
-        </div>
-
         {!id && (
           <div className="form-outline">
             <label className="form-label" htmlFor="image">
@@ -216,11 +204,35 @@ function NewPost() {
           </div>
         )}
 
+        <div className="form-outline">
+          <label className="form-label" htmlFor="category">
+            {" "}
+            Category :{" "}
+          </label>
+          <br></br>
+
+          <select
+            id="category"
+            value={post.category}
+            onChange={handleTextChange}
+          >
+            <option>Categories</option>
+            <option value={"Parks"}>Parks</option>
+            <option value={"Sightseeing"}>Sightseeing</option>
+            <option value={"Art"}>Art</option>
+            <option value={"Architecture"}>Architecture</option>
+          </select>
+        </div>
+
         <br />
         <button type="submit" className="btn btn-secondary">
           Submit
         </button>
-        <button type="button" className="btn btn-secondary" onClick={cancelPost}>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={cancelPost}
+        >
           Cancel
         </button>
       </form>

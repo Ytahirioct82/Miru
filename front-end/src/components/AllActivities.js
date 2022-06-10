@@ -4,17 +4,14 @@ import Category from "./Category";
 import Content from "./Content";
 import SearchActivity from "./SearchActivity";
 
-const API = process.env.REACT_APP_API_URL;
-
 function AllActivities(props) {
   const [posts, setPosts] = useState([]);
   const [filteredCategory, setFilteredCategory] = useState("All");
   const [search, setSearch] = useState("");
-  // const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     instance
-      .get(`${API}/activity`)
+      .get(`/activity`)
       .then((response) => {
         setPosts(response.data);
       })
@@ -22,12 +19,7 @@ function AllActivities(props) {
   }, []);
 
   const handleCategoryChange = (selectedCat) => {
-    setFilteredCategory(selectedCat);
-  };
-
-  const userFavorites = (favorites) => {
-    // setFavorites(favorites)
-    props.favorite(favorites);
+    setFilteredCategory(selectedCat.target.value);
   };
 
   const selectedCategory =
@@ -64,8 +56,6 @@ function AllActivities(props) {
             activities={selectedCategory.filter((activity) =>
               activity.city.toLowerCase().includes(search.toLowerCase().trim())
             )}
-            funcFav={userFavorites}
-            isLogged={props.isLogged}
           />
         </section>
       </section>

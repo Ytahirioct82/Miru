@@ -9,13 +9,13 @@ const getActivityComments = async (id) => {
   }
 };
 
-const addComment = async (name, comment, activity_id) => {
+const addComment = async (userComment) => {
+  const { comment, user_id, activity_id, name } = userComment;
   try {
-    addedComment = await db.any("INSERT INTO comments (activity_id,name,comment) VALUES ($1,$2,$3) RETURNING *", [
-      activity_id,
-      name,
-      comment,
-    ]);
+    addedComment = await db.any(
+      "INSERT INTO comments (user_id, activity_id,name,comment) VALUES ($1,$2,$3,$4) RETURNING *",
+      [user_id, activity_id, name, comment]
+    );
 
     return addedComment;
   } catch (error) {
